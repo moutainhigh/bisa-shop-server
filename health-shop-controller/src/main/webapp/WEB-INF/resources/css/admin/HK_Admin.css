@@ -1,0 +1,18 @@
+@charset "utf-8";
+/*主页响应式栅格系统*/
+@media (max-width:767px) {
+
+}
+@media (min-width:768px) and (max-width:991px) {
+
+}
+@media (min-width:992px) and (max-width:1199px) {
+
+}
+@media (min-width:1200px) and (max-width:1299px) {
+
+}
+@media (min-width:1300px) {
+
+}
+a:hover{text-decoration: none;}

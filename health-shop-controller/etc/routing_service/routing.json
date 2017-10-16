@@ -1,0 +1,939 @@
+{
+	"uuid": null,
+	"listGroup": [
+		{
+			"id": 100,
+			"name": "CN-HN-SHARDGROUP0",
+			"writable": true,
+			"start_id": 0,
+			"end_id": 4000,
+			"ip": "192.168.1.78",
+			"port": 3306,
+			"dbuser": "root",
+			"dbpwd": "123456"
+		},
+		{
+			"id": 101,
+			"name": "CN-HN-SHARDGROUP1",
+			"writable": false,
+			"start_id": 4000,
+			"end_id": 10000,
+			"ip": null,
+			"port": 3306,
+			"dbuser": "root",
+			"dbpwd": "123456"
+		}
+	],
+	"listShard": [
+		{
+			"id": 1001,
+			"dbname": "bisa_cloud0",
+			"group_id": 100,
+			"hasg_value": "0"
+		},
+		{
+			"id": 1002,
+			"dbname": "bisa_cloud1",
+			"group_id": 101,
+			"hasg_value": "1"
+		}
+	],
+	"listTable": [
+		{
+			"id": 10065,
+			"name": "t_user#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10066,
+			"name": "t_user#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10067,
+			"name": "t_user#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10068,
+			"name": "t_user#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10069,
+			"name": "t_uinfo#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10070,
+			"name": "t_uinfo#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10071,
+			"name": "t_uinfo#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10072,
+			"name": "t_uinfo#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10073,
+			"name": "t_user_role#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10074,
+			"name": "t_user_role#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10075,
+			"name": "t_user_role#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10076,
+			"name": "t_user_role#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10077,
+			"name": "e_event#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10078,
+			"name": "e_event#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10079,
+			"name": "e_event#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10080,
+			"name": "e_event#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10081,
+			"name": "e_service_detail#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10082,
+			"name": "e_service_detail#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10083,
+			"name": "e_service_detail#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10084,
+			"name": "e_service_detail#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10085,
+			"name": "s_active#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10086,
+			"name": "s_active#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10087,
+			"name": "s_active#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10088,
+			"name": "s_active#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10089,
+			"name": "s_address#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10090,
+			"name": "s_address#2",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10091,
+			"name": "s_address#1",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10092,
+			"name": "s_address#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10093,
+			"name": "s_appraise#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10094,
+			"name": "s_appraise#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10095,
+			"name": "s_appraise#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10096,
+			"name": "s_appraise#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10097,
+			"name": "s_appraise_user#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10098,
+			"name": "s_appraise_user#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10099,
+			"name": "s_appraise_user#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10100,
+			"name": "s_appraise_user#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10101,
+			"name": "s_cart#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10102,
+			"name": "s_cart#1",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10103,
+			"name": "s_cart#2",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10104,
+			"name": "s_cart#3",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10105,
+			"name": "s_order#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 500
+		},
+		{
+			"id": 10106,
+			"name": "s_order#1",
+			"shard_id": 1002,
+			"start_id": 500,
+			"end_id": 1000
+		},
+		{
+			"id": 10107,
+			"name": "s_order#2",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 1500
+		},
+		{
+			"id": 10108,
+			"name": "s_order#3",
+			"shard_id": 1002,
+			"start_id": 1500,
+			"end_id": 2000
+		},
+		{
+			"id": 10109,
+			"name": "s_order#4",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 2500
+		},
+		{
+			"id": 10110,
+			"name": "s_order#5",
+			"shard_id": 1002,
+			"start_id": 2500,
+			"end_id": 3000
+		},
+		{
+			"id": 10111,
+			"name": "s_order#6",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 3500
+		},
+		{
+			"id": 10112,
+			"name": "s_order#7",
+			"shard_id": 1002,
+			"start_id": 3500,
+			"end_id": 4000
+		},
+		{
+			"id": 10113,
+			"name": "s_order_detail#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 500
+		},
+		{
+			"id": 10114,
+			"name": "s_order_detail#1",
+			"shard_id": 1002,
+			"start_id": 500,
+			"end_id": 1000
+		},
+		{
+			"id": 10115,
+			"name": "s_order_detail#2",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 1500
+		},
+		{
+			"id": 10116,
+			"name": "s_order_detail#3",
+			"shard_id": 1002,
+			"start_id": 1500,
+			"end_id": 2000
+		},
+		{
+			"id": 10117,
+			"name": "s_order_detail#4",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 2500
+		},
+		{
+			"id": 10118,
+			"name": "s_order_detail#5",
+			"shard_id": 1002,
+			"start_id": 2500,
+			"end_id": 3000
+		},
+		{
+			"id": 10119,
+			"name": "s_order_detail#6",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 3500
+		},
+		{
+			"id": 10120,
+			"name": "s_order_detail#7",
+			"shard_id": 1002,
+			"start_id": 3500,
+			"end_id": 4000
+		},
+		{
+			"id": 10121,
+			"name": "s_trade#0",
+			"shard_id": 1002,
+			"start_id": 0,
+			"end_id": 500
+		},
+		{
+			"id": 10122,
+			"name": "s_trade#1",
+			"shard_id": 1002,
+			"start_id": 500,
+			"end_id": 1000
+		},
+		{
+			"id": 10123,
+			"name": "s_trade#2",
+			"shard_id": 1002,
+			"start_id": 1000,
+			"end_id": 1500
+		},
+		{
+			"id": 10124,
+			"name": "s_trade#3",
+			"shard_id": 1002,
+			"start_id": 1500,
+			"end_id": 2000
+		},
+		{
+			"id": 10125,
+			"name": "s_trade#4",
+			"shard_id": 1002,
+			"start_id": 2000,
+			"end_id": 2500
+		},
+		{
+			"id": 10126,
+			"name": "s_trade#5",
+			"shard_id": 1002,
+			"start_id": 2500,
+			"end_id": 3000
+		},
+		{
+			"id": 10127,
+			"name": "s_trade#6",
+			"shard_id": 1002,
+			"start_id": 3000,
+			"end_id": 3500
+		},
+		{
+			"id": 10128,
+			"name": "s_trade#7",
+			"shard_id": 1002,
+			"start_id": 3500,
+			"end_id": 4000
+		},
+		{
+			"id": 10129,
+			"name": "t_user#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10130,
+			"name": "t_user#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10131,
+			"name": "t_user#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10132,
+			"name": "t_user#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10133,
+			"name": "t_uinfo#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10134,
+			"name": "t_uinfo#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10135,
+			"name": "t_uinfo#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10136,
+			"name": "t_uinfo#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10137,
+			"name": "t_user_role#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10138,
+			"name": "t_user_role#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10139,
+			"name": "t_user_role#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10140,
+			"name": "t_user_role#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10141,
+			"name": "e_event#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10142,
+			"name": "e_event#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10143,
+			"name": "e_event#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10144,
+			"name": "e_event#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10145,
+			"name": "e_service_detail#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10146,
+			"name": "e_service_detail#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10147,
+			"name": "e_service_detail#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10148,
+			"name": "e_service_detail#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10149,
+			"name": "s_active#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10150,
+			"name": "s_active#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10151,
+			"name": "s_active#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10152,
+			"name": "s_active#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10153,
+			"name": "s_address#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10154,
+			"name": "s_address#2",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10155,
+			"name": "s_address#1",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10156,
+			"name": "s_address#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10157,
+			"name": "s_appraise#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10158,
+			"name": "s_appraise#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10159,
+			"name": "s_appraise#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10160,
+			"name": "s_appraise#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10161,
+			"name": "s_appraise_user#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10162,
+			"name": "s_appraise_user#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10163,
+			"name": "s_appraise_user#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10164,
+			"name": "s_appraise_user#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10165,
+			"name": "s_cart#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 1000
+		},
+		{
+			"id": 10166,
+			"name": "s_cart#1",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 2000
+		},
+		{
+			"id": 10167,
+			"name": "s_cart#2",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 3000
+		},
+		{
+			"id": 10168,
+			"name": "s_cart#3",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 4000
+		},
+		{
+			"id": 10169,
+			"name": "s_order#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 500
+		},
+		{
+			"id": 10170,
+			"name": "s_order#1",
+			"shard_id": 1001,
+			"start_id": 500,
+			"end_id": 1000
+		},
+		{
+			"id": 10171,
+			"name": "s_order#2",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 1500
+		},
+		{
+			"id": 10172,
+			"name": "s_order#3",
+			"shard_id": 1001,
+			"start_id": 1500,
+			"end_id": 2000
+		},
+		{
+			"id": 10173,
+			"name": "s_order#4",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 2500
+		},
+		{
+			"id": 10174,
+			"name": "s_order#5",
+			"shard_id": 1001,
+			"start_id": 2500,
+			"end_id": 3000
+		},
+		{
+			"id": 10175,
+			"name": "s_order#6",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 3500
+		},
+		{
+			"id": 10176,
+			"name": "s_order#7",
+			"shard_id": 1001,
+			"start_id": 3500,
+			"end_id": 4000
+		},
+		{
+			"id": 10177,
+			"name": "s_order_detail#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 500
+		},
+		{
+			"id": 10178,
+			"name": "s_order_detail#1",
+			"shard_id": 1001,
+			"start_id": 500,
+			"end_id": 1000
+		},
+		{
+			"id": 10179,
+			"name": "s_order_detail#2",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 1500
+		},
+		{
+			"id": 10180,
+			"name": "s_order_detail#3",
+			"shard_id": 1001,
+			"start_id": 1500,
+			"end_id": 2000
+		},
+		{
+			"id": 10181,
+			"name": "s_order_detail#4",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 2500
+		},
+		{
+			"id": 10182,
+			"name": "s_order_detail#5",
+			"shard_id": 1001,
+			"start_id": 2500,
+			"end_id": 3000
+		},
+		{
+			"id": 10183,
+			"name": "s_order_detail#6",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 3500
+		},
+		{
+			"id": 10184,
+			"name": "s_order_detail#7",
+			"shard_id": 1001,
+			"start_id": 3500,
+			"end_id": 4000
+		},
+		{
+			"id": 10185,
+			"name": "s_trade#0",
+			"shard_id": 1001,
+			"start_id": 0,
+			"end_id": 500
+		},
+		{
+			"id": 10186,
+			"name": "s_trade#1",
+			"shard_id": 1001,
+			"start_id": 500,
+			"end_id": 1000
+		},
+		{
+			"id": 10187,
+			"name": "s_trade#2",
+			"shard_id": 1001,
+			"start_id": 1000,
+			"end_id": 1500
+		},
+		{
+			"id": 10188,
+			"name": "s_trade#3",
+			"shard_id": 1001,
+			"start_id": 1500,
+			"end_id": 2000
+		},
+		{
+			"id": 10189,
+			"name": "s_trade#4",
+			"shard_id": 1001,
+			"start_id": 2000,
+			"end_id": 2500
+		},
+		{
+			"id": 10190,
+			"name": "s_trade#5",
+			"shard_id": 1001,
+			"start_id": 2500,
+			"end_id": 3000
+		},
+		{
+			"id": 10191,
+			"name": "s_trade#6",
+			"shard_id": 1001,
+			"start_id": 3000,
+			"end_id": 3500
+		},
+		{
+			"id": 10192,
+			"name": "s_trade#7",
+			"shard_id": 1001,
+			"start_id": 3500,
+			"end_id": 4000
+		}
+	]
+}

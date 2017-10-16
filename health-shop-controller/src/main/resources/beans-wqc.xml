@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/mvc 
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/cache    
+        http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
+        
+   <!--  远程服务开始
+   <bean id="remoteProService" class="com.bisa.hkshop.wqc.web.remoteservice.ProductRemoteService" /> -->
+	
+<!-- 	<bean id="securityInterceptor" class="com.bisa.hkshop.remoteservice.SecurityInterceptor">
+		<property name="allowed">
+			<set>
+				<value>192.168.1.11</value>
+			</set>
+		</property>
+	</bean>
+	
+	<bean name="/remoteProService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="service" ref="remoteProService"/>
+        <property name="serviceInterface" value="com.bisa.hkshop.remoteservice.RProductService"/>
+	    <property name="interceptors">
+			<list>
+				<ref bean="securityInterceptor" />
+			</list>
+		</property>
+    </bean> -->
+    <!--  远程服务结束-->
+ 	<!-- <bean id="orderQuartzWork" class="com.bisa.hkshop.wqc.web.quartz.QuartzOrderPushScheduler">     
+         	 	<constructor-arg name="runenabled" value="${push.runenabled}" />
+         		<constructor-arg name="OrderInterval" value="${push.interval}" /> 
+         		<constructor-arg ref="orderService" /> 
+         		<constructor-arg ref="orderDetailService" /> 
+      </bean> 
+      <bean name="orderService" class="com.bisa.hkshop.wqc.service.OrderServiceImpl"></bean>
+      <bean name="orderDetailService" class="com.bisa.hkshop.wqc.service.OrderDetailServiceImpl"></bean> -->
+
+
+</beans>

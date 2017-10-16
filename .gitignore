@@ -1,0 +1,13 @@
+.project
+.settings/
+health-shop-basic/.classpath
+health-shop-basic/target/
+health-shop-controller/.classpath
+health-shop-controller/logs/
+health-shop-controller/target/
+health-shop-model/target/
+health-shop-service/.classpath
+health-shop-service/target/
+health-shop-utils/.classpath
+health-shop-utils/target/
+health-shop-model/.classpath
