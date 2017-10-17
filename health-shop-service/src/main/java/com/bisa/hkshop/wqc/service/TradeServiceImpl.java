@@ -27,6 +27,14 @@ public class TradeServiceImpl implements ITradeService{
 
 	@Override
 	@DataRouting("user_guid")
+	public Trade loadTradeByorder_no(@DataGuid("user_guid") int user_guid, String order_no) {
+		return tradeDao.loadTradeByorder_no(user_guid, order_no);
+	}
+
+	
+	
+	@Override
+	@DataRouting("user_guid")
 	public List<Trade> loadTradeList(@DataGuid("user_guid") int user_guid) {
 		return tradeDao.loadTradeList(user_guid);
 	}
@@ -44,6 +52,7 @@ public class TradeServiceImpl implements ITradeService{
 		return tradeDao.updateTrade(trade);
 	}
 
+	
 	
 
 }

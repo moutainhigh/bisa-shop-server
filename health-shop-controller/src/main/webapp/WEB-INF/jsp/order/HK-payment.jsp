@@ -42,7 +42,7 @@
             <div class="clear pt-20 pl-20 pr-20 bg-f5f5f5 pb-45 full-w cur-d">
                 <div class="clear bg-white">
                     <div class="clear col-sm-2 pt-60 pb-60">
-                        <img class="clear img-80 mg-0-auto dis-b" src="<%=request.getContextPath() %>/resources/images/net_shopping/produ-right.png" alt="">
+                        <img class="clear img-80 mg-0-auto dis-b" src="<%=request.getContextPath() %>/resources/img/net_shopping/produ-right.png" alt="">
                     </div>
                     <div class="col-sm-7 pt-40 pb-40">
                         <p class="f-26 family-h col-252525 line-h-30">
@@ -70,8 +70,8 @@
                         支付平台
                     </p>
                     <div class="clear full-w pay-way">
-                        <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 pt-10 pb-10 pl-30 pr-30 cur-p weixinpay" src="<%=request.getContextPath() %>/resources/images/net_shopping/weixinpay.png" alt="">
-                        <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 ml-20 pt-10 pb-10 pl-30 pr-30 cur-p zhifubaopay" src="<%=request.getContextPath() %>/resources/images/net_shopping/zhifubaopay.png" alt="">
+                        <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 pt-10 pb-10 pl-30 pr-30 cur-p weixinpay" src="<%=request.getContextPath() %>/resources/img/net_shopping/weixinpay.png" alt="">
+                        <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 ml-20 pt-10 pb-10 pl-30 pr-30 cur-p zhifubaopay" src="<%=request.getContextPath() %>/resources/img/net_shopping/zhifubaopay.png" alt="">
                     </div>
                 </div>
             </div>
@@ -84,12 +84,12 @@
             <div class="w-400 mg-0-auto clear pos-r bg-white weixinpay-content">
                 <div class="pt-15 pb-15 line-h-30 pos-r f-18 pl-20 pr-20 col-4a4a4a full-w bg-f5f5f5">
                     微信支付
-                    <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/images/net_shopping/close.png" alt="">
+                    <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/img/net_shopping/close.png" alt="">
                 </div>
                 <form class="clear pos-r" action="">
                     <div class="clear">
                         <p class="f-30 pt-60 pb-10 text-center">
-                           <img  src="<%=request.getContextPath() %>/l/wechatPay?21231234546" >
+                           <img  src="<%=request.getContextPath() %>/l/wechatPay?order_no=${orderId}" >
                         </p>
                     </div>
                     <div class="clear full-w line-h-30 pt-10 pb-20 text-center">
@@ -110,12 +110,12 @@
             <div class="w-400 mg-0-auto clear pos-r bg-white zhifubaopay-content">
                 <div class="pt-15 pb-15 line-h-30 pos-r f-18 pl-20 pr-20 col-4a4a4a full-w bg-f5f5f5">
                     支付宝支付
-                    <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/images/net_shopping/close.png" alt="">
+                    <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/img/net_shopping/close.png" alt="">
                 </div>
                 <form class="clear pos-r" action="">
                     <div class="clear">
                         <p class="f-30 pt-60 pb-10 text-center">
-                            <img src="<%=request.getContextPath() %>/l/zfbqrcode?orderId=${orderId}&21231234546"  alt="">
+                            <img src="<%=request.getContextPath() %>/l/zfbqrcode?order_no=${orderId}"  alt="">
                         </p>
                     </div>
                     <div class="clear full-w line-h-30 pt-10 pb-20 text-center">

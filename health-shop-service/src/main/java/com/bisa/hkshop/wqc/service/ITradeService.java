@@ -10,6 +10,8 @@ public interface ITradeService {
 	
 	public Trade loadTrade(int user_guid,String tradeNo);
 	
+	public Trade loadTradeByorder_no(int user_guid,String order_no);
+	
 	public List<Trade> loadTradeList(int user_guid);
 	
 	public Boolean addTrade(Trade trade);	

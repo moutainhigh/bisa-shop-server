@@ -24,6 +24,9 @@ public class TradeDaoImpl extends BaseDao<Trade> implements ITradeDao{
 		}
 		return trade;
 	}
+	
+	
+	
 
 	@Override
 	public List<Trade> loadTradeList(int user_guid) {
@@ -65,6 +68,21 @@ public class TradeDaoImpl extends BaseDao<Trade> implements ITradeDao{
 			return false;
 		}
 		return true;
+	}
+
+
+
+
+	@Override
+	public Trade loadTradeByorder_no(int user_guid, String order_no) {
+		Trade trade;
+		try{
+			String sql = "select * from s_trade where user_guid=? and order_guid=?";
+			trade = this.queryObjectBySql(sql, new Object[]{user_guid,order_no}, Trade.class);
+		}catch(Exception e){
+			return null;
+		}
+		return trade;
 	}
 
 	

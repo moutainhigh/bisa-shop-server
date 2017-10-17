@@ -1,21 +1,11 @@
 package com.bisa.hkshop.zj.controller;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jdom.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,14 +31,10 @@ import com.alipay.demo.trade.model.result.AlipayF2FQueryResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.bisa.hkshop.model.Trade;
-import com.bisa.hkshop.wqc.service.ICommodityService;
-import com.bisa.hkshop.wqc.service.IOrderDetailService;
-import com.bisa.hkshop.wqc.service.IOrderService;
 import com.bisa.hkshop.wqc.service.ITradeService;
 import com.bisa.hkshop.zj.basic.utility.AlipayConfig;
 import com.bisa.hkshop.zj.basic.utility.CommonUtil;
 import com.bisa.hkshop.zj.basic.utility.WechatPayCommonUtil;
-import com.bisa.hkshop.zj.service.IActiveService;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -60,27 +45,12 @@ import com.google.zxing.common.BitMatrix;
 @RequestMapping("/l")
 public class ShopPayController {
 	
-	
-	@Autowired
-	private IOrderService orderService;
-	
 	@Autowired
 	private ITradeService tradeService;
 	
-	@Autowired
-	private IOrderDetailService orderDetailService;
-	
-	@Autowired
-	private IActiveService activeService;
-	
-	@Autowired
-	private ICommodityService commodityService;
 
 	private static Logger logger = LogManager.getLogger(ShopPayController.class.getName());
 	
-	
-	// 支付宝当面付2.0服务（集成了交易保障接口逻辑）
-    private  AlipayTradeService tradeWithHBService;
     // 支付宝当面付2.0服务
     private  AlipayTradeService aliTradeService;
     static{
@@ -94,10 +64,8 @@ public class ShopPayController {
 	@RequestMapping(value="/hadPay",method=RequestMethod.GET)
 	public Map<String,String> loadby1Package(HttpServletRequest request,HttpSession session){
 		Map<String,String> map = new HashMap<String,String>();
-		String trade_state="";
 		String order_no = request.getParameter("order_no");
 		System.out.println("轮询："+order_no);
-		String str="";
 		map.put("hadpay", "1002");
 		//判断UUID是否相等
 		Trade trade  = tradeService.loadTrade(2,order_no);
@@ -129,9 +97,11 @@ public class ShopPayController {
 	@RequestMapping(value="/wechatPay",method=RequestMethod.GET,produces="image/jpeg")
 	public void wechatPay(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
 	       //获取购买服务的guid,以及次数。（guid用来查询服务是一分钟服务，还是二十四小时服务，或者是平安钟服务）
-		System.out.println("微信支付请求");
+		    System.out.println("微信支付请求");
+		    int user_guid = 2;
 			String order_no = request.getParameter("order_no");
-			Trade trade = tradeService.loadTrade(2,order_no);
+			System.out.println("wechat:"+ order_no);
+			Trade trade = tradeService.loadTradeByorder_no(user_guid,order_no);
 					String text = null;
 					try {
 						text = WechatPayCommonUtil.weixin_pay(trade);
@@ -250,9 +220,12 @@ public class ShopPayController {
 	   /* try {*/
 	    	 //获取购买服务的guid,以及次数。（guid用来查询服务是一分钟服务，还是二十四小时服务，或者是平安钟服务）
 		       String order_no = request.getParameter("order_no");
+		       int user_guid = 2;
 		        System.out.println(">>>>>>>>支付宝tradeNo:" + order_no);
-		        Trade trade = tradeService.loadTrade(2,order_no);
-		        System.out.println("zhifubao " + trade.getPrice());
+		        Trade trade = tradeService.loadTradeByorder_no(user_guid,order_no);
+		        
+		        System.out.println("zhifubao " + trade.getOrder_guid() + trade.getGuid() + "   " + trade.getTrade_no() + (trade==null));
+		        
 			       String text = loadAlipay(trade); 
 			       //根据url来生成生成二维码
 			       //二维码的图片格式 
@@ -302,7 +275,7 @@ public class ShopPayController {
              case UNKNOWN:
                 // log.error("系统异常，订单支付状态未知!!!");
              	 return "UNKNOWN";
-
+             	 
              default:
                //  log.error("不支持的交易状态，交易返回异常!!!");
              	 return "ERROR";

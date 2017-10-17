@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bisa.hkshop.model.Package;
 import com.bisa.hkshop.model.Address;
@@ -26,7 +25,6 @@ import com.bisa.hkshop.model.OrderDetail;
 import com.bisa.hkshop.model.Trade;
 import com.bisa.hkshop.wqc.basic.model.OrderDetailDto;
 import com.bisa.hkshop.wqc.basic.utility.GuidGenerator;
-import com.bisa.hkshop.wqc.basic.utility.KdniaoTrackQueryAPI;
 import com.bisa.hkshop.wqc.service.IAddressService;
 import com.bisa.hkshop.wqc.service.ICartService;
 import com.bisa.hkshop.wqc.service.ICommodityService;
@@ -141,14 +139,15 @@ public class OrderController {
 			    from_data = (String) entry.getKey();
 			    System.out.println(">>>>>form_data" + from_data);
 			}   
+			//订单号
+			String orderGuid = "BISA" + System.currentTimeMillis() + "";
 			
 			List<OrderDetailDto> orderDetailList;
 			//从购物车过来的
 			if(from_data.equals("records")){
 				orderDetailList = map.get(from_data);
-				//order = orderService.addCarOrder(orderDetailList,addr_num, 2);
 				
-				String orderGuid = GuidGenerator.generate();
+				
 				//把dto的每个记录都去购物车表里找，一个一个添加到list
 				List<Cart> car =new ArrayList<Cart>();
 				String num = "";
@@ -218,7 +217,6 @@ public class OrderController {
 					orderDetailList = map.get(from_data);
 					//order = orderService.addProductOrder(orderDetailList,addr_num, 2);
 					
-					String orderGuid = GuidGenerator.generate();
 					double price = 0;
 					for(int i=0;i<orderDetailList.size();i++){
 						OrderDetailDto orderDetailDto = orderDetailList.get(i);
@@ -283,7 +281,7 @@ public class OrderController {
 				}
 			}
 			
-			String trade_no = "BISA" + System.currentTimeMillis() + ""; //随机产生的订单号
+			String trade_no = GuidGenerator.generate(16)+"N"+user_guid; //随机产生的订单号
 			Trade trade = new Trade();
 			trade.setOrder_guid(order.getOrder_no());
 			trade.setStatus(1001);
@@ -297,8 +295,6 @@ public class OrderController {
 			//添加交易记录的表
 			boolean i=tradeService.addTrade(trade);
 			System.out.println("添加交易记录"+i);
-			//将交易信息存到session中
-			session.setAttribute("tradeNo",trade_no);
 			
 		model.addAttribute("price",order.getPrice());
 		model.addAttribute("orderId",order.getOrder_no());
@@ -310,7 +306,7 @@ public class OrderController {
 		@RequestMapping(value="/order_pay",method=RequestMethod.GET)
 		public String order_pay(HttpServletRequest request,Model model,HttpSession session){
 			String order_no = request.getParameter("order_no");
-			
+			int user_guid = 2;
 			if(order_no==null || order_no.equals("")){
 				model.addAttribute("messege","订单信息出错");
 				return "500";
@@ -323,23 +319,20 @@ public class OrderController {
 				return "500";
 			}
 			
-			String trade_no = "BISA" + System.currentTimeMillis() + ""; //随机产生的订单号
-			Date date = new Date();
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-dd-mm HH:mm:ss");
-			Trade trade = new Trade();
-			trade.setOrder_guid(order.getOrder_no());
-			trade.setStatus(1001);
-			trade.setPrice(order.getPrice());
-			trade.setStart_time(date);
-			trade.setTrade_no(trade_no);
-			//拿出用户的唯一uuid
-			trade.setUser_guid(2);
-			//添加交易记录的表
-			tradeService.addTrade(trade);
-			//将交易信息存到session中
-			session.setAttribute("tradeNo",trade_no);
+			String trade_no = GuidGenerator.generate(); //随机产生的交易号
 			
-			Address address = addressService.loadAddressByAddressNum(2,order.getAddr_num());
+			Date date = new Date();
+			
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-dd-mm HH:mm:ss");
+			
+			
+			Trade trade = tradeService.loadTradeByorder_no(user_guid, order_no);
+			trade.setTrade_no(trade_no+"N"+user_guid);
+			//拿出用户的唯一uuid
+			//添加交易记录的表
+			tradeService.updateTrade(trade);
+			//将交易信息存到session中
+			Address address = addressService.loadAddressByAddressNum(user_guid,order.getAddr_num());
 			model.addAttribute("price",order.getPrice());
 			model.addAttribute("orderId",order.getOrder_no());
 			model.addAttribute("address",address);
