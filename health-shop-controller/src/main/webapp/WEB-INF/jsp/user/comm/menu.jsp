@@ -17,7 +17,7 @@
                     我的个人中心
                 </p>
                 <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                    充值服务
+                    激活服务
                 </p>
                 <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
                     收货地址

@@ -319,7 +319,7 @@ public class OrderController {
 				return "500";
 			}
 			
-			String trade_no = GuidGenerator.generate(); //随机产生的交易号
+			String trade_no = GuidGenerator.generate(16); //随机产生的交易号
 			
 			Date date = new Date();
 			
