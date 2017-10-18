@@ -56,7 +56,7 @@ public class ShopPayController {
     static{
     	Configs.init("zfbinfo.properties");
     }
-	
+	 
 	/*
 	 * 轮询判断是否已经支付成功
 	 */
