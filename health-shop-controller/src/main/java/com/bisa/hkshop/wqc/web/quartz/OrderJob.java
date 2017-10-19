@@ -30,8 +30,8 @@ public class OrderJob implements Job {
 	 */
 	public static final String SESSION_MANAGER_KEY = "sessionManager";
 	public static final String SESSION_TWO_KEY = "sessionTwoManager";
-	 public   String[] AcceptStation; 
-     public  String[] AcceptTime;
+	public   String[] AcceptStation; 
+    public  String[] AcceptTime;
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
