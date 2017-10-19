@@ -17,7 +17,7 @@
                         </c:if>
                         <c:if test="${username==null}">                    
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="../l/register">注册</a></li>
-                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="../login">登录</a></li>
+                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/login">登录</a></li>
                         </c:if>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="">简</a></li>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="">繁</a></li>

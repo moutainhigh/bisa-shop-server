@@ -16,8 +16,6 @@
           http://www.springframework.org/schema/cache 
           http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
 
-	<context:property-placeholder location="classpath:resources.properties,classpath:shiro-client.properties,classpath*:shiro-client-default.properties"/>
-
 	<cache:annotation-driven cache-manager="cacheManager" />
 
 	<!-- 扫描注解Bean -->
@@ -26,8 +24,12 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-
+	<context:property-placeholder location="classpath:resources.properties,classpath:client/shiro-client.properties"/>
+	
 	<!-- 开启AOP监听 只对当前配置文件有效 -->
 	<aop:aspectj-autoproxy />
+	
+	<bean id="systemFilter" class="com.bisa.hkshop.wqc.filter.SystemContextFilter" />
+   	<bean id="sysUserFilter" class="com.bisa.hkshop.shiro.filter.SysUserFilter" />
 
 </beans>

@@ -16,7 +16,5 @@
          http://www.springframework.org/schema/cache    
         http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
         
-   		<bean id="systemFilter" class="com.bisa.hkshop.wqc.filter.SystemContextFilter" />
-   		<bean id="sysUserFilter" class="com.bisa.hkshop.shiro.filter.SysUserFilter" />
 
 </beans>
