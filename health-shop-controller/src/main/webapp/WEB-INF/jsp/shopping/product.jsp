@@ -139,7 +139,7 @@
                             <div class="clear pos-a b-0 l-0 full-w">
                                 <div class="clear line-h-25 ptb-20-0-ipad bor bor-l-none bor-r-none bor-col-B2B2B2-hide-ipad">
                                     <span class="col-309DE2 f-30 family-h dis-ib pull-left pro-main-price">
-                                        1800
+                                         ${commodity.selling_price }
                                     </span>
                                     <span class="col-309DE2 f-16 family-h dis-ib pull-left">
                                         元

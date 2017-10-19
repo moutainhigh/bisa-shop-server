@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
 import com.bisa.hkshop.model.Package;
 import com.bisa.hkshop.model.Address;
@@ -23,6 +24,11 @@ import com.bisa.hkshop.model.Commodity;
 import com.bisa.hkshop.model.Order;
 import com.bisa.hkshop.model.OrderDetail;
 import com.bisa.hkshop.model.Trade;
+import com.bisa.hkshop.wqc.Queue.BaseDelayed;
+import com.bisa.hkshop.wqc.Queue.DelayOrderService;
+import com.bisa.hkshop.wqc.Queue.DelayOrderService.OnDelayedListener;
+import com.bisa.hkshop.wqc.Queue.DelayOrderService.OnStartListener;
+import com.bisa.hkshop.wqc.Queue.ThreadPoolUtil;
 import com.bisa.hkshop.wqc.basic.model.OrderDetailDto;
 import com.bisa.hkshop.wqc.basic.utility.GuidGenerator;
 import com.bisa.hkshop.wqc.service.IAddressService;
@@ -59,6 +65,8 @@ public class OrderController {
 	
 	@Autowired
 	private ICartService shopCartService;
+	@Autowired
+	private DelayOrderService DelayOrderService;
 	
 	/*
 	 * 跳转到下订单页面
@@ -208,9 +216,39 @@ public class OrderController {
 				orderN.setStart_time(date);
 				orderN.setEffective_statu(1);
 				orderService.addOrder(user_guid,orderN);
-				
 				order = orderN;
 				
+				
+				//在这里添加serviceQueue进来
+				DelayOrderService service=new DelayOrderService();
+				service.start(new OnStartListener(){
+					@Override
+					public void onStart() {
+						System.out.println("启动完成");
+					}
+				}, 
+				new OnDelayedListener(){
+					@Override
+					public void onDelayedArrived(BaseDelayed delayed) {
+						System.out.println("[onDelayedArrived]"+delayed.toString());
+					}
+				});
+				long expTime=order.getStart_time().getTime();
+				 BaseDelayed baseDelayed=new BaseDelayed(order.getOrder_no(),expTime,user_guid);
+				 System.out.println("expTime:"+expTime);
+				 System.out.println("订单入队："+order.getOrder_no());
+				 DelayOrderService.add(baseDelayed);
+			/*	ThreadPoolUtil.execute(new Runnable(){  
+					 @Override  
+			         public void run() {
+						//1 插入到待收货队列 
+						 long expTime=order.getStart_time().getTime();
+						 BaseDelayed baseDelayed=new BaseDelayed(order.getOrder_no(),expTime,user_guid);
+						 System.out.println("订单入队："+order.getOrder_no());
+						
+						 DelayOrderService.add(baseDelayed);
+					 }
+				});*/
 			}else{
 				//立即购买过来结算
 				if(from_data.equals("product")){
@@ -275,7 +313,20 @@ public class OrderController {
 					orderN.setStart_time(date);
 					orderN.setEffective_statu(1);
 					orderService.addOrder(user_guid,orderN);
-					order = orderN;		
+					order = orderN;
+					//在这里添加serviceQueue进来
+					ThreadPoolUtil.execute(new Runnable(){  
+						 @Override  
+				         public void run() {
+							//1 插入到待收货队列 
+							 long expTime=order.getStart_time().getTime();
+							 System.out.println("expTime:"+expTime);
+							 BaseDelayed baseDelayed=new BaseDelayed(order.getOrder_no(),expTime,user_guid);
+							 DelayOrderService.add(baseDelayed);
+							 System.out.println("订单入队："+order.getOrder_no());
+						 }
+					});
+					
 				}else{
 					return "500";
 				}

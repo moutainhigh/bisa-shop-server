@@ -1,4 +1,4 @@
-package com.bisa.hkshop.Queue;
+package com.bisa.hkshop.wqc.Queue;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +17,7 @@ import com.bisa.hkshop.wqc.basic.utility.KdniaoTrackQueryAPI;
 import com.bisa.hkshop.wqc.service.IOrderDetailService;
 import com.bisa.hkshop.wqc.service.IOrderService;
 @Service 
-public class OrderpayJob implements Delayed{
+public class BaseDelayed implements Delayed{
 	@Autowired  
 	private IOrderService IOrderService;
 	@Autowired
@@ -29,36 +29,33 @@ public class OrderpayJob implements Delayed{
 	private int user_guid;
 	private long expTime;//延期时间
 
-	public OrderpayJob(String order_no, long expTime,int user_guid) {
-		super();
+	public BaseDelayed() {
+
+	}
+
+	public BaseDelayed(String order_no, long expTime,int user_guid) {
+		System.out.println("baselayed进来了实例化"+order_no+"expTime:"+expTime);
 		this.order_no = order_no;
 		this.user_guid=user_guid;
-		this.expTime =expTime+(1507305600-1506787200);
+		//this.expTime =expTime+(1507305600-1506787200);
+		this.expTime =System.currentTimeMillis()+1*1000L;
+		System.out.println("======"+getExpTime());
+		System.out.println("baselayed进来了实例化"+order_no+"expTime:"+expTime);
 	}
 
 	public String getOrder_no() {
 		return order_no;
 	}
 
-	public void setOrder_no(String order_no) {
-		this.order_no = order_no;
-	}
-
 	public long getExpTime() {
 		return expTime;
-	}
-
-	public void setExpTime(long expTime) {
-		this.expTime = expTime;
-	}
+	}	
 	
   public int getUser_guid() {
 		return user_guid;
 	}
 
-	public void setUser_guid(int user_guid) {
-		this.user_guid = user_guid;
-	}
+	
 
 	//判断出队列的顺序，
 	@Override
@@ -66,8 +63,9 @@ public class OrderpayJob implements Delayed{
 		if(o==this) {
 			return 0;
 		}
-		if(o instanceof OrderpayJob) {
-			OrderpayJob OrderpayJob=(OrderpayJob)o;
+		if(o instanceof BaseDelayed) {
+			System.out.println("baselayed判断出队列的顺序");
+			BaseDelayed OrderpayJob=(BaseDelayed)o;
 			long expTime=OrderpayJob.getExpTime();
 			return (int)(this.expTime - expTime);  
 		}
@@ -77,6 +75,7 @@ public class OrderpayJob implements Delayed{
 	@Override
 	public long getDelay(TimeUnit unit) {
 		// TODO Auto-generated method stub
+		System.out.println("baselayed进来了订单出队列");
 		Order od=IOrderService.loadOrderByOrderId(user_guid, order_no);
 		if(od==null){
 			System.out.println("用户没有订单>>"+user_guid);
@@ -127,7 +126,8 @@ public class OrderpayJob implements Delayed{
 						}
 					return 0;
 					}else{
-						return expTime+(1506960000-1506787200);
+						//return expTime+(1506960000-1506787200);
+						return expTime+1;
 					}
 
 				}catch (Exception e) {
@@ -137,4 +137,7 @@ public class OrderpayJob implements Delayed{
 			}
 			return -1;
 	}
+
+
+	
 }
