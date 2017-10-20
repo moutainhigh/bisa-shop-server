@@ -8,7 +8,7 @@
                    	<a href="<%=request.getContextPath() %>/l/userOrder"> 我的订单</a>
                 </p>
                 <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 user-munu user-appraise">
-                    	<a href="<%=request.getContextPath() %>/l/userAppraise">评价晒单</a>
+                    <a href="<%=request.getContextPath() %>/l/userAppraise">评价晒单</a>
                 </p>
                 <p class="mt-30 mb-30 col-212121 f-30 line-h-40 cur-d">
                     个人中心

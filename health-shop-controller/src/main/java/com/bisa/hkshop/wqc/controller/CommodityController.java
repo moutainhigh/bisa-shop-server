@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +23,11 @@ import com.bisa.health.entity.Pager;
 import com.bisa.health.model.SystemContext;
 import com.bisa.hkshop.model.Appraise;
 import com.bisa.hkshop.model.Commodity;
+import com.bisa.hkshop.model.CommodityImg;
 import com.bisa.hkshop.model.Package;
 import com.bisa.hkshop.wqc.basic.dao.StringUtil;
 import com.bisa.hkshop.wqc.service.IAppraiseService;
+import com.bisa.hkshop.wqc.service.ICommodityImgService;
 import com.bisa.hkshop.wqc.service.ICommodityService;
 import com.bisa.hkshop.wqc.service.IPackageService;
 
@@ -34,12 +42,14 @@ public class CommodityController {
 	private IPackageService IPackageService;
 	@Autowired
 	private IAppraiseService IAppraiseService;
+	@Autowired
+	private ICommodityImgService ICommodityImgService;
 	/**
 	 *  获取所有商品列表(带分页)
 	 */
 	@RequestMapping(value = "/shopping", method = RequestMethod.GET)
 	public String requestReport(String sort, String order,Model model,HttpServletRequest request){
-		
+		//CommodityImg d=new CommodityImg();
 		return "shopping/shopping";
 	}
 	/**
@@ -59,6 +69,11 @@ public class CommodityController {
 		//悉心服务
 		Commodity comm = iCommodityService.getcommodity("51409f91960848579d64bd5f103ea66a");
 		model.addAttribute("comm", comm);
+		List<CommodityImg> CommodityImg=ICommodityImgService.getCommodityImg(shop_Number);
+		model.addAttribute("CommodityImg", CommodityImg);
+		
+        	
+        
 		return "shopping/product";
 		
 	}

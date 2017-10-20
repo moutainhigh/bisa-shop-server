@@ -21,7 +21,7 @@ public class SessionController {
 	
 	private  Logger logger =LogManager.getLogger(SessionController.class);
 	
-	@RequestMapping(value="/l/testlog",method=RequestMethod.GET)
+	@RequestMapping(value="/user/testlog",method=RequestMethod.GET)
 	public @ResponseBody String updateSession(HttpServletRequest request, HttpServletResponse response,Model model){
 		logger.debug("TEST");
 		return "success";
