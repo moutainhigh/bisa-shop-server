@@ -73,13 +73,8 @@ public class OrderController {
 	private ICartService shopCartService;
 
 	
-<<<<<<< HEAD
 	@Autowired
 	private RedisTemplate orderPayTimer;
-=======
-/*	@Resource(name = "orderPayTimer")
-	private RedisTemplate orderPayTimer;*/
->>>>>>> a60c8eb02441404bedab943de4f2f08f22423684
 	/*
 	 * 跳转到下订单页面
 	 */

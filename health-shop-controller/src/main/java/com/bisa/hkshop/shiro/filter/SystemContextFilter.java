@@ -1,4 +1,4 @@
-package com.bisa.hkshop.wqc.filter;
+package com.bisa.hkshop.shiro.filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +15,7 @@ public class SystemContextFilter extends PathMatchingFilter implements Applicati
 	private Integer pageSize=pageSizeDefalut;
 	
 	
-	
-	public SystemContextFilter() {
-		super();
-		System.out.println(">>>>>>>>>>>>applicationContext>>>>>>>>>>>"+(applicationContext==null));
-	}
+
 	@Override
 	protected boolean onPreHandle(ServletRequest req, ServletResponse response, Object mappedValue)
 			throws Exception {
