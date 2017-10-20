@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bisa.hkshop.model.Package;
 import com.bisa.hkshop.model.Packdetails;
+import com.bisa.health.beans.dto.UserInfoDto;
+import com.bisa.health.model.User;
+import com.bisa.health.routing.annotation.CurrentUser;
 import com.bisa.hkshop.model.Cart;
 import com.bisa.hkshop.model.Commodity;
 import com.bisa.hkshop.wqc.basic.dao.StringUtil;
@@ -29,7 +32,7 @@ import com.bisa.hkshop.wqc.service.IPackageService;
 
 
 @Controller
-@RequestMapping("/l")
+//@RequestMapping("/l")
 public class CartController {
 	@Autowired
 	private ICartService ICartService;
@@ -43,18 +46,12 @@ public class CartController {
 
 	@RequestMapping(value = "/addCart", method = RequestMethod.POST)
 	@ResponseBody
-	public String addCart(HttpServletRequest request,Model model,HttpSession session) throws Exception{
+	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
 		Date date=new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String packId=request.getParameter("packId");
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
-		
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		String serviceId=request.getParameter("serviceId");
 		String issingleorcombo=request.getParameter("issingleorcombo");
 		String service_number=request.getParameter("service_number");
@@ -191,21 +188,13 @@ public class CartController {
 				
 				}
 			}
-		}
 				return "success";
 
 	}
 	@RequestMapping(value = "/Cart", method = RequestMethod.GET)
-	public String getCart(HttpServletRequest request,Model model,HttpSession session) throws Exception{
-		//String packId=request.getParameter("packId");
-		//String guid=request.getParameter("userId");
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
+	public String getCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 			//查看购物车
 			//遍历购物车商品
 			List<Cart> listcart=ICartService.selCart(user_guid);
@@ -226,40 +215,29 @@ public class CartController {
 			model.addAttribute("listcart", listcart);
 			//model.addAttribute("listPackdetails", listPackdetails);
 			model.addAttribute("mapPackdetails", map);
-		}
+		
 		return "shopping/cart";
 }
 	@RequestMapping(value = "/delCart", method = RequestMethod.POST)
 	@ResponseBody
-	public String delCart(HttpServletRequest request,Model model,HttpSession session) throws Exception{
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
+	public String delCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
+		String deleteId=request.getParameter("deleteId");
+		int i=ICartService.delCart(user_guid,deleteId);
+		String result=null;
+		if(i>0) {
+			result="success";
 		}else {
-			String deleteId=request.getParameter("deleteId");
-			int i=ICartService.delCart(user_guid,deleteId);
-			String result=null;
-			if(i>0) {
-				result="success";
-			}else {
-				result="false";
-			}
-			return result;
+			result="false";
 		}
+		return result;
 	}
 	@RequestMapping(value = "/upCart", method = RequestMethod.POST)
 	@ResponseBody
-	public String upCart(HttpServletRequest request,Model model,HttpSession session) throws Exception{
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
+	public String upCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		String num=request.getParameter("num");
 		String productId=request.getParameter("packId");
 		String result=null;
@@ -272,6 +250,6 @@ public class CartController {
 				result="error";
 			}
 		return result;
-		}
+		
 	}
 }

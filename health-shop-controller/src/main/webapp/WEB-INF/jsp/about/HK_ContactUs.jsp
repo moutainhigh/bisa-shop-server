@@ -114,23 +114,30 @@
                             <p class="f-20 col-309DE2 mb-30">
                                 地址
                             </p>
+                             <p class="pl-50 f-14 col-696969 line-h-25 pos-r mb-20">
+                                <span class="dis-ib pos-a t-0 l-10 col-309DE2 f-26">
+                                    <img src="<%=request.getContextPath() %>/resources/img/HK_About/contactus-tipsv6.png" alt="">
+                                </span>
+                                名称：碧沙科技（香港）有限公司
+                            </p>
                             <p class="pl-50 f-14 col-696969 line-h-25 pos-r mb-20">
                                 <span class="dis-ib pos-a t-0 l-10 col-309DE2 f-26">
-                                    <img src="<%=request.getContextPath() %>/resources/img/HK_About/contactus-tipsv1.png" alt="">
+                                    <img src="<%=request.getContextPath() %>/resources/img/HK_About/contactus-tipsv5.png" alt="">
                                 </span>
-                                地址：深圳市 宝安区 沙井街道 后亭社区 全至科技创新园10E
+                                地址：香港新界葵涌健康街18号315室
                             </p>
                             <p class="pl-50 f-14 col-696969 line-h-25 pos-r mb-20">
                                 <span class="dis-ib pos-a t--3 l-10 col-696969 f-26">
                                     <img src="<%=request.getContextPath() %>/resources/img/HK_About/contactus-tipsv2.png" alt="">
                                 </span>
-                                电话：<a class=" t-nonehove col-696969 hovecol-309DE2" href="tel:0755-26880962">（86）0755-26880962</a>
+                                电话：<a class=" t-nonehove col-696969 hovecol-309DE2" href="tel:0755-26880962">(852) 2423 0600</a>
                             </p>
                             <p class="pl-50 f-14 col-696969 line-h-25 pos-r mb-20">
                                 <span class="dis-ib pos-a t--3 l-10 col-696969 f-26">
                                     <img src="<%=request.getContextPath() %>/resources/img/HK_About/contactus-tipsv3.png" alt="">
                                 </span>
-                                传真：<a class=" t-nonehove col-696969 hovecol-309DE2" href="tel:0755-26880962">（86）0755-26880962</a>
+                               
+                                传真：<a class=" t-nonehove col-696969 hovecol-309DE2" href="tel:0755-26880962">(852) 2423 0148</a>          
                             </p>
                             <p class="pl-50 f-14 col-696969 line-h-25 pos-r mb-20">
                                 <span class="dis-ib pos-a t--3 l-10 col-696969 f-26">
