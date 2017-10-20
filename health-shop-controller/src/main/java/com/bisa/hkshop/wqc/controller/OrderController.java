@@ -73,7 +73,7 @@ public class OrderController {
 	private ICartService shopCartService;
 
 	
-	@Resource(name = "orderPayTimer")
+	@Autowired
 	private RedisTemplate orderPayTimer;
 	/*
 	 * 跳转到下订单页面

@@ -15,14 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  */
 @Controller
-@RequestMapping("/user")
 public class SessionController {
 	
-	@RequestMapping(value="/index",method=RequestMethod.GET)
+	@RequestMapping(value="/user/index",method=RequestMethod.GET)
 	public @ResponseBody String updateSession(HttpServletRequest request, HttpServletResponse response,Model model){
 		
 		return "success";
 		
 	}
-
+	
+	@RequestMapping(value="/a/index",method=RequestMethod.GET)
+	public @ResponseBody String updateSession(){
+		
+		return "success";
+		
+	}
 }
