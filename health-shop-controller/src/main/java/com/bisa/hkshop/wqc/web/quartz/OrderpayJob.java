@@ -22,8 +22,8 @@ import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.wqc.service.IUserOrderService;
 
 public class OrderpayJob implements Job{
-	@Resource(name = "orderPayTimer")
-	private RedisTemplate orderPayTimer;
+	/*@Resource(name = "orderPayTimer")
+	private RedisTemplate orderPayTimer;*/
 	public static final String ORDER_MANAGER_KEY = "orderManager";
 	public static final String ORDER_TWO_KEY = "sessionTwoManager";
 	@Override
@@ -39,6 +39,7 @@ public class OrderpayJob implements Job{
 		 */
 		String isCode;
 		try {
+			
 			/*isCode = (String) orderPayTimer.execute(new RedisCallback<Object>() {
 				public Object doInRedis(RedisConnection connection) throws DataAccessException {
 					String sms_key = "order_userguid" + order.getUser_guid();
