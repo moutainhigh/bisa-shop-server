@@ -73,8 +73,13 @@ public class OrderController {
 	private ICartService shopCartService;
 
 	
+<<<<<<< HEAD
 	@Autowired
 	private RedisTemplate orderPayTimer;
+=======
+/*	@Resource(name = "orderPayTimer")
+	private RedisTemplate orderPayTimer;*/
+>>>>>>> a60c8eb02441404bedab943de4f2f08f22423684
 	/*
 	 * 跳转到下订单页面
 	 */
@@ -262,10 +267,10 @@ public class OrderController {
 				});
 				service.add(new DelayedOrder(86400,order.getOrder_no(),user_guid));*/
 				//现在加入redis
-				/*orderPayTimer.execute(new RedisCallback<Boolean>() {
+			/*	orderPayTimer.execute(new RedisCallback<Boolean>() {
 					public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 						String sms_key = "order_userguid" + order.getUser_guid();
-						//connection.setEx(sms_key.getBytes(), null, CacheUtity.toByteArray(order));
+						connection.setEx(sms_key.getBytes(), 12, CacheUtity.toByteArray(order));
 						return true;
 					}
 				});*/
@@ -354,13 +359,13 @@ public class OrderController {
 					});
 					service.add(new DelayedOrder(86400,order.getOrder_no(),user_guid));
 					//现在加入redis
-					orderPayTimer.execute(new RedisCallback<Boolean>() {
+					/*orderPayTimer.execute(new RedisCallback<Boolean>() {
 						public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 							String sms_key = "order_userguid" + order.getUser_guid();
 							//connection.setEx(sms_key.getBytes(), null, CacheUtity.toByteArray(order));
 							return true;
 						}
-					});
+					});*/
 					//在这里添加延时队列进来,并且加入redis结束
 			
 					
