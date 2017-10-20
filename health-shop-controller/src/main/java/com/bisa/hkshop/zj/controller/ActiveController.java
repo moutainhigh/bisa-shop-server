@@ -23,8 +23,8 @@ import com.bisa.hkshop.model.Active;
 import com.bisa.hkshop.zj.service.IActiveService;
 
 @Controller
-//@RequestMapping("/active")
-@RequestMapping("/l")
+@RequestMapping("/user")
+//@RequestMapping("/l")
 public class ActiveController {
 	
 	@Autowired

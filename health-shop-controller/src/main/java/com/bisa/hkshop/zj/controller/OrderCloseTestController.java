@@ -62,9 +62,11 @@ public class OrderCloseTestController {
 	public String testdelayed(HttpServletRequest request){
 		int intTime = Integer.valueOf(request.getParameter("intTime"));
 		String order_no = request.getParameter("order_no");
+		
 		DelayedService service = new DelayedService();
+		
 		service.start(new OnStartListener(){
-			@Override
+			@Override 
 			public void onStart() {
 				System.out.println("启动完成");
 			}
@@ -135,7 +137,7 @@ public class OrderCloseTestController {
 			}
 		});
 		
-		service.add(new DelayedOrder(intTime,order_no,2));
+		service.add(new DelayedOrder(604800,order_no,2));
 		
 		return "";
 	}
