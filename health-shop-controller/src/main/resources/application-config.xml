@@ -29,7 +29,6 @@
 	<!-- 开启AOP监听 只对当前配置文件有效 -->
 	<aop:aspectj-autoproxy />
 	
-	<bean id="systemFilter" class="com.bisa.hkshop.wqc.filter.SystemContextFilter" />
-   	<bean id="sysUserFilter" class="com.bisa.hkshop.shiro.filter.SysUserFilter" />
-
+	<bean id="systemFilter" class="com.bisa.hkshop.shiro.filter.SystemContextFilter" />
+	<bean id="sysUserFilter" class="com.bisa.hkshop.shiro.filter.SysUserFilter" />
 </beans>
