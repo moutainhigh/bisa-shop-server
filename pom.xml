@@ -10,7 +10,6 @@
   	<module>health-shop-model</module>
   	<module>health-shop-service</module>
   	<module>health-shop-controller</module>
-  	<module>health-shop-client</module>
   </modules>
   
   <properties>
