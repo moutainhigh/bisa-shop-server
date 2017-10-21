@@ -1,0 +1,9 @@
+com\bisa\shop\client\core\RolePermissionResolver.class
+com\bisa\shop\client\LogoutFilter.class
+com\bisa\shop\client\CallBackFilter.class
+com\bisa\shop\client\core\ClientSavedRequest.class
+com\bisa\shop\client\ClientAuthenticationFilter.class
+com\bisa\shop\client\ClientRealm.class
+com\bisa\shop\client\ClientShiroFilterFactoryBean.class
+com\bisa\shop\client\core\BitAndWildPermissionResolver.class
+com\bisa\shop\client\core\BitPermission.class

@@ -100,7 +100,7 @@
                                 <div class="clear shodow-tipl">
                                     <div class="clear shodow-tipr">
                                         <div class="clear full-w text-center pt-30 pb-30  bg-e2f3fe">
-                                            <a href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=4f7b0b61890c46ab8c0f423a3d9edfed"><img class="cur-p" src="<%=request.getContextPath() %>/resources/img/index/producttips2.png" alt=""></a>
+                                            <a href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=4f7b0b61890c46ab8c0f423a3d9edfed"><img class="cur-p" src="<%=request.getContextPath() %>/resources/img/index/producttips2.png" alt=""></a>
                                         </div>
                                         <div class="clear pt-30 protipsplmedia pb-80-20-ipad cur-d">
                                             <p class="line-h-30 f-16 f-w col-252525">
@@ -125,7 +125,7 @@
                                                续航：无蓝牙120小时持续使用
                                             </p>
                                             <p class="line-h-25 f-14 pt-20">
-                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=4f7b0b61890c46ab8c0f423a3d9edfed">了解产品细节 ></a>
+                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=4f7b0b61890c46ab8c0f423a3d9edfed">了解产品细节 ></a>
                                             </p>
                                         </div>
                                     </div>

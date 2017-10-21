@@ -11,3 +11,4 @@ health-shop-service/target/
 health-shop-utils/.classpath
 health-shop-utils/target/
 health-shop-model/.classpath
+health-shop-client/

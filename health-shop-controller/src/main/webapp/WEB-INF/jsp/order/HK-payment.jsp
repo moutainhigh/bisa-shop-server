@@ -63,8 +63,14 @@
                 </div>
                 
                 <div class="clear mt-40 bg-white pt-25 pb-25 pl-50 pr-50">
-                    <p class="f-18 family-h col-666 line-h-30 bor bor-b bor-col-D2D2D2 pb-10">
+                    <p class="f-18 family-h col-666 line-h-30 bor bor-b bor-col-D2D2D2 pb-10 clear">
+                        <span class="pull-left dis-ib col-666">
                         请选择以下支付方式付款
+                        </span>
+                        <span class="pull-right dis-ib col-666 f-14">
+                            <img class="pos-r t--2" src="<%=request.getContextPath() %>/resources//img/net_shopping/safety.png" alt="">
+                            所有支付信息已获得SSL协议安全加密保护
+                        </span>
                     </p>
                     <p class="f-18 family-h col-252525 line-h-30 pt-20 pb-20">
                         支付平台
@@ -73,6 +79,9 @@
                         <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 pt-10 pb-10 pl-30 pr-30 cur-p weixinpay" src="<%=request.getContextPath() %>/resources/img/net_shopping/weixinpay.png" alt="">
                         <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 ml-20 pt-10 pb-10 pl-30 pr-30 cur-p zhifubaopay" src="<%=request.getContextPath() %>/resources/img/net_shopping/zhifubaopay.png" alt="">
                     </div>
+                     <p class="mt-30 f-14 col-666 mb-30">
+                        注:选择付款方式，即表示您已确认订单无误以及同意右边显示的总金额，且同意 <a class="t-nonehove hovecol-309DE2 col-309DE2" href="">售后政策</a> 和 <a class="t-nonehove hovecol-309DE2 col-309DE2" href="">免责条款</a> 。
+                    </p>
                 </div>
             </div>
         </div>

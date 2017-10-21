@@ -102,7 +102,9 @@
                                                             </p>
                                                         </div>
                                                     </div>
+                                             
                                                     <div class="clear pull-right">
+                                                    <c:if test="${status.first==true }">
                                                      <div class="clear h-40 pb-10">
                                                          <button class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF" onclick="window.location.href='<%=request.getContextPath() %>/l/order_pay?order_no=${orderList.order_no}'">
                                                              立即支付
@@ -112,8 +114,8 @@
                                                          <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList.order_no}'">
                                                              订单详情
                                                          </button>
-                                                     </div>
-                                                    
+                                                     </div>   
+                                                 	</c:if>
                                                  </div> 
                                                 </div>
                                             </c:forEach>
@@ -147,7 +149,7 @@
                                     </div>
                                     <c:forEach var="list" items="${listordertails}">
                                             <c:if test="${list.key eq orderList.order_no}">
-                                                <c:forEach var="listordertails" items="${list.value }">
+                                                <c:forEach var="listordertails" items="${list.value }" varStatus="status">
                                                     <div class="clear pt-15 pb-15 plr-20-5-ipad">
                                                         <div class="clear pull-left">
                                                             <div class="clear pull-left">
@@ -163,11 +165,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="clear pull-right">
-                                                            <div class="clear h-40 pb-10">
-                                                                <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white"onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList.order_no}'">
-                                                                    订单详情
-                                                                </button>
-                                                            </div>
+                                                            <c:if test="${status.first==true }">
+                                                                <div class="clear h-40 pb-10">
+                                                                    <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white"onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList.order_no}'">
+                                                                        订单详情
+                                                                    </button>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
@@ -202,7 +206,7 @@
                                     </div>
                                     <c:forEach var="list" items="${listordertails}">
                                         <c:if test="${list.key eq orderList.order_no}">
-                                            <c:forEach var="listordertails" items="${list.value }">
+                                            <c:forEach var="listordertails" items="${list.value }" varStatus="status">
                                                 <div class="clear pt-15 pb-15 plr-20-5-ipad">
                                                     <div class="clear pull-left">
                                                         <div class="clear pull-left">
@@ -219,11 +223,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="clear pull-right">
-                                                        <div class="clear h-40 pb-10">
-                                                            <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList.order_no}'">
-                                                                订单详情
-                                                            </button>
-                                                        </div>
+                                                        <c:if test="${status.first==true }">
+                                                            <div class="clear h-40 pb-10">
+                                                                <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList.order_no}'">
+                                                                    订单详情
+                                                                </button>
+                                                            </div>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                             </c:forEach>
@@ -269,7 +275,7 @@
                                     </div>
                                     <c:forEach var="list" items="${listordertails}">
                                         <c:if test="${list.key eq orderList5.order_no}">
-                                            <c:forEach var="listordertails" items="${list.value }">
+                                            <c:forEach var="listordertails" items="${list.value }" varStatus="status">
                                                     <div class="clear pt-15 pb-15 plr-20-5-ipad">
                                                         <div class="clear pull-left">
                                                             <div class="clear pull-left">
@@ -285,16 +291,18 @@
                                                             </div>
                                                         </div>
                                                         <div class="clear pull-right">
-                                                            <div class="clear h-40 pb-10">
-                                                                <button class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF" onclick="window.location.href='<%=request.getContextPath() %>/l/order_pay?order_no=${orderList5.order_no}'">
-                                                                    立即支付
-                                                                </button>
-                                                            </div>
-                                                            <div class="clear h-40 pt-10">
-                                                                <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList5.order_no}'">
-                                                                    订单详情
-                                                                </button>
-                                                            </div>
+                                                            <c:if test="${status.first==true }">
+                                                                <div class="clear h-40 pb-10">
+                                                                    <button class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF" onclick="window.location.href='<%=request.getContextPath() %>/l/order_pay?order_no=${orderList5.order_no}'">
+                                                                        立即支付
+                                                                    </button>
+                                                                </div>
+                                                                <div class="clear h-40 pt-10">
+                                                                    <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList5.order_no}'">
+                                                                        订单详情
+                                                                    </button>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                             </c:forEach>
@@ -337,7 +345,7 @@
                                     </div>
                                     <c:forEach var="list" items="${listordertails}">
                                         <c:if test="${list.key eq orderList3.order_no}">
-                                            <c:forEach var="listordertails" items="${list.value }">    
+                                            <c:forEach var="listordertails" items="${list.value }" varStatus="status">    
                                                 <div class="clear pt-15 pb-15 plr-20-5-ipad">
                                                     <div class="clear pull-left">
                                                         <div class="clear pull-left">
@@ -353,11 +361,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="clear pull-right">
-                                                        <div class="clear h-40 pb-10">
-                                                            <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList3.order_no}'">
-                                                                订单详情
-                                                            </button>
-                                                        </div>
+                                                        <c:if test="${status.first==true }">
+                                                            <div class="clear h-40 pb-10">
+                                                                <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList3.order_no}'">
+                                                                    订单详情
+                                                                </button>
+                                                            </div>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                             </c:forEach>
@@ -402,7 +412,7 @@
                                     </div>
                                     <c:forEach var="list" items="${listordertails}">
                                         <c:if test="${list.key eq orderList4.order_no}">
-                                            <c:forEach var="listordertails" items="${list.value }">
+                                            <c:forEach var="listordertails" items="${list.value }" varStatus="status">
                                                 <div class="clear pt-15 pb-15 plr-20-5-ipad">
                                                     <div class="clear pull-left">
                                                         <div class="clear pull-left">
@@ -419,11 +429,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="clear pull-right">
-                                                        <div class="clear h-40 pb-10">
-                                                            <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList4.order_no}'">
-                                                                订单详情
-                                                            </button>
-                                                        </div>
+                                                        <c:if test="${status.first==true }">
+                                                            <div class="clear h-40 pb-10">
+                                                                <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/l/order_detail?order_no=${orderList4.order_no}'">
+                                                                    订单详情
+                                                                </button>
+                                                            </div>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                             </c:forEach>
