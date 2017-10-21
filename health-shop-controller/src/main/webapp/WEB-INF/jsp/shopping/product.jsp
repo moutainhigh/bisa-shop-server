@@ -257,7 +257,13 @@
 
 
                             <div class="clear col-sm-8 pl-0 pr-10">
-                                <button class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-309DE2 bor-none hovbg-2D90CF add_shopcar">加入购物车</button>
+                            	<form action="<%=request.getContextPath()%>/user/addCart" method="post">
+       						 	<input name="add_packId" value="" class="add-PackId" type="hidden">
+       						 	<input name="add_serviceId" value="" class="add-serviceId" type="hidden">
+       						 	<input name="add_issingleorcombo" value="" class="add-issingleorcombo" type="hidden">
+       						 	<input name="add_service_number" value="" class="add-service_number" type="hidden">
+                                <button type="submit" class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-309DE2 bor-none hovbg-2D90CF add_shopcar">加入购物车</button>
+                                </form>
                             </div>
                             <form action="<%=request.getContextPath()%>/l/orderIndex" method="post">
                             <div class="clear col-sm-4 pl-10 pr-0">
@@ -295,15 +301,11 @@
                 </div>
             </div>
             <div class="clear full-w HK-begin-describe">
-                <div class="clear full-w">
-                    <img class="full-w" src="<%=request.getContextPath() %>/resources/img/net_shopping/HK-Product-describev1.jpg" alt="">
-                </div>
-                <div class="clear full-w">
-                    <img class="full-w" src="<%=request.getContextPath() %>/resources/img/net_shopping/HK-Product-describev2.jpg" alt="">
-                </div>
-                <div class="clear full-w">
-                    <img class="full-w" src="<%=request.getContextPath() %>/resources/img/net_shopping/HK-Product-describev3.jpg" alt="">
-                </div>
+	            <c:forEach var="CommodityImg" items="${CommodityImg }">
+		                <div class="clear full-w">
+		                    <img class="full-w" src="<%=request.getContextPath() %>/resources/${CommodityImg.pic}" alt="">
+		                </div>
+	             </c:forEach>
             </div>
         </div>
     </div>

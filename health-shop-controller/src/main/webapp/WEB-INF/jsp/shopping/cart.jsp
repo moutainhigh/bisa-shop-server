@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="clear col-md-3 col-sm-4 pl-0 pr-0 pt-10 pb-10 line-h-30 text-center col-252525 f-16-14-ipad">
                                     <div class="clear col-sm-3 pl-0 pr-0 pt-0-5-ipad">
-                                        <img class="full-w cart-maintips-img" src="<%=request.getContextPath() %>/resources/${listcart.main_picture}" alt="">
+                                        <img class="full-w cart-maintips-img" src="<%=request.getContextPath() %>/resources${listcart.main_picture}" alt="">
                                     </div>
                                     <div class="clear col-sm-9 pl-0 pr-0 pt-20 pb-20 text-left pl-15">
                                         <span class="col-252525 cart-maintips-dir">${listcart.title}</span>
@@ -265,7 +265,7 @@
                         <span class="col-309DE2 ">元</span>
                     </div>
                     <div class="clear col-sm-3 pl-0 pr-0 line-h-60 h-60">
-                        <form action="<%=request.getContextPath()%>/l/orderIndex" method="Post">
+                        <form action="<%=request.getContextPath()%>/user/orderIndex" method="Post">
                             <input class="HK-cartsubmitinput" type="hidden" name="data" value="">
                             
                             <button class="bor-none full-wh bg-309DE2 col-white f-24 text-center pos-r t--2 hovbg-38B3FF HK-cartsubmit" type="submit">

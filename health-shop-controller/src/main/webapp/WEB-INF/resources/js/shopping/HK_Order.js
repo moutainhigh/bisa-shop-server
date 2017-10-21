@@ -323,7 +323,7 @@ $(document).ready(function() {
             var str={"name":$("#name").val(),"address":$("#address").val(),"tel":$("#tel").val(),"email":$("#email").val(),"guid":$("#guid").val()};
              var i=JSON.stringify(str); 
              $.ajax({
-                url : path + "/l/addAddress",
+                url : path + "user/addAddress",
                 type : "post",
                 dataType : "json",
                 async : false,
@@ -350,7 +350,7 @@ $(document).ready(function() {
 	    var str={"name":$("#shname").val(),"address":$("#shaddress").val(),"tel":$("#shphone").val(),"email":$("#shemail").val(),"guid":$("#shguid").val(),"addr_num":$("#shaddrnum").val()};
 		 var i=JSON.stringify(str);	
 		 $.ajax({
-			url : path + "l/updateAddress",
+			url : path + "user/updateAddress",
 			type : "post",
 			dataType : "json",
 			async : false,

@@ -27,7 +27,7 @@ import com.bisa.hkshop.model.OrderDetail;
 import com.bisa.hkshop.wqc.basic.dao.StringUtil;
 
 @Controller
-@RequestMapping("/l")
+//@RequestMapping("/a")
 public class UserOrderController {
 
 	@Autowired

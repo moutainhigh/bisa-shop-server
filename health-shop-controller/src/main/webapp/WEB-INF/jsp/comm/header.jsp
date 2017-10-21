@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="user" value='<%=request.getParameter("user")%>'></c:set>
-
 <header class="clear full-w min-h-120">
         <div class="container">
             <div class="col-xs-2 pt-35 pb-35 pl-0 pr-0">
@@ -12,7 +10,7 @@
             <div class="clear col-xs-10 pl-0 pr-0">
                 <div class="col-xs-12 pt-20 pl-0 pr-0">
                     <ul class="clear h-30 line-h-30 pull-right">
-						<c:if test="${username!=null}">                    
+						<c:if test="${username!=null}">              
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="#">${username}</a></li>              
                         </c:if>
                         <c:if test="${username==null}">                    

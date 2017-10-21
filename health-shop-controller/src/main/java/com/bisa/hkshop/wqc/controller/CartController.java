@@ -10,6 +10,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +33,14 @@ import com.bisa.hkshop.model.Commodity;
 import com.bisa.hkshop.wqc.basic.dao.StringUtil;
 import com.bisa.hkshop.wqc.basic.utility.GuidGenerator;
 import com.bisa.hkshop.wqc.service.IPackdetailsService;
+import com.bisa.hkshop.yoyo.controller.SessionController;
 import com.bisa.hkshop.wqc.service.ICartService;
 import com.bisa.hkshop.wqc.service.ICommodityService;
 import com.bisa.hkshop.wqc.service.IPackageService;
 
 
 @Controller
-//@RequestMapping("/l")
+@RequestMapping("/user")
 public class CartController {
 	@Autowired
 	private ICartService ICartService;
@@ -43,19 +51,19 @@ public class CartController {
 	@Autowired
 	private ICommodityService iCommodityService;
 	
-
+	private  Logger logger =LogManager.getLogger(CartController.class);
 	@RequestMapping(value = "/addCart", method = RequestMethod.POST)
-	@ResponseBody
 	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		
 		Date date=new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String packId=request.getParameter("packId");
+		String packId=request.getParameter("add_packId");
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
-		String serviceId=request.getParameter("serviceId");
-		String issingleorcombo=request.getParameter("issingleorcombo");
-		String service_number=request.getParameter("service_number");
-		String cart_product=request.getParameter("cart_product");//判断从哪个页面过来的
+		String serviceId=request.getParameter("add_serviceId");
+		String issingleorcombo=request.getParameter("add_issingleorcombo");
+		String service_number=request.getParameter("add_service_number");
+		String cart_product=request.getParameter("add_cart_product");//判断从哪个页面过来的
 			if(StringUtil.isEmpty(cart_product)){
 				//是否是单品还是套餐
 				if("1".equals(issingleorcombo)) {
@@ -76,13 +84,23 @@ public class CartController {
 						//插入更新时间
 						cart.setInsert_time(df.parse(df.format(date)));
 						cart.setUpdate_time(df.parse(df.format(date)));
-						ICartService.addCart(user_guid,cart);
+						int i=ICartService.addCart(user_guid,cart);
+						if(i>0) {
+							 logger.error(user_guid+"加入购物车成功："+cart.getCart_number());  
+						}else {
+							 logger.error(user_guid+"加入购物车失败："+cart.getCart_number());  
+						}
 					}else {
 						cart.setNumber(cart.getNumber()+1);
 						String i=String.valueOf(cart.getNumber());
 						cart.setTotal(Double.parseDouble(i)*cart.getPrice());
 						cart.setUpdate_time(df.parse(df.format(date)));
-						ICartService.updateCart(user_guid,cart);
+						int w=ICartService.updateCart(user_guid,cart);
+						if(w>0) {
+							 logger.error(user_guid+"修改购物车成功："+cart.getCart_number());  
+						}else {
+							 logger.error(user_guid+"修改购物车失败："+cart.getCart_number());  
+						}
 					}
 				}
 				if("1".equals(serviceId) || "0".equals(issingleorcombo)) {
@@ -103,7 +121,12 @@ public class CartController {
 						cart2.setUpdate_time(df.parse(df.format(date)));
 						cart2.setTotal(1.0*cart2.getPrice());
 						cart2.setSing_cox("0");
-						ICartService.addCart(user_guid,cart2);
+						int i=ICartService.addCart(user_guid,cart2);
+						if(i>0) {
+							 logger.error(user_guid+"加入购物车成功："+cart2.getCart_number());  
+						}else {
+							 logger.error(user_guid+"加入购物车失败："+cart2.getCart_number());  
+						}
 						//判断服务
 						if(cart3==null) {
 							cart3=new Cart();
@@ -120,20 +143,35 @@ public class CartController {
 							cart3.setUpdate_time(df.parse(df.format(date)));
 							cart3.setTotal(1.0*cart3.getPrice());
 							cart3.setSing_cox("2");
-							ICartService.addCart(user_guid,cart3);
+							int q=ICartService.addCart(user_guid,cart3);
+							if(q>0) {
+								 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
+							}else {
+								 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
+							}
 						}else{
 							cart3.setNumber(cart3.getNumber()+1);
-							String i=String.valueOf(cart3.getNumber());
-							cart3.setTotal(Double.parseDouble(i)*cart3.getPrice());
+							String ii=String.valueOf(cart3.getNumber());
+							cart3.setTotal(Double.parseDouble(ii)*cart3.getPrice());
 							cart3.setUpdate_time(df.parse(df.format(date)));
-							ICartService.updateCart(user_guid,cart3);
+							int s=ICartService.updateCart(user_guid,cart3);
+							if(s>0) {
+								 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
+							}else {
+								 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
+							}
 						}
 					}else {
 						cart2.setNumber(cart2.getNumber()+1);
 						String i=String.valueOf(cart2.getNumber());
 						cart2.setTotal(Double.parseDouble(i)*cart2.getPrice());
 						cart2.setUpdate_time(df.parse(df.format(date)));
-						ICartService.updateCart(user_guid,cart2);
+						int a=ICartService.updateCart(user_guid,cart2);
+						if(a>0) {
+							 logger.error(user_guid+"修改购物车成功："+cart2.getCart_number());  
+						}else {
+							 logger.error(user_guid+"修改购物车失败："+cart2.getCart_number());  
+						}
 						//判断服务
 						if(cart3==null) {
 							cart3=new Cart();
@@ -150,13 +188,23 @@ public class CartController {
 							cart3.setUpdate_time(df.parse(df.format(date)));
 							cart3.setTotal(1.0*cart3.getPrice());
 							cart3.setSing_cox("2");
-							ICartService.addCart(user_guid,cart3);
+							int x=ICartService.addCart(user_guid,cart3);
+							if(x>0) {
+								 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
+							}else {
+								 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
+							}
 						}else{
 							cart3.setNumber(cart3.getNumber()+1);
 							String w=String.valueOf(cart3.getNumber());
 							cart3.setTotal(Double.parseDouble(w)*cart3.getPrice());
 							cart3.setUpdate_time(df.parse(df.format(date)));
-							ICartService.updateCart(user_guid,cart3);
+							int m=ICartService.updateCart(user_guid,cart3);
+							if(m>0) {
+								 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
+							}else {
+								 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
+							}
 						
 						}
 					}
@@ -178,21 +226,32 @@ public class CartController {
 					cart3.setUpdate_time(df.parse(df.format(date)));
 					cart3.setTotal(1.0*cart3.getPrice());
 					cart3.setSing_cox("2");
-					ICartService.addCart(user_guid,cart3);
+					int e=ICartService.addCart(user_guid,cart3);
+					if(e>0) {
+						 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
+					}else {
+						 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
+					}
 				}else{
 					cart3.setNumber(cart3.getNumber()+1);
 					String w=String.valueOf(cart3.getNumber());
 					cart3.setTotal(Double.parseDouble(w)*cart3.getPrice());
 					cart3.setUpdate_time(df.parse(df.format(date)));
-					ICartService.updateCart(user_guid,cart3);
-				
+					int h=ICartService.updateCart(user_guid,cart3);
+					if(h>0) {
+						 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
+					}else {
+						 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
+					}
 				}
 			}
-				return "success";
+				//return "success";
+				return "redirect:/user/Cart";
 
 	}
 	@RequestMapping(value = "/Cart", method = RequestMethod.GET)
 	public String getCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
 			//查看购物车
@@ -228,8 +287,10 @@ public class CartController {
 		String result=null;
 		if(i>0) {
 			result="success";
+			 logger.error(user_guid+"删除购物车成功单号："+deleteId);  
 		}else {
 			result="false";
+			 logger.error(user_guid+"删除购物车失败单号："+deleteId);  
 		}
 		return result;
 	}
@@ -242,12 +303,14 @@ public class CartController {
 		String productId=request.getParameter("packId");
 		String result=null;
 		Cart product=ICartService.getCart(user_guid,productId);
-			product.setNumber(Integer.parseInt(num));
-			int i=ICartService.updateCart(user_guid,product);
+		product.setNumber(Integer.parseInt(num));
+		int i=ICartService.updateCart(user_guid,product);
 			if(i>0) {
 				result="success";
+				logger.error(user_guid+"修改购物车成功单号："+product.getCart_number());  
 			}else {
 				result="error";
+				logger.error(user_guid+"修改购物车失败单号："+product.getCart_number());  
 			}
 		return result;
 		
