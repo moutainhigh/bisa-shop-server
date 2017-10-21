@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/l")
+@RequestMapping("/user")
 public class UserController {
 
 	@RequestMapping(value = "/userCenter", method = RequestMethod.GET)

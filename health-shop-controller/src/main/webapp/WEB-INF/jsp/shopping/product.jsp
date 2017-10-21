@@ -262,10 +262,11 @@
        						 	<input name="add_serviceId" value="" class="add-serviceId" type="hidden">
        						 	<input name="add_issingleorcombo" value="" class="add-issingleorcombo" type="hidden">
        						 	<input name="add_service_number" value="" class="add-service_number" type="hidden">
+       						 <!-- 	<input name="add_service_Id" value="" class="add-service_Id" type="hidden"> -->
                                 <button type="submit" class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-309DE2 bor-none hovbg-2D90CF add_shopcar">加入购物车</button>
                                 </form>
                             </div>
-                            <form action="<%=request.getContextPath()%>/l/orderIndex" method="post">
+                            <form action="<%=request.getContextPath()%>/a/orderIndex" method="post">
                             <div class="clear col-sm-4 pl-10 pr-0">
                             	<input type="hidden" class="product-submit" value="" name="data">
                                 <button class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-9BD2F4 bor-none hovbg-9BD2F4 pro-buynow" type="submit">立即购买</button>
@@ -274,7 +275,7 @@
                         </div>
                         <p class="pt-10 pb-10 line-h-30 f-16 ">
                             <img class="img-20 mr-5 pos-r t--2" src="<%=request.getContextPath() %>/resources/img/net_shopping/find-more.png" alt="">
-                            <a class="col-616161 hovecol-309DE2 t-nonehove" href="<%=request.getContextPath() %>/index">返回首页查看更多心脏健康产品</a>
+                            <a class="col-616161 hovecol-309DE2 t-nonehove" href="<%=request.getContextPath() %>/l/index">返回首页查看更多心脏健康产品</a>
                         </p>
                     </div>
                     <div class="clear col-sm-2 pull-left pt-20 pl-10 pr-10">

@@ -68,7 +68,7 @@
                         请选择以下支付方式付款
                         </span>
                         <span class="pull-right dis-ib col-666 f-14">
-                            <img class="pos-r t--2" src="<%=request.getContextPath() %>/resources//img/net_shopping/safety.png" alt="">
+                            <img class="pos-r t--2" src="<%=request.getContextPath() %>/resources/img/net_shopping/safety.png" alt="">
                             所有支付信息已获得SSL协议安全加密保护
                         </span>
                     </p>
@@ -98,7 +98,7 @@
                 <form class="clear pos-r" action="">
                     <div class="clear">
                         <p class="f-30 pt-60 pb-10 text-center">
-                           <img  src="<%=request.getContextPath() %>/l/wechatPay?order_no=${orderId}" >
+                           <img  src="<%=request.getContextPath() %>/a/wechatPay?order_no=${orderId}" >
                         </p>
                     </div>
                     <div class="clear full-w line-h-30 pt-10 pb-20 text-center">
@@ -124,7 +124,7 @@
                 <form class="clear pos-r" action="">
                     <div class="clear">
                         <p class="f-30 pt-60 pb-10 text-center">
-                            <img src="<%=request.getContextPath() %>/l/zfbqrcode?order_no=${orderId}"  alt="">
+                            <img src="<%=request.getContextPath() %>/a/zfbqrcode?order_no=${orderId}"  alt="">
                         </p>
                     </div>
                     <div class="clear full-w line-h-30 pt-10 pb-20 text-center">

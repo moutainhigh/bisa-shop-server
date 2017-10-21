@@ -30,6 +30,9 @@ import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.model.result.AlipayF2FQueryResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
+import com.bisa.health.beans.dto.UserInfoDto;
+import com.bisa.health.model.User;
+import com.bisa.health.routing.annotation.CurrentUser;
 import com.bisa.hkshop.model.Trade;
 import com.bisa.hkshop.wqc.service.ITradeService;
 import com.bisa.hkshop.zj.basic.utility.AlipayConfig;
@@ -42,7 +45,7 @@ import com.google.zxing.common.BitMatrix;
 
 
 @Controller
-@RequestMapping("/l")
+@RequestMapping("/a")
 public class ShopPayController {
 	
 	@Autowired
@@ -62,13 +65,15 @@ public class ShopPayController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/hadPay",method=RequestMethod.GET)
-	public Map<String,String> loadby1Package(HttpServletRequest request,HttpSession session){
+	public Map<String,String> loadby1Package(HttpServletRequest request,HttpSession session,@CurrentUser UserInfoDto userInfo){
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		Map<String,String> map = new HashMap<String,String>();
 		String order_no = request.getParameter("order_no");
 		System.out.println("轮询："+order_no);
 		map.put("hadpay", "1002");
 		//判断UUID是否相等
-		Trade trade  = tradeService.loadTrade(2,order_no);
+		Trade trade  = tradeService.loadTrade(user_guid,order_no);
 		System.out.println("zhuangtai>>>>>>>>>>>>" + trade.getStatus());
 		if(trade.getStatus()==1002){
 			map.put("hadpay","1001"); //支付成功跳转到支付成功的页面
@@ -95,10 +100,11 @@ public class ShopPayController {
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value="/wechatPay",method=RequestMethod.GET,produces="image/jpeg")
-	public void wechatPay(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+	public void wechatPay(HttpServletRequest request, HttpServletResponse response,HttpSession session,@CurrentUser UserInfoDto userInfo) {
 	       //获取购买服务的guid,以及次数。（guid用来查询服务是一分钟服务，还是二十四小时服务，或者是平安钟服务）
 		    System.out.println("微信支付请求");
-		    int user_guid = 2;
+		    User user =userInfo.getUser();
+			int user_guid=user.getUser_guid();
 			String order_no = request.getParameter("order_no");
 			System.out.println("wechat:"+ order_no);
 			Trade trade = tradeService.loadTradeByorder_no(user_guid,order_no);
@@ -215,12 +221,13 @@ public class ShopPayController {
 	
 	@RequestMapping(value="/zfbqrcode",method=RequestMethod.GET,produces="image/jpeg")
 	public void zfbqrcode(HttpServletRequest request, HttpServletResponse response,
-	    HttpSession session) throws Exception{
+	    HttpSession session,@CurrentUser UserInfoDto userInfo) throws Exception{
 		System.out.println("支付宝二维码");
 	   /* try {*/
 	    	 //获取购买服务的guid,以及次数。（guid用来查询服务是一分钟服务，还是二十四小时服务，或者是平安钟服务）
 		       String order_no = request.getParameter("order_no");
-		       int user_guid = 2;
+		       User user =userInfo.getUser();
+				int user_guid=user.getUser_guid();
 		        System.out.println(">>>>>>>>支付宝tradeNo:" + order_no);
 		        Trade trade = tradeService.loadTradeByorder_no(user_guid,order_no);
 		        

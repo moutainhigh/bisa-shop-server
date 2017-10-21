@@ -54,10 +54,10 @@
                         </div>
                         <div class="clear pull-right h-30 line-h-30 mb-10 ">
                         	<c:if test="${order.effective_statu==1 && order.tra_status==10}">
-                            <button onclick="window.location.href='<%=request.getContextPath() %>/l/order_close?order_no=${order.order_no}'" class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white mr-20">
+                            <button onclick="window.location.href='<%=request.getContextPath() %>/a/order_close?order_no=${order.order_no}'" class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white mr-20">
                                 	取消订单
                             </button>
-                            <button onclick="window.location.href='<%=request.getContextPath() %>/l/order_pay?order_no=${order.order_no}'" class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF">
+                            <button onclick="window.location.href='<%=request.getContextPath() %>/a/order_pay?order_no=${order.order_no}'" class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF">
                                 	立即支付
                             </button>
                             </c:if>

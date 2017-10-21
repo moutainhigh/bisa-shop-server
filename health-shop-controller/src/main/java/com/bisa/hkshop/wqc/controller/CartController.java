@@ -90,6 +90,7 @@ public class CartController {
 						}else {
 							 logger.error(user_guid+"加入购物车失败："+cart.getCart_number());  
 						}
+					//是单品情况下修改
 					}else {
 						cart.setNumber(cart.getNumber()+1);
 						String i=String.valueOf(cart.getNumber());
@@ -103,9 +104,10 @@ public class CartController {
 						}
 					}
 				}
-				if("1".equals(serviceId) || "0".equals(issingleorcombo)) {
+				//是不是套餐
+				if("0".equals(issingleorcombo)) {
 					Cart cart2=ICartService.getCart(user_guid,packId);
-					Cart cart3=ICartService.getCart(user_guid,service_number);
+					//是不是套餐在购物车有
 					if(cart2==null) {
 						cart2=new Cart();
 					 Commodity commodity=iCommodityService.getcommodity(packId);
@@ -127,40 +129,7 @@ public class CartController {
 						}else {
 							 logger.error(user_guid+"加入购物车失败："+cart2.getCart_number());  
 						}
-						//判断服务
-						if(cart3==null) {
-							cart3=new Cart();
-							Commodity commo=iCommodityService.getcommodity(service_number);
-						 	cart3.setCart_number(GuidGenerator.generate());
-						 	cart3.setNumber(1);
-							cart3.setPrice(commo.getSelling_price());
-							cart3.setTitle(commo.getTitle());
-						//	cart.setTotal(commo.getPrice()*1.0);
-							cart3.setUser_guid(user_guid);
-							cart3.setPackId(commo.getShop_number());
-							cart3.setMain_picture(commo.getMain_picture());
-							cart3.setInsert_time(df.parse(df.format(date)));
-							cart3.setUpdate_time(df.parse(df.format(date)));
-							cart3.setTotal(1.0*cart3.getPrice());
-							cart3.setSing_cox("2");
-							int q=ICartService.addCart(user_guid,cart3);
-							if(q>0) {
-								 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
-							}else {
-								 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
-							}
-						}else{
-							cart3.setNumber(cart3.getNumber()+1);
-							String ii=String.valueOf(cart3.getNumber());
-							cart3.setTotal(Double.parseDouble(ii)*cart3.getPrice());
-							cart3.setUpdate_time(df.parse(df.format(date)));
-							int s=ICartService.updateCart(user_guid,cart3);
-							if(s>0) {
-								 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
-							}else {
-								 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
-							}
-						}
+					//套餐在购物车修改
 					}else {
 						cart2.setNumber(cart2.getNumber()+1);
 						String i=String.valueOf(cart2.getNumber());
@@ -172,83 +141,49 @@ public class CartController {
 						}else {
 							 logger.error(user_guid+"修改购物车失败："+cart2.getCart_number());  
 						}
-						//判断服务
-						if(cart3==null) {
-							cart3=new Cart();
-							Commodity commo=iCommodityService.getcommodity(service_number);
-						 	cart3.setCart_number(GuidGenerator.generate());
-						 	cart3.setNumber(1);
-							cart3.setPrice(commo.getSelling_price());
-							cart3.setTitle(commo.getTitle());
-						//	cart.setTotal(commo.getPrice()*1.0);
-							cart3.setUser_guid(user_guid);
-							cart3.setPackId(commo.getShop_number());
-							cart3.setMain_picture(commo.getMain_picture());
-							cart3.setInsert_time(df.parse(df.format(date)));
-							cart3.setUpdate_time(df.parse(df.format(date)));
-							cart3.setTotal(1.0*cart3.getPrice());
-							cart3.setSing_cox("2");
-							int x=ICartService.addCart(user_guid,cart3);
-							if(x>0) {
-								 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
-							}else {
-								 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
-							}
-						}else{
-							cart3.setNumber(cart3.getNumber()+1);
-							String w=String.valueOf(cart3.getNumber());
-							cart3.setTotal(Double.parseDouble(w)*cart3.getPrice());
-							cart3.setUpdate_time(df.parse(df.format(date)));
-							int m=ICartService.updateCart(user_guid,cart3);
-							if(m>0) {
-								 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
-							}else {
-								 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
-							}
-						
-						}
 					}
 				}
-			}else {
-				Cart cart3=ICartService.getCart(user_guid,service_number);
-				if(cart3==null) {
-					cart3=new Cart();
-					Commodity commo=iCommodityService.getcommodity(service_number);
-				 	cart3.setCart_number(GuidGenerator.generate());
-				 	cart3.setNumber(1);
-					cart3.setPrice(commo.getSelling_price());
-					cart3.setTitle(commo.getTitle());
-				//	cart.setTotal(commo.getPrice()*1.0);
-					cart3.setUser_guid(user_guid);
-					cart3.setPackId(commo.getShop_number());
-					cart3.setMain_picture(commo.getMain_picture());
-					cart3.setInsert_time(df.parse(df.format(date)));
-					cart3.setUpdate_time(df.parse(df.format(date)));
-					cart3.setTotal(1.0*cart3.getPrice());
-					cart3.setSing_cox("2");
-					int e=ICartService.addCart(user_guid,cart3);
-					if(e>0) {
-						 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
-					}else {
-						 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
-					}
-				}else{
-					cart3.setNumber(cart3.getNumber()+1);
-					String w=String.valueOf(cart3.getNumber());
-					cart3.setTotal(Double.parseDouble(w)*cart3.getPrice());
-					cart3.setUpdate_time(df.parse(df.format(date)));
-					int h=ICartService.updateCart(user_guid,cart3);
-					if(h>0) {
-						 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
-					}else {
-						 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
-					}
+				//是不是服务
+				if("1".equals(serviceId)){
+					Cart cart3=ICartService.getCart(user_guid,service_number);
+					//判断服务
+							if(cart3==null) {
+								cart3=new Cart();
+								Commodity commo=iCommodityService.getcommodity(service_number);
+							 	cart3.setCart_number(GuidGenerator.generate());
+							 	cart3.setNumber(1);
+								cart3.setPrice(commo.getSelling_price());
+								cart3.setTitle(commo.getTitle());
+								cart3.setUser_guid(user_guid);
+								cart3.setPackId(commo.getShop_number());
+								cart3.setMain_picture(commo.getMain_picture());
+								cart3.setInsert_time(df.parse(df.format(date)));
+								cart3.setUpdate_time(df.parse(df.format(date)));
+								cart3.setTotal(1.0*cart3.getPrice());
+								cart3.setSing_cox("2");
+								int q=ICartService.addCart(user_guid,cart3);
+									if(q>0) {
+										 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
+									}else {
+										 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
+									}
+							}else{
+							cart3.setNumber(cart3.getNumber()+1);
+							String ii=String.valueOf(cart3.getNumber());
+							cart3.setTotal(Double.parseDouble(ii)*cart3.getPrice());
+							cart3.setUpdate_time(df.parse(df.format(date)));
+							int s=ICartService.updateCart(user_guid,cart3);
+								if(s>0) {
+									 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
+								}else{
+									 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());
+								}
+							}
 				}
 			}
 				//return "success";
 				return "redirect:/user/Cart";
-
-	}
+		}
 	@RequestMapping(value = "/Cart", method = RequestMethod.GET)
 	public String getCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
 		

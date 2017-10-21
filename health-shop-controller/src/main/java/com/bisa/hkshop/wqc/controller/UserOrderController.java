@@ -19,15 +19,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bisa.hkshop.wqc.service.IAddressService;
 import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.wqc.service.IUserOrderService;
+import com.bisa.health.beans.dto.UserInfoDto;
 import com.bisa.health.entity.Pager;
 import com.bisa.health.model.SystemContext;
+import com.bisa.health.model.User;
+import com.bisa.health.routing.annotation.CurrentUser;
 import com.bisa.hkshop.model.Address;
 import com.bisa.hkshop.model.Order;
 import com.bisa.hkshop.model.OrderDetail;
 import com.bisa.hkshop.wqc.basic.dao.StringUtil;
 
 @Controller
-//@RequestMapping("/a")
+@RequestMapping("/user")
 public class UserOrderController {
 
 	@Autowired
@@ -38,14 +41,9 @@ public class UserOrderController {
 	private IAddressService addressService;
 	
 	@RequestMapping(value = "/userOrder", method = RequestMethod.GET)
-	public String userOrder(HttpServletRequest request,HttpServletResponse response,Model model,HttpSession session) throws Exception{
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
+	public String userOrder(HttpServletRequest request,HttpServletResponse response,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+				User user =userInfo.getUser();
+				int user_guid=user.getUser_guid();
 				//查询订单带分页
 				int pager_offset=0;
 				String offset=request.getParameter("pager.offset");
@@ -73,10 +71,6 @@ public class UserOrderController {
 					model.addAttribute("orderList", orderList);
 					model.addAttribute("orderList2", orderList2);
 				
-				//查询其他的状态
-				/*SystemContext.setPageSize(6);
-				SystemContext.setSort("start_time");
-				SystemContext.setOrder("desc");*/
 				Pager<Order> orderList5=null;
 				orderList5=iUserOrderService.seltra_status1(user_guid,10,1);
 				long oListnum1=orderList5.getTotal();
@@ -94,18 +88,13 @@ public class UserOrderController {
 				long oListnum3=orderList4.getTotal();
 				 model.addAttribute("oListnum3", oListnum3);
 			return "user/userOrder";
-		}
+		
 	}
 	@RequestMapping(value = "/userOrder1", method = RequestMethod.GET)
-	public String userOrder1(HttpServletRequest request,Model model,HttpSession session) throws Exception{
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
-		//查询订单待支付
+	public String userOrder1(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+			User user =userInfo.getUser();
+			int user_guid=user.getUser_guid();
+			//查询订单待支付
 			int pager_offset=0;
 			String offset=request.getParameter("pager.offset");
 			if(StringUtil.isNotEmpty(offset)) {
@@ -144,17 +133,12 @@ public class UserOrderController {
 			 model.addAttribute("oListnum3", oListnum3);
 			 
 			return "user/userOrder";
-		}
+		
 	}
 	@RequestMapping(value = "/userOrder2", method = RequestMethod.GET)
-	public String userOrder2(HttpServletRequest request,Model model,HttpSession session) throws Exception{
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
+	public String userOrder2(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		//查询订单待收货
 			int pager_offset=0;
 			String offset=request.getParameter("pager.offset");
@@ -194,17 +178,12 @@ public class UserOrderController {
 				 model.addAttribute("oListnum3", oListnum3);
 				 
 				return "user/userOrder";
-				}
+				
 	}
 	@RequestMapping(value = "/userOrder3", method = RequestMethod.GET)
-	public String userOrder3(HttpServletRequest request,Model model,HttpSession session) throws Exception{
-		session.setAttribute("guid", "2");
-		String guid=(String) session.getAttribute("guid");
-		int user_guid=Integer.parseInt(guid);
-		if(user_guid!=2) {
-			System.out.println("请去登录");
-			return null;
-		}else {
+	public String userOrder3(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		//查询订单待关闭
 		int pager_offset=0;
 		String offset=request.getParameter("pager.offset");
@@ -242,14 +221,15 @@ public class UserOrderController {
 		long oListnum2=orderList3.getTotal();
 		model.addAttribute("oListnum2", oListnum2);
 		return "user/userOrder";
-		}
+		
 	}
 	
 	//订单细节页面
 	@RequestMapping(value="/order_detail",method=RequestMethod.GET)
-	public String order_detail(HttpServletRequest request,Model model,HttpSession session){
+	public String order_detail(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo){
 		String order_no=request.getParameter("order_no");
-		int user_guid=2;
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		//根据订单号去查商品
 		Order order = iUserOrderService.loadOrderByOrderId(user_guid, order_no);
 	

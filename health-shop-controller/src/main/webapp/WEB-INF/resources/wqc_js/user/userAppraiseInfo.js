@@ -7,7 +7,7 @@ $(document).ready(function() {
 	    var appraise_degree=$(".record-face").val();
 	    var order_detail_guid=$(".text-orderguid").val();
 		$.ajax({
-			url : path + "l/addAppraise",
+			url : path + "user/addAppraise",
 			type : "post",
 			dataType : "text",
 			async : false,
@@ -17,7 +17,7 @@ $(document).ready(function() {
 				"order_detail_guid":order_detail_guid,
 			},
 			success : function(success) {
-				window.location.href=path+"l/AppraiseSuccess?order_detail_guid="+order_detail_guid;	
+				window.location.href=path+"user/AppraiseSuccess?order_detail_guid="+order_detail_guid;	
 			},error:function(){
 			}
 

@@ -41,34 +41,7 @@
             <img class="full-w" src="<%=request.getContextPath() %>/resources/img/news/HK_HowToShop/banner.jpg" alt="">
         </div>
         <div class="container pl-0 pr-0 mt-30 clear bg-f5f5f5 pt-30 pb-70 mb-60">
-            <div class="col-sm-3 pl-30 pr-20">
-                <div class="clear bg-white pd-40-10-ipad">
-                    <p class="mt-10 mb-10 col-212121 f-30 line-h-40 cur-d">
-                        订单中心
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-40 mb-20 cur-p hovecol-309DE2 ">
-                        我的订单
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        评价晒单
-                    </p>
-                    <p class="mt-30 mb-30 col-212121 f-30 line-h-40 cur-d">
-                        个人中心
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 col-active">
-                        我的个人中心
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        充值服务
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        收货地址
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        账号安全
-                    </p>
-                </div>
-            </div>
+           <%@ include file="./comm/menu.jsp" %>
             <div class="clear col-sm-9 pr-30 pl-0">
                 <div class="clear bg-white pb-100 plr-50-10-ipad pt-40">
                     <div class="clear">

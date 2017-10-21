@@ -41,27 +41,27 @@ $(document).ready(function() {
             switch (thisindex) {
                 case 0:
                     $(".face-item").text("失望");
-                    $(".face-tips").css("background-image","url(/bisa-controller-wqc/resources/img/user/Appraise/facev1.png)");
+                    $(".face-tips").css("background-image","url(/health-shop/resources/img/user/Appraise/facev1.png)");
                     break;
                 case 1:
                     $(".face-item").text("一般");
-                    $(".face-tips").css("background-image","url(/bisa-controller-wqc/resources/img/user/Appraise/facev2.png)");
+                    $(".face-tips").css("background-image","url(/health-shop/resources/img/user/Appraise/facev2.png)");
                     break;
                 case 2:
                     $(".face-item").text("满意");
-                    $(".face-tips").css("background-image","url(/bisa-controller-wqc/resources/img/user/Appraise/facev3.png)");
+                    $(".face-tips").css("background-image","url(/health-shop/resources/img/user/Appraise/facev3.png)");
                     break;
                 case 3:
                     $(".face-item").text("喜欢");
-                    $(".face-tips").css("background-image","url(/bisa-controller-wqc/resources/img/user/Appraise/facev4.png)");
+                    $(".face-tips").css("background-image","url(/health-shop/resources/img/user/Appraise/facev4.png)");
                     break;
                 case 4:
                     $(".face-item").text("超爱");
-                    $(".face-tips").css("background-image","url(/bisa-controller-wqc/resources/img/user/Appraise/facev5.png)");
+                    $(".face-tips").css("background-image","url(/health-shop/resources/img/user/Appraise/facev5.png)");
                     break;
                 default:
                     $(".face-item").text("超爱");
-                    $(".face-tips").css("background-image","url(/bisa-controller-wqc/resources/img/user/Appraise/facev5.png)");
+                    $(".face-tips").css("background-image","url(/health-shop/resources/img/user/Appraise/facev5.png)");
                     break;
             };
         };
