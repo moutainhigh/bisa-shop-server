@@ -22,8 +22,19 @@
 			<groupId>com.bisa.health</groupId>
 			<version>0.0.1-SNAPSHOT</version>
 			<artifactId>health-client</artifactId>
+		</dependency> 
+		
+		<!-- <dependency>
+			<groupId>com.bisa.hkshop</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>health-shop-client</artifactId>
+		</dependency> -->
+		
+		<dependency>
+			<groupId>com.bisa.health</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>health-core</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.bisa.health</groupId>
 			<version>0.0.1-SNAPSHOT</version>
