@@ -54,7 +54,7 @@
         </div>
         <div class="container pl-0 pr-0 pos-r">
            <div class="col-sm-8 pt-30 pl-20 pr-10 mb-20">
-               <c:forEach var="productDto" items="${ productDto.datas }" begin="0" end="1">
+               <c:forEach var="productDto" items="${ productDto.datas }" begin="0" end="6">
                		<input type="hidden" value="1" >
                        <div class="clear mt-20 full-w bg-white pt-40 pb-35 pr-15 add-appraise">
                            <div class="clear col-sm-2 pl-0 pr-0">
@@ -103,14 +103,14 @@
                	<div id="appraiseList">
                	
                	</div>
-               <c:if test="${productDto.total>=2}">
-	               <div class="clear mt-20 full-w h-50 line-h-50 text-center f-14 col-309DE2 bg-white cur-p <c:if test="${ productDto.total==2}">dis-n</c:if> appraise-more">
+              <%--  <c:if test="${productDto.total>=5}"> --%>
+	               <div class="clear mt-20 full-w h-50 line-h-50 text-center f-14 col-309DE2 bg-white cur-p <c:if test="${ productDto.total<=6}">dis-n</c:if> appraise-more">
 	                   	加载更多
 	               </div>
-	               <div class="clear mt-20 full-w h-50 line-h-50 text-center f-14 col-309DE2 bg-white cur-p <c:if test="${ productDto.total>2}">dis-n</c:if> appraise-daodi">
+	               <div class="clear mt-20 full-w h-50 line-h-50 text-center f-14 col-309DE2 bg-white cur-p <c:if test="${ productDto.total>6}">dis-n</c:if> appraise-daodi">
 	                   	到底了
 	           		</div>
-	           </c:if> 
+	          <%--  </c:if>  --%>
 	           
            </div>
            <!-- 一下4个浮标嵌入的数据一致 -->
@@ -129,7 +129,7 @@
                         ${comm.selling_price}元
                    </p>
                    <div class="clear mt-40 text-center pl-30 pr-30">
-                       <button class="h-40-30-ipad full-w text-center line-h-40-30-ipad col-white bg-309DE2 bor-none hovbg-2D90CF f-14-12-ipad" onclick="window.location.href='<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${comm.shop_number}'">
+                       <button class="h-40-30-ipad full-w text-center line-h-40-30-ipad col-white bg-309DE2 bor-none hovbg-2D90CF f-14-12-ipad" onclick="window.location.href='<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${comm.shop_number}'">
                            了解详情
                        </button>
                    </div>
@@ -148,7 +148,7 @@
                        ${comm.selling_price}元
                    </p>
                    <div class="clear mt-40 text-center">
-                       <button class="h-40 w-225 text-center line-h-40 col-white bg-309DE2 bor-none hovbg-2D90CF f-14" onclick="window.location.href='<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${comm.shop_number}'">
+                       <button class="h-40 w-225 text-center line-h-40 col-white bg-309DE2 bor-none hovbg-2D90CF f-14" onclick="window.location.href='<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${comm.shop_number}'">
                            了解详情
                        </button>
                    </div>
@@ -170,7 +170,7 @@
                        ${comm.selling_price}元
                    </p>
                    <div class="clear mt-40 text-center">
-                       <button class="h-40 w-225 text-center line-h-40 col-white bg-309DE2 bor-none hovbg-2D90CF f-14" onclick="window.location.href='<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${comm.shop_number}'">
+                       <button class="h-40 w-225 text-center line-h-40 col-white bg-309DE2 bor-none hovbg-2D90CF f-14" onclick="window.location.href='<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${comm.shop_number}'">
                            了解详情
                        </button>
                    </div>
@@ -192,7 +192,7 @@
                       ${comm.selling_price}元
                    </p>
                    <div class="clear mt-40 text-center">
-                       <button class="h-40 w-225 text-center line-h-40 col-white bg-309DE2 bor-none hovbg-2D90CF f-14" onclick="window.location.href='<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${comm.shop_number}'">
+                       <button class="h-40 w-225 text-center line-h-40 col-white bg-309DE2 bor-none hovbg-2D90CF f-14" onclick="window.location.href='<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${comm.shop_number}'">
                            了解详情
                        </button>
                    </div>

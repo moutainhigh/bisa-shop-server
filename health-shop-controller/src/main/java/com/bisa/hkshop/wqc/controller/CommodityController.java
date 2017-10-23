@@ -131,7 +131,7 @@ public class CommodityController {
 
 		SystemContext.setSort("update_time");
 		SystemContext.setOrder("desc");
-		SystemContext.setPageSize(1);
+		SystemContext.setPageSize(6);
 		
 		Pager<Appraise> appraise=IAppraiseService.loadAppraiseList(product_guid);
 		model.addAttribute("productDto", appraise);
@@ -155,12 +155,12 @@ public class CommodityController {
 			pager_offset=Integer.parseInt(offset);
 		}
 		if(pager_offset!=0) {
-			SystemContext.setPageOffset((pageNum-1)*1);
+			SystemContext.setPageOffset((pageNum-1)*6);
 		}
 		
 		SystemContext.setSort("update_time");
 		SystemContext.setOrder("desc");
-		SystemContext.setPageSize(1);
+		SystemContext.setPageSize(6);
 		int pageSize=SystemContext.getPageSize();
 		Pager<Appraise> appraise=IAppraiseService.loadAppraiseList(product_guid);
 		pager_offset=(pageNum-1)*pageSize;

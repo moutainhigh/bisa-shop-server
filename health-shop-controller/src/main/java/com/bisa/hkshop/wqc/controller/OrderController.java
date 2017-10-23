@@ -135,7 +135,7 @@ public class OrderController {
 	}
 	
 	//从购物车过来结算
-	@RequestMapping(value="/commitOrder",method=RequestMethod.POST)
+	@RequestMapping(value="/commitOrder",method=RequestMethod.GET)
 	public String commitOrder(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo){
 		
 		Order order;
@@ -360,6 +360,7 @@ public class OrderController {
 					orderN.setTra_status(10);//未付款
 					orderN.setStart_time(date);
 					orderN.setEffective_statu(1);
+					orderN.setAppraise_status(1);
 					Boolean r=orderService.addOrder(user_guid,orderN);
 					if(r) {
 						logger.error(user_guid+"添加订单成功"+orderN.getOrder_no());

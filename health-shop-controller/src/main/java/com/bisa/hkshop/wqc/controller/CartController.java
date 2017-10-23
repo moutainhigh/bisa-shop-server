@@ -52,7 +52,7 @@ public class CartController {
 	private ICommodityService iCommodityService;
 	
 	private  Logger logger =LogManager.getLogger(CartController.class);
-	@RequestMapping(value = "/addCart", method = RequestMethod.POST)
+	@RequestMapping(value = "/addCart", method = RequestMethod.GET)
 	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{		
 		Date date=new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

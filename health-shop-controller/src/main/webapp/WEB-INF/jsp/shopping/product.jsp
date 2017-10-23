@@ -257,7 +257,7 @@
 
 
                             <div class="clear col-sm-8 pl-0 pr-10">
-                            	<form action="<%=request.getContextPath()%>/user/addCart" method="post">
+                            	<form action="<%=request.getContextPath()%>/user/addCart" method="get">
        						 	<input name="add_packId" value="" class="add-PackId" type="hidden">
        						 	<input name="add_serviceId" value="" class="add-serviceId" type="hidden">
        						 	<input name="add_issingleorcombo" value="" class="add-issingleorcombo" type="hidden">
@@ -266,7 +266,7 @@
                                 <button type="submit" class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-309DE2 bor-none hovbg-2D90CF add_shopcar">加入购物车</button>
                                 </form>
                             </div>
-                            <form action="<%=request.getContextPath()%>/a/orderIndex" method="post">
+                            <form action="<%=request.getContextPath()%>/a/orderIndex" method="get">
                             <div class="clear col-sm-4 pl-10 pr-0">
                             	<input type="hidden" class="product-submit" value="" name="data">
                                 <button class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-9BD2F4 bor-none hovbg-9BD2F4 pro-buynow" type="submit">立即购买</button>

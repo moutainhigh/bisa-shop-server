@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="clear full-w bgimg-interlayer text-center pt-50 pb-50 line-h-30">
-                <a class="col-white t-nonehove f-18 cur-p family-h" href="http://192.168.1.137:8080/bisa-controller-wqc/l/shopping">查看更多健康产品 ></a>
+                <a class="col-white t-nonehove f-18 cur-p family-h" href="<%=request.getContextPath() %>/l/shopping">查看更多健康产品 ></a>
             </div>
             <!-- 主要内容 -->
             <div class="clear pos-r pl-0 pr-0 full-w">
@@ -164,7 +164,7 @@
                                                续航：无蓝牙120小时持续使用
                                             </p>
                                             <p class="line-h-25 f-14 pt-20">
-                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=de00d806c70141ce98158df5bc0ab3a3">了解产品细节 ></a>
+                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=de00d806c70141ce98158df5bc0ab3a3">了解产品细节 ></a>
                                             </p>
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@
                                 <div class="clear full-w pull-left protipshalfheight shodow-tipv2">
                                     <div class="clear shodow-tipr">
                                         <div class="clear shodow-tipl">
-                                            <a href="#"><img class="cur-p full-wh  protipshalfheight" src="<%=request.getContextPath() %>/resources/img/index/producttips4.png" alt=""></a>
+                                            <a href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=51409f91960848579d64bd5f103ea66a"><img class="cur-p full-wh  protipshalfheight" src="<%=request.getContextPath() %>/resources/img/index/producttips4.png" alt=""></a>
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                                    续航：无蓝牙120小时持续使用
                                                 </p>
                                                 <p class="line-h-25 f-14 pt-20">
-                                                   <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=5e86b4dcbbed4f4e9bbb57c85e04bc87">了解产品细节 ></a>
+                                                   <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=5e86b4dcbbed4f4e9bbb57c85e04bc87">了解产品细节 ></a>
                                                 </p>
                                             </div>
                                         </div>
@@ -261,7 +261,7 @@
                                                续航：无蓝牙120小时持续使用
                                             </p>
                                             <p class="line-h-25 f-14 pt-20">
-                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=4f7b0b61890c46ab8c0f423a3d9edfed">了解产品细节 ></a>
+                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=4f7b0b61890c46ab8c0f423a3d9edfed">了解产品细节 ></a>
                                             </p>
                                         </div>
                                     </div>
@@ -299,7 +299,7 @@
                                                续航：无蓝牙120小时持续使用
                                             </p>
                                             <p class="line-h-25 f-14 pt-20">
-                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=de00d806c70141ce98158df5bc0ab3a3">了解产品细节 ></a>
+                                               <a class="col-8c8c8c t-nonehove hovecol-333" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=de00d806c70141ce98158df5bc0ab3a3">了解产品细节 ></a>
                                             </p>
                                         </div>
                                     </div>
@@ -319,7 +319,7 @@
                                 <div class="clear full-w pull-left protipshalfheight shodow-tipv2">
                                     <div class="clear shodow-tipr">
                                         <div class="clear shodow-tipl">
-                                            <a href="#"><img class="cur-p full-wh protipshalfheight" src="<%=request.getContextPath() %>/resources/img/index/producttips4.png" alt=""></a>
+                                            <a href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=51409f91960848579d64bd5f103ea66a"><img class="cur-p full-wh protipshalfheight" src="<%=request.getContextPath() %>/resources/img/index/producttips4.png" alt=""></a>
                                         </div>
                                     </div>
                                 </div>
