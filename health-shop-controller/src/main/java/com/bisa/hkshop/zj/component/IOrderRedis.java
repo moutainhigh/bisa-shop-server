@@ -10,7 +10,7 @@ public interface IOrderRedis {
 	
 	public void addOrderRedis(BaseDelayed<String> delayed);
 	
-	public void delOrderRedis(BaseDelayed<String> delayed);
+	public void delOrderRedis(BaseDelayed<?> delayed);
 	
 	
 }
