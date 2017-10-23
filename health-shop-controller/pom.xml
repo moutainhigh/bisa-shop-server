@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 
 	<dependencies>
-
+		
 
 		<dependency>
 			<groupId>com.bisa.health</groupId>
@@ -24,6 +24,12 @@
 			<artifactId>health-client</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.bisa.health</groupId>
+			<artifactId>health-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.bisa.health</groupId>
 			<version>0.0.1-SNAPSHOT</version>

@@ -16,14 +16,17 @@ import com.bisa.health.appserver.gigi.service.IRoutingTableService;
 import com.bisa.health.appserver.gigi.service.IWebAppUserService;
 import com.bisa.health.appserver.utils.EncryptionUtils;
 import com.bisa.health.appserver.zj.service.IServiceDetailService;
+import com.bisa.health.beans.dto.UserInfoDto;
 import com.bisa.health.entity.Pager;
 import com.bisa.health.model.SystemContext;
+import com.bisa.health.model.User;
+import com.bisa.health.routing.annotation.CurrentUser;
 import com.bisa.health.routing.entity.RoutingTable;
 import com.bisa.hkshop.model.Active;
 import com.bisa.hkshop.zj.service.IActiveService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/active")
 //@RequestMapping("/l")
 public class ActiveController {
 	
@@ -40,7 +43,8 @@ public class ActiveController {
 
 	
 	@RequestMapping(value="/active_list",method=RequestMethod.GET)
-	public String loadActivePager(Model model,HttpServletRequest request){
+	public String loadActivePager(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
+		User user = userInfoDto.getUser();
 		int pager_offset=0;
 		String offset=request.getParameter("pager.offset");
 		if(offset!=null) {
@@ -53,7 +57,7 @@ public class ActiveController {
 			/*SystemContext.setSort("start_time");
 			SystemContext.setOrder("desc");*/
 		
-		Pager<Active> pager = activeService.loadActiveByUser(3);
+		Pager<Active> pager = activeService.loadActiveByUser(user.getUser_guid());
 		System.out.println(">>>>>>>>>total:"+pager.getTotal());
 		model.addAttribute("pager",pager);
 		return "active/hk_activeList";
@@ -61,23 +65,25 @@ public class ActiveController {
 	
 	//跳转到 激活服务页面
 	@RequestMapping(value="/active_service",method=RequestMethod.GET)
-	public String active_service(Model model,HttpServletRequest request){
+	public String active_service(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
 		//取出悉心账号
+		User user = userInfoDto.getUser();
 		String active_code = request.getParameter("active_code");
-		model.addAttribute("user","21213");
+		model.addAttribute("user",user.getUser_guid());
 		model.addAttribute("active_code",active_code);
 		return "active/hk_service_active";
 	}
 	
 	//激活服务
 	@RequestMapping(value="/active_commit",method=RequestMethod.POST)
-	public String active_commit(HttpServletRequest request,Model model){
+	public String active_commit(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfoDto){
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		//判断激活码是否正确有效
 		String active_code = request.getParameter("active_code");
-		String account1 = "18682268551";//request.getParameter("account1");
-		String account2 = "18682268551";//request.getParameter("account2");
+		
+		String account1 = request.getParameter("account1");//"18682268551";
+		String account2 = request.getParameter("account2");//"18682268551";//
 		
 		System.out.println("a1:" + account1 + "a2:" +account2);
 		
@@ -91,6 +97,7 @@ public class ActiveController {
 			model.addAttribute("messege","输入悉心账号不一致");
 			return "500";
 		}
+		
 		//查询悉心账号是否存在
 		String enusername = EncryptionUtils.md5EnBit16(account1);
 		RoutingTable routingTable = iRoutingTableService.findUsenameMd5(enusername);
@@ -101,12 +108,13 @@ public class ActiveController {
 		
 		
 		Active active = activeService.loadActiveBycode(routingTable.getUid(),active_code);
-		
+		//查询激活码是否可用
 		if(active==null || active.getActive_statu()==2){
 			model.addAttribute("messege","激活码不可用");
 			return "500";
 		}
 		
+		//查看当前用户是否已经开通过服务
 		ServiceDetail serviceDetail = serviceDetailService.loadByAcceAndType(routingTable.getUid(), active.getGuid());
 		
 		if(serviceDetail == null){
@@ -144,14 +152,14 @@ public class ActiveController {
 		        int count = serviceDetail.getCount() + active.getService_number()*200;
 				serviceDetail.setCount(count);
 			}else{
-				 serviceDetail.setFinished_time(sdf.format(date));
+				/* serviceDetail.setFinished_time(sdf.format(date));*/
 				 int count = serviceDetail.getCount() + active.getService_number();
 				 serviceDetail.setCount(count);
 			}
 			serviceDetailService.updateServiceDetail(serviceDetail);
 		}
 		
-		//激活服务,激活码失效
+		//激活服务之后,激活码失效，状态改为失效
 		active.setActive_statu(2);
 		activeService.updateActive(active);
 		

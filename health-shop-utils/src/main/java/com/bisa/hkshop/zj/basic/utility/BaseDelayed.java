@@ -1,9 +1,10 @@
 package com.bisa.hkshop.zj.basic.utility;
 
+import java.io.Serializable;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
-public abstract class BaseDelayed<T> implements Delayed {
+public  class BaseDelayed<T> implements Delayed,Serializable{
 	
 	private long startTime;  
 	

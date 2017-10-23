@@ -65,6 +65,13 @@ private static Logger log = LoggerFactory.getLogger(DelayedService.class);
         delayQueue.put(baseDelayed);  
     }  
 
+    //返回当前所有的队列
+    public BaseDelayed<?>[] getDelayQueue(){
+    	BaseDelayed<?>[] array = delayQueue.toArray(new BaseDelayed<?>[]{});  
+    	return array;
+    }
+    
+    
 	@SuppressWarnings("unchecked")
 	public <T, D extends BaseDelayed<?>> D remove(Class<D>clazz, T value){  
     	BaseDelayed<?>[] array = delayQueue.toArray(new BaseDelayed<?>[]{});  
