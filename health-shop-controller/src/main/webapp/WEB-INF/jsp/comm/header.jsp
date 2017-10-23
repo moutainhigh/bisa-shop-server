@@ -20,7 +20,7 @@
                 <div class="col-xs-12 pt-20 pl-0 pr-0">
                     <ul class="clear h-30 line-h-30 pull-right">
 						 <% if(username!=null){ %>           
-                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="#"><%=username %></a></li> 
+                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="<%=request.getContextPath()%>/user/userOrder"><%=username %></a></li> 
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/logout">退出</a></li>              
                          <%}else{ %>
                                          
@@ -31,7 +31,7 @@
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="">繁</a></li>
                         <li class="pull-left pr-5 col-333 cur-d hovecol-black">
                         <i class="icon-shopping-cart pr-5 f-14 col-333 hovecol-black"></i>
-                            购物车(
+                       <a href="<%=request.getContextPath()%>/user/Cart">购物车(
                         <a class="col-333 find-cartNum" href="<%=request.getContextPath()%>/user/Cart">0<%-- <%
                        
             			User user=(User) subject.getSession().getAttribute("user");
@@ -39,6 +39,7 @@
             			/* int cartNum=ICartService.selCartNum(user_guid); */
                         %> --%></a>
                         )
+                        </a>  
                         </li>
                        <!--  <li class="pull-left pr-5 pl-5 bg-eee hovebg-ddd mainsearch">
                             <input type="text" class="h-26 line-h-26 w-100 mt--2 mb-2 bor bor-col-ccc dis-n mainsearchinput">

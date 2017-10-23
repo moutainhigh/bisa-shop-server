@@ -20,6 +20,9 @@ import com.bisa.hkshop.model.Commodity;
 import com.bisa.hkshop.model.Order;
 import com.bisa.hkshop.model.Package;
 import com.bisa.hkshop.model.OrderDetail;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -138,6 +141,8 @@ public class UserAppraiseController {
 		@RequestMapping(value = "/addAppraise", method = RequestMethod.POST)
 		@ResponseBody
 		public String addAppraise(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+			Subject subject = SecurityUtils.getSubject();
+			String username=(String) subject.getPrincipal();
 			String appraise_one=request.getParameter("appraise_one");
 			String appraise_degree=request.getParameter("appraise_degree");
 			String order_detail_guid=request.getParameter("order_detail_guid");

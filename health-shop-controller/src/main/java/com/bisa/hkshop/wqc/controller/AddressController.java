@@ -44,6 +44,7 @@ public class AddressController {
 		address.setTel(jsonObj.getString("tel"));
 		address.setEmail(jsonObj.getString("email"));
 		address.setGuid(jsonObj.getString("guid"));
+		address.setCounty(jsonObj.getString("area"));
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
 		
@@ -61,7 +62,7 @@ public class AddressController {
 		address.setPostcode(" ");
 		address.setProvince(" ");
 		address.setCity("dd");
-		address.setCounty("df");
+		//address.setCounty("df");
 		address.setAddr_num(GuidGenerator.generate());
 		Boolean bool = addressService.addAddress(user_guid,address);
 		if(bool) {
@@ -85,7 +86,7 @@ public class AddressController {
 	@SuppressWarnings("unused")
 	@ResponseBody
 	@RequestMapping(value="/updateAddress",method=RequestMethod.POST)
-	public String updateAddress(Model model,HttpServletRequest request,HttpSession session) throws Exception{
+	public String updateAddress(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfo) throws Exception{
 		String update=request.getParameter("str");
 		JSONObject jsonObj = new JSONObject(update);
 		Address address=new Address();
@@ -95,16 +96,17 @@ public class AddressController {
 		address.setEmail(jsonObj.getString("email"));
 		address.setGuid(jsonObj.getString("guid"));
 		address.setAddr_num(jsonObj.getString("addr_num"));
+		address.setCounty(jsonObj.getString("area"));
 		if(address == null){
 			model.addAttribute("messege","请填写收货信息");
 			return "500";
 		}
-		session.setAttribute("user_guid", 2);
-		int user_guid=(int) session.getAttribute("user_guid");
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		address.setUser_guid(user_guid);
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Address addre = addressService.loadAddressBynameNum(user_guid, address.getAddr_num());
+		Address addre = addressService.loadAddressBynameNum(user_guid,address.getAddr_num());
 		//System.out.println(">>>>>>>>>>>>>number" + addre==null);
 		Boolean bool = false;
 		if(addre!=null){
@@ -115,6 +117,7 @@ public class AddressController {
 			addre.setEmail(address.getEmail());
 			addre.setIs_default(0);
 			addre.setGuid(address.getGuid());
+			addre.setCounty(address.getCounty());
 			System.out.println("????update_is_default:"+ addre.getIs_default());
 			bool = addressService.updateAddress(user_guid,addre);
 			if(bool) {

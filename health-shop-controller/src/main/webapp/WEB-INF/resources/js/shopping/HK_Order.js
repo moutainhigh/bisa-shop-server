@@ -320,7 +320,7 @@ $(document).ready(function() {
     function addAddress(){
        //  $("#addAddress").click(function(){
             var path=$("base").attr("href");
-            var str={"name":$("#name").val(),"address":$("#address").val(),"tel":$("#tel").val(),"email":$("#email").val(),"guid":$("#guid").val()};
+            var str={"name":$("#name").val(),"address":$("#address").val(),"tel":$("#tel").val(),"email":$("#email").val(),"guid":$("#guid").val(),"area":null};
              var i=JSON.stringify(str); 
              $.ajax({
                 url : path + "user/addAddress",
@@ -347,7 +347,7 @@ $(document).ready(function() {
      //修改方法
    function updateAddress(){
         var path=$("base").attr("href");
-	    var str={"name":$("#shname").val(),"address":$("#shaddress").val(),"tel":$("#shphone").val(),"email":$("#shemail").val(),"guid":$("#shguid").val(),"addr_num":$("#shaddrnum").val()};
+	    var str={"name":$("#shname").val(),"address":$("#shaddress").val(),"tel":$("#shphone").val(),"email":$("#shemail").val(),"guid":$("#shguid").val(),"addr_num":$("#shaddrnum").val(),"area":null};
 		 var i=JSON.stringify(str);	
 		 $.ajax({
 			url : path + "user/updateAddress",

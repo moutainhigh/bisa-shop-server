@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	/*确认订单页面校验部分*/
-    $.validator.setDefaults({
+    /*$.validator.setDefaults({
         submitHandler: function() {
             alert("提交事件!");
         }
-    });
+    });*/
     $().ready(function() {
         // 在键盘按下并释放及提交后验证提交表单
         $(".shippingaddress-add").validate({
@@ -36,7 +36,10 @@ $(document).ready(function() {
                 shemail: {
                     required: "请输入您的电子邮件",
                     email: "请输入正确的电子邮件地址"
-                },
+                }   
+            },
+            submitHandler: function() {
+                addAddress();
             }
         });
         $(".shippingaddress-revise").validate({
@@ -68,7 +71,10 @@ $(document).ready(function() {
                 shemail: {
                     required: "请输入您的电子邮件",
                     email: "请输入正确的电子邮件地址"
-                },
+                }
+            },
+            submitHandler: function() {
+                updateAddress();
             }
         });
     });
@@ -157,15 +163,16 @@ $(document).ready(function() {
     /*修改收货地址弹出层*/
     $(".address-tips-edit").click(function() {
         $(".show-revise-shippingaddress").fadeIn();
-
+        var caddr_num = $(this).siblings(".add-addr_num").val();
         var cname = $(this).siblings(".add-name").val();
         var cphone = $(this).siblings(".add-phone").val();
 		var carea = $(this).siblings(".add-area").val();
         var caddress = $(this).siblings(".add-address").val();
         var cemal = $(this).siblings(".add-email").val();
-
-        console.log(cname + cphone + caddress + cemal + carea);
-
+        
+        console.log(caddr_num+cname + cphone + caddress + cemal + carea);
+        
+        $(".inreaddr_num").val(caddr_num);
         $(".inrename").val(cname);
         $(".inrephone").val(cphone);
         $(".inreemail").val(cemal);
@@ -182,5 +189,51 @@ $(document).ready(function() {
             document.documentElement.style.overflow = "scroll";
         };
     });
+    //添加方法
+    function addAddress(){
+       //  $("#addAddress").click(function(){
+            var path=$("base").attr("href");
+            var options=$("#sharea option:selected");
+            var area=options.val();
+            var str={"name":$("#shname").val(),"address":$("#shaddress").val(),"tel":$("#shphone").val(),"email":$("#shemail").val(),"area":area,"guid":null};
+             var i=JSON.stringify(str); 
+             $.ajax({
+                url : path + "user/addAddress",
+                type : "post",
+                dataType : "json",
+                async : false,
+                data : {
+                    "str":i,
+                },
+                success : function(str) {
+                    //console.log(str);
+                    window.location.reload();
+                },error:function(){
+                }
+
+            });
+    }
+             //修改方法
+             function updateAddress(){
+               var path=$("base").attr("href");
+               var options=$("#sharea option:selected");
+               var area=options.val();
+          	   var str={"name":$("#upname").val(),"address":$("#upaddress").val(),"tel":$("#upphone").val(),"email":$("#upemail").val(),"area":area,"addr_num":$("#upaddrnum").val(),"guid":null};
+          	   var i=JSON.stringify(str);	
+          		 $.ajax({
+          			url : path + "user/updateAddress",
+          			type : "post",
+          			dataType : "json",
+          			async : false,
+          			data : {
+          				"str":i,
+          			},
+          			success : function(str) {
+          				window.location.reload();
+          			},error:function(){
+          			}
+          	
+          		});
+             }
 });
 

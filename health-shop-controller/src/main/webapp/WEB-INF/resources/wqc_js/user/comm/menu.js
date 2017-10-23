@@ -24,26 +24,23 @@ $(document).ready(function() {
         $(this).addClass("col-active");
     }); 
     $(".user-order").click(function() {
-       // $(".user-munu").hide();
-        //$(".user-order").show();
+
         window.location.href=path+"/user/userOrder";
     }); 
     $(".user-appraise").click(function() {
-       // $(".user-munu").hide();
-       // $(".user-appraise").show();
+
         window.location.href=path+"/user/userAppraise";
     });
     $(".user-center").click(function() {
-        //$(".user-munu").hide();
-        //$(".user-center").show();
+
+    	 
     });
     $(".user-active").click(function() {
         //$(".user-munu").hide();
         //$(".user-active").show();
     });
     $(".user-address").click(function() {
-        //$(".user-munu").hide();
-        //$(".user-address").show();
+    	window.location.href=path+"/user/userAddress";
     });
     $(".user-password").click(function() {
         //$(".user-munu").hide();
