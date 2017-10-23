@@ -115,6 +115,14 @@ public class IUserOrderDetailDaoImpl extends BaseDao<OrderDetail> implements IUs
 	}
 
 
+	@Override
+	public List<OrderDetail> Appraiselist(int user_guid, int appraise_isnot, int tra_status, int appraise_status) {
+		// TODO Auto-generated method stub
+		String sql="select od.* from s_order_detail as od where od.user_guid=? and od.appraise_isnot=? and od.tra_status=? and od.appraise_status=?";
+		return super.queryListBySql(sql, new Object[]{user_guid,appraise_isnot,tra_status,appraise_status},OrderDetail.class);
+	}
+
+
 	
 	
 

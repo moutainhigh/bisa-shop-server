@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.dao.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 import com.bisa.hkshop.model.Package;
+import com.bisa.health.beans.dto.UserInfoDto;
+import com.bisa.health.model.User;
+import com.bisa.health.routing.annotation.CurrentUser;
 import com.bisa.health.utils.CacheUtity;
 import com.bisa.hkshop.model.Address;
 import com.bisa.hkshop.model.Cart;
@@ -48,7 +53,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Controller
-@RequestMapping("/l")
+@RequestMapping("/a")
 public class OrderController {
 
 	@Autowired
@@ -72,14 +77,12 @@ public class OrderController {
 	@Autowired
 	private ICartService shopCartService;
 
-	
-//<<<<<<< HEAD
+/*	
+
 	@Autowired
-	private RedisTemplate orderPayTimer;
-//=======
-/*	@Resource(name = "orderPayTimer")
 	private RedisTemplate orderPayTimer;*/
-//>>>>>>> a60c8eb02441404bedab943de4f2f08f22423684
+
+	private  Logger logger =LogManager.getLogger(OrderController.class);
 	/*
 	 * 跳转到下订单页面
 	 */
@@ -133,7 +136,7 @@ public class OrderController {
 	
 	//从购物车过来结算
 	@RequestMapping(value="/commitOrder",method=RequestMethod.POST)
-	public String commitOrder(HttpServletRequest request,Model model,HttpSession session){
+	public String commitOrder(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo){
 		
 		Order order;
 		Address address ;
@@ -146,7 +149,8 @@ public class OrderController {
 			return "500";
 		}
 		
-			int user_guid=2;
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 			//查出收货地址
 			 address = addressService.loadAddressByAddressNum(user_guid,addr_num);
 			
@@ -166,8 +170,6 @@ public class OrderController {
 			//从购物车过来的
 			if(from_data.equals("records")){
 				orderDetailList = map.get(from_data);
-				
-				
 				//把dto的每个记录都去购物车表里找，一个一个添加到list
 				List<Cart> car =new ArrayList<Cart>();
 				String num = "";
@@ -182,8 +184,7 @@ public class OrderController {
 						car.add(cart);
 					}
 				}
-			//查出购物车中的要买的东西
-								
+			//查出购物车中的要买的东西				
 				double price = 0;
 				//处理订单信息，添加订单中的具体的商品细节，并且删除购物车中的物品
 				for(Cart orderCar : car){
@@ -203,13 +204,18 @@ public class OrderController {
 					orderDetail.setAppraise_isnot(1);
 					orderDetail.setTra_status(10);
 					orderDetail.setAppraise_status(1);
-					orderDetailService.addOrderDetail(orderDetail);
+					Boolean i=orderDetailService.addOrderDetail(orderDetail);
+					if(i) {
+						logger.error(user_guid+"添加订单详情成功"+orderDetail.getOrder_detail_guid());
+					}else {
+						logger.error(user_guid+"添加订单详情失败"+orderDetail.getOrder_detail_guid());
+					}
 					//删除购物车中的当前商品
 					int is_not=shopCartService.delCart(user_guid,orderCar.getPackId());	
 					if(is_not>0) {
-						System.out.println("删除购物车商品成功:哪个用户："+orderCar.getUser_guid()+"商品编号："+orderCar.getCart_number());
+						logger.error("删除购物车商品成功:哪个用户："+orderCar.getUser_guid()+"商品编号："+orderCar.getCart_number());
 					}else {
-						System.out.println("删除购物车商品失败:哪个用户："+orderCar.getUser_guid()+"商品编号："+orderCar.getCart_number());
+						logger.error("删除购物车商品失败:哪个用户："+orderCar.getUser_guid()+"商品编号："+orderCar.getCart_number());
 					}
 				}
 				
@@ -227,7 +233,13 @@ public class OrderController {
 				orderN.setTra_status(10);//未付款
 				orderN.setStart_time(date);
 				orderN.setEffective_statu(1);
-				orderService.addOrder(user_guid,orderN);
+				orderN.setAppraise_status(1);
+				Boolean i= orderService.addOrder(user_guid,orderN);
+				if(i) {
+					logger.error(user_guid+"添加订单成功"+orderN.getOrder_no());
+				}else {
+					logger.error(user_guid+"添加订单失败"+orderN.getOrder_no());
+				}
 				order = orderN;
 
 				//在这里添加延时队列进来,并且加入redis	
@@ -303,9 +315,14 @@ public class OrderController {
 							orderDetail.setStart_time(date);
 							orderDetail.setUser_guid(user_guid);
 							orderDetail.setAppraise_isnot(1);
-	/*						orderDetail.setTra_status(10);
-							orderDetail.setAppraise_status(1);*/
-							orderDetailService.addOrderDetail(orderDetail);
+							orderDetail.setTra_status(10);
+							orderDetail.setAppraise_status(1);
+							Boolean m=orderDetailService.addOrderDetail(orderDetail);
+							if(m){
+								logger.error(user_guid+"添加订单详情成功"+orderDetail.getOrder_detail_guid());
+							}else {
+								logger.error(user_guid+"添加订单详情失败"+orderDetail.getOrder_detail_guid());
+							}
 						}else{
 							Commodity pro = commodityService.getcommodity(orderDetailDto.getCartid());
 							  //处理订单信息，添加订单中的具体的商品细节，并且删除购物车中的物品
@@ -323,9 +340,14 @@ public class OrderController {
 							orderDetail.setUser_guid(user_guid);
 							orderDetail.setAppraise_isnot(1);
 							orderDetail.setPrice(pro.getSelling_price()*Integer.valueOf(orderDetailDto.getCartnum()));
-							/*orderDetail.setTra_status(10);
-							orderDetail.setAppraise_status(1);*/
-							orderDetailService.addOrderDetail(orderDetail);
+							orderDetail.setTra_status(10);
+							orderDetail.setAppraise_status(1);
+							Boolean w=orderDetailService.addOrderDetail(orderDetail);
+							if(w){
+								logger.error(user_guid+"添加订单详情成功"+orderDetail.getOrder_detail_guid());
+							}else {
+								logger.error(user_guid+"添加订单详情失败"+orderDetail.getOrder_detail_guid());
+							}
 						}
 					}
 					
@@ -338,7 +360,12 @@ public class OrderController {
 					orderN.setTra_status(10);//未付款
 					orderN.setStart_time(date);
 					orderN.setEffective_statu(1);
-					orderService.addOrder(user_guid,orderN);
+					Boolean r=orderService.addOrder(user_guid,orderN);
+					if(r) {
+						logger.error(user_guid+"添加订单成功"+orderN.getOrder_no());
+					}else {
+						logger.error(user_guid+"添加订单失败"+orderN.getOrder_no());
+					}
 					order = orderN;
 					
 					//在这里添加延时队列进来,并且加入redis	
@@ -387,8 +414,11 @@ public class OrderController {
 			trade.setUser_guid(user_guid);
 			//添加交易记录的表
 			boolean i=tradeService.addTrade(trade);
-			System.out.println("添加交易记录"+i);
-			
+			if(i) {
+				logger.error(user_guid+"添加交易成功"+trade.getTrade_no());
+			}else {
+				logger.error(user_guid+"添加交易失败"+trade.getTrade_no());
+			}
 		model.addAttribute("price",order.getPrice());
 		model.addAttribute("orderId",order.getOrder_no());
 		model.addAttribute("address",address);
@@ -397,15 +427,16 @@ public class OrderController {
 	
 		//个人中心中的立即下单
 		@RequestMapping(value="/order_pay",method=RequestMethod.GET)
-		public String order_pay(HttpServletRequest request,Model model,HttpSession session){
+		public String order_pay(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo){
 			String order_no = request.getParameter("order_no");
-			int user_guid = 2;
+			User user =userInfo.getUser();
+			int user_guid=user.getUser_guid();
 			if(order_no==null || order_no.equals("")){
 				model.addAttribute("messege","订单信息出错");
 				return "500";
 			}
 			
-			Order order = orderService.loadOrderByOrderId(2,order_no);
+			Order order = orderService.loadOrderByOrderId(user_guid,order_no);
 			
 			if(order==null){
 				model.addAttribute("messege","订单信息出错");
@@ -423,7 +454,12 @@ public class OrderController {
 			trade.setTrade_no(trade_no+"N"+user_guid);
 			//拿出用户的唯一uuid
 			//添加交易记录的表
-			tradeService.updateTrade(trade);
+			 Boolean i=tradeService.updateTrade(trade);
+			 if(i) {
+				 logger.error(user_guid+"修改交易成功"+trade.getTrade_no());
+			 }else {
+				 logger.error(user_guid+"修改交易失败"+trade.getTrade_no()); 
+			 }
 			//将交易信息存到session中
 			Address address = addressService.loadAddressByAddressNum(user_guid,order.getAddr_num());
 			model.addAttribute("price",order.getPrice());
@@ -434,23 +470,33 @@ public class OrderController {
 		
 		//取消订单
 		@RequestMapping(value="/order_close",method=RequestMethod.GET)
-		public String order_close(HttpServletRequest request,Model model,HttpSession session){
+		public String order_close(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo){
 			String order_no = request.getParameter("order_no");
-			session.setAttribute("user_guid", 2);
-			int user_guid=(int) session.getAttribute("user_guid");
+			User user =userInfo.getUser();
+			int user_guid=user.getUser_guid();
 			Order order = orderService.loadOrderByOrderId(user_guid,order_no);
 			order.setEffective_statu(2);//关闭订单，改变状态
 			order.setTrade_fail_cause("客户自己取消订单");
 			order.setTra_status(50);
 			order.setAppraise_status(2);
 
-			orderService.updateOrder(user_guid,order);
+			Boolean i=orderService.updateOrder(user_guid,order);
+			 if(i) {
+				 logger.error(user_guid+"修改订单成功"+order.getOrder_no());
+			 }else {
+				 logger.error(user_guid+"修改订单失败"+order.getOrder_no()); 
+			 }
 			List<OrderDetail> OrderDetail=orderDetailService.loadOrderDetailList(user_guid, order_no);
 			for(OrderDetail od:OrderDetail) {
 				od.setTra_status(50);
 				od.setAppraise_isnot(2);
 				System.out.println("order_detail_guid===="+od.getOrder_detail_guid());
-				orderDetailService.updateActive(user_guid, od);
+				int w=orderDetailService.updateActive(user_guid, od);
+				if(w>0) {
+					 logger.error(user_guid+"修改订单详情成功"+order.getOrder_no());
+				 }else {
+					 logger.error(user_guid+"修改订单详情失败"+order.getOrder_no()); 
+				 }
 			}
 			return "order/success";
 		}

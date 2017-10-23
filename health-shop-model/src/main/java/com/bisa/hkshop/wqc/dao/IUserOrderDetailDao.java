@@ -28,4 +28,6 @@ public interface IUserOrderDetailDao {
 
 	public Pager<OrderDetail> PagerOrderDetail(int user_guid);
 	
+	public List<OrderDetail> Appraiselist(int user_guid,int appraise_isnot,int tra_status,int appraise_status);
+	
 }

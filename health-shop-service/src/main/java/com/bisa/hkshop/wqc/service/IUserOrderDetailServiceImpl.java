@@ -85,6 +85,13 @@ public class IUserOrderDetailServiceImpl implements IUserOrderDetailService{
 	public Pager<OrderDetail> PagerOrderDetail(@DataGuid("user_guid") int user_guid){
 		return IUserOrderDetailDao.PagerOrderDetail(user_guid);
 	}
+
+	@Override
+	@DataRouting("user_guid")
+	public List<OrderDetail> Appraiselist(@DataGuid("user_guid") int user_guid, int appraise_isnot, int tra_status, int appraise_status) {
+		// TODO Auto-generated method stub
+		return  IUserOrderDetailDao.Appraiselist(user_guid, appraise_isnot,tra_status,appraise_status);
+	}
 	
 	
 

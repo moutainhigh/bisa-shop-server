@@ -3,6 +3,7 @@ package com.bisa.hkshop.wqc.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -142,6 +143,14 @@ public class UserAppraiseController {
 			String order_detail_guid=request.getParameter("order_detail_guid");
 			User user =userInfo.getUser();
 			int user_guid=user.getUser_guid();
+			String name=null; 
+			UInfo user2=userInfo.getUinfo();
+			if(user2==null) {
+				System.out.println("用户没有昵称");
+				name="匿名";
+			}else {
+				name= user2.getName();
+			}
 			OrderDetail od=IUserOrderDetailService.loadOrderDetail(user_guid,order_detail_guid);
 			if(od.getAppraise_isnot()==0) {
 				System.out.println("已评价");
@@ -151,10 +160,6 @@ public class UserAppraiseController {
 				Double price=od.getPrice();
 				String title=od.getProduct_name();
 				String product_number=od.getAscription_guid();
-				//session.setAttribute("userImg", "/img/user/Appraise/appraise-portraitv3.png");
-				//String userImg=(String) session.getAttribute("userImg");
-				//查询商品的product_guid;
-				
 				Commodity com=iCommodityService.getcommodity(product_number);
 				int product_guid=0;
 				if(com==null) {
@@ -165,6 +170,9 @@ public class UserAppraiseController {
 				}else {
 					product_guid=com.getProduct_guid();
 				}
+				Random random=new Random();// 定义随机类
+				int result=random.nextInt(5);
+				String img=String.valueOf(result+1);
 				//把值设置进评价信息
 				AppraiseUser appraiseUser=new AppraiseUser();
 				appraiseUser.setAppraise_no(GuidGenerator.generate());
@@ -180,6 +188,7 @@ public class UserAppraiseController {
 				appraiseUser.setShop_number(product_number);
 				appraiseUser.setUser_guid(user_guid);
 				appraiseUser.setProduct_guid(product_guid);
+				//appraiseUser.setMain_picture(main_picture);
 				int ii=IAppraiseUserService.addAppraiseUser(appraiseUser);
 				if(ii>0) {
 					System.out.println("添加成功"+appraiseUser.getAppraise_no());
@@ -203,9 +212,10 @@ public class UserAppraiseController {
 				appraise.setTitle(title);
 				appraise.setPrice(price);
 				appraise.setProduct_number(product_number);
-				//appraise.setUserImg(userImg);
+				appraise.setUserImg(img);
 				appraise.setProduct_guid(product_guid);
 				appraise.setUser_guid(user_guid);
+				appraise.setNick_name(name);
 				int i=IAppraiseService.addAppraise(appraise);
 				if(i>0) {
 					System.out.println("添加成功"+appraise.getAppraise_no());
@@ -229,7 +239,7 @@ public class UserAppraiseController {
 			if(user==null) {
 				System.out.println("用户信息为空！无头像");
 			}else {
-				userImg=((UInfo) user).getUri_pic();
+				userImg=((UInfo)user).getUri_pic();
 			}
 			//System.out.println("userImg"+userImg);
 			model.addAttribute("userImg", userImg);

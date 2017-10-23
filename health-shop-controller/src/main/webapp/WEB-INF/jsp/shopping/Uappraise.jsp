@@ -58,12 +58,17 @@
                		<input type="hidden" value="1" >
                        <div class="clear mt-20 full-w bg-white pt-40 pb-35 pr-15 add-appraise">
                            <div class="clear col-sm-2 pl-0 pr-0">
-                               <img class="img-70 pull-right" src="<%=request.getContextPath() %>/resources/${productDto.userImg}" alt="">
+                               <img class="img-70 pull-right" src="<%=request.getContextPath() %>/resources/img/user/Appraise/<c:if test="${productDto.userImg==1 }">appraise-portraitv1.png</c:if>
+                               <c:if test="${productDto.userImg==2 }">appraise-portraitv2.png</c:if>
+                               <c:if test="${productDto.userImg==3 }">appraise-portraitv3.png</c:if>
+                               <c:if test="${productDto.userImg==4 }">appraise-portraitv4.png</c:if>
+                               <c:if test="${productDto.userImg==5 }">appraise-portraitv5.png</c:if>
+                               " alt="">
                            </div>
                            <div class="clear col-sm-10 pl-20 pr-20">
                                <p class="line-h-20 mb-20 clear">
                                    <input type="hidden" class="appraisesuccess-state" value="${productDto.appraise_degree}">
-                                   <span class="col-8d665a f-18 pull-left dis-ib">${productDto.user_guid}</span>
+                                   <span class="col-8d665a f-18 pull-left dis-ib">${productDto.nick_name}</span>
                                    <span class="f-20 col-ffd600 dis-ib pull-right cur-d mr-10 appraisesuccess-statetext">
                                        <c:if test="${productDto.appraise_degree==1 }">
                                           失望

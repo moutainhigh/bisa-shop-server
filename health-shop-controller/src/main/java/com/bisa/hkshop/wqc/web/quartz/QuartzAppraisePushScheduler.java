@@ -12,34 +12,34 @@ import com.bisa.hkshop.wqc.service.IOrderService;
 import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.wqc.service.IUserOrderService;
 @Component
-public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInterface {
+public class QuartzAppraisePushScheduler implements QuartzOrderPushSchedulerInterface {
 	
-	 private static final String JOB_NAME = "OrderpayJob";
+	 private static final String JOB_NAME = "OrderJob";
 	 private Scheduler scheduler;
 	 private boolean enabled = false;
 	 private boolean schedulerImplicitlyCreated = false;
 	 
 	 @Autowired
-	 private IUserOrderService userOrderService;
+	 private IUserOrderService orderService;
 	 
 	 @Autowired
-	 private IUserOrderDetailService userOrderDetailService;
+	 private IUserOrderDetailService orderDetailService;
 
 	/**
 	   * 改到配置参数里面去
 	   */
 	//private long OrderInterval = 30*1000;
-	private long OrderpayInterval;
+	private long AppraiseInterval;
 	
-	public QuartzOrderPayPushScheduler() {
+	public QuartzAppraisePushScheduler() {
 	
 	}
 	
-    public QuartzOrderPayPushScheduler(boolean runenabled, long OrderpayInterval,IUserOrderService userOrderService,IUserOrderDetailService userOrderDetailService) {
+    public QuartzAppraisePushScheduler(boolean runenabled, long AppraiseInterval,IUserOrderService orderService,IUserOrderDetailService orderDetailService) {
     	
-		this.OrderpayInterval = OrderpayInterval;
-		this.userOrderService = userOrderService;
-		this.userOrderDetailService=userOrderDetailService;
+		this.AppraiseInterval = AppraiseInterval;
+		this.orderService = orderService;
+		this.orderDetailService=orderDetailService;
 		
 		if(runenabled==true&&enabled==false){
 			enableSessionValidation();
@@ -58,14 +58,15 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
         this.scheduler = scheduler;
     }
     
-  
+    
+	
 
-	public long getOrderpayInterval() {
-		return OrderpayInterval;
+	public long getAppraiseInterval() {
+		return AppraiseInterval;
 	}
 
-	public void setOrderpayInterval(long orderpayInterval) {
-		OrderpayInterval = orderpayInterval;
+	public void setAppraiseInterval(long appraiseInterval) {
+		AppraiseInterval = appraiseInterval;
 	}
 
 	@Override
@@ -79,11 +80,11 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
             SimpleTrigger trigger = new SimpleTrigger(getClass().getName(),
                     Scheduler.DEFAULT_GROUP,
                     SimpleTrigger.REPEAT_INDEFINITELY,
-                    OrderpayInterval);
+                    AppraiseInterval);
 
-            JobDetail detail = new JobDetail(JOB_NAME, Scheduler.DEFAULT_GROUP, OrderpayJob.class);
-            detail.getJobDataMap().put(OrderpayJob.ORDER_MANAGER_KEY, userOrderService);
-            detail.getJobDataMap().put(OrderpayJob.ORDER_TWO_KEY, userOrderDetailService);
+            JobDetail detail = new JobDetail(JOB_NAME, Scheduler.DEFAULT_GROUP, OrderJob.class);
+            detail.getJobDataMap().put(AppraiseJob.ORDER_MANAGER_KEY, orderService);
+            detail.getJobDataMap().put(AppraiseJob.APPRAISE_MANAGER_KEY, orderDetailService);
             Scheduler scheduler = getScheduler();
 
             scheduler.scheduleJob(detail, trigger);

@@ -53,8 +53,7 @@ public class CartController {
 	
 	private  Logger logger =LogManager.getLogger(CartController.class);
 	@RequestMapping(value = "/addCart", method = RequestMethod.POST)
-	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
-		
+	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{		
 		Date date=new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String packId=request.getParameter("add_packId");
@@ -180,6 +179,41 @@ public class CartController {
 								}
 							}
 				}
+			}else {
+				Cart cart3=ICartService.getCart(user_guid,service_number);
+				if(cart3==null) {
+					cart3=new Cart();
+					Commodity commo=iCommodityService.getcommodity(service_number);
+				 	cart3.setCart_number(GuidGenerator.generate());
+				 	cart3.setNumber(1);
+					cart3.setPrice(commo.getSelling_price());
+					cart3.setTitle(commo.getTitle());
+				//	cart.setTotal(commo.getPrice()*1.0);
+					cart3.setUser_guid(user_guid);
+					cart3.setPackId(commo.getShop_number());
+					cart3.setMain_picture(commo.getMain_picture());
+					cart3.setInsert_time(df.parse(df.format(date)));
+					cart3.setUpdate_time(df.parse(df.format(date)));
+					cart3.setTotal(1.0*cart3.getPrice());
+					cart3.setSing_cox("2");
+					int e=ICartService.addCart(user_guid,cart3);
+					if(e>0) {
+						 logger.error(user_guid+"加入购物车成功："+cart3.getCart_number());  
+					}else {
+						 logger.error(user_guid+"加入购物车失败："+cart3.getCart_number());  
+					}
+				}else{
+					cart3.setNumber(cart3.getNumber()+1);
+					String w=String.valueOf(cart3.getNumber());
+					cart3.setTotal(Double.parseDouble(w)*cart3.getPrice());
+					cart3.setUpdate_time(df.parse(df.format(date)));
+					int h=ICartService.updateCart(user_guid,cart3);
+					if(h>0) {
+						 logger.error(user_guid+"修改购物车成功："+cart3.getCart_number());  
+					}else {
+						 logger.error(user_guid+"修改购物车失败："+cart3.getCart_number());  
+					}
+				}
 			}
 				//return "success";
 				return "redirect:/user/Cart";
@@ -248,6 +282,5 @@ public class CartController {
 				logger.error(user_guid+"修改购物车失败单号："+product.getCart_number());  
 			}
 		return result;
-		
 	}
 }

@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="org.apache.shiro.subject.Subject"%>
+<%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="com.bisa.hkshop.wqc.service.ICartService"%>
+<%
+	Subject subject = SecurityUtils.getSubject();
 
+	String username=(String) subject.getPrincipal();
+%>
 <header class="clear full-w min-h-120">
         <div class="container">
             <div class="col-xs-2 pt-35 pb-35 pl-0 pr-0">
@@ -10,25 +17,25 @@
             <div class="clear col-xs-10 pl-0 pr-0">
                 <div class="col-xs-12 pt-20 pl-0 pr-0">
                     <ul class="clear h-30 line-h-30 pull-right">
-						<c:if test="${username!=null}">              
-                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="#">${username}</a></li>              
-                        </c:if>
-                        <c:if test="${username==null}">                    
+						 <% if(username!=null){ %>           
+                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="#"><%=username %></a></li>              
+                         <%}else{ %>
+                                         
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="../l/register">注册</a></li>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/login">登录</a></li>
-                        </c:if>
+                        <% } %>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="">简</a></li>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="">繁</a></li>
                         <li class="pull-left pr-5 col-333 cur-d hovecol-black">
                         <i class="icon-shopping-cart pr-5 f-14 col-333 hovecol-black"></i>
                             购物车(
-                        <a class="col-333" href="">0</a>
+                        <a class="col-333 find-cartNum" href=""><%-- <%int cartNum=ICartService.selCartNum(user_guid); %> --%></a>
                         )
                         </li>
-                        <li class="pull-left pr-5 pl-5 bg-eee hovebg-ddd mainsearch">
+                       <!--  <li class="pull-left pr-5 pl-5 bg-eee hovebg-ddd mainsearch">
                             <input type="text" class="h-26 line-h-26 w-100 mt--2 mb-2 bor bor-col-ccc dis-n mainsearchinput">
                             <span class="col-333 t-nonehove cur-p" href=""><i class="icon-search pr-5 f-14"></i>搜索</span>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="col-xs-12 pt-15 pl-0 pr-0">

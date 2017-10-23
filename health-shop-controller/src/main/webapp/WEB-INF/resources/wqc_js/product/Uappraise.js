@@ -93,18 +93,31 @@ $(document).ready(function() {
 												}else{
 													str.appraise_degree="超爱";
 												}
+												if(str.userImg=="1"){
+													str.userImg="appraise-portraitv1.png";
+												}else if(str.userImg=="2"){
+													str.userImg="appraise-portraitv2.png";
+												}else if(str.userImg=="3"){
+													str.userImg="appraise-portraitv3.png";
+												}else if(str.userImg=="4"){
+													str.userImg="appraise-portraitv4.png";
+												}else{
+													str.userImg="appraise-portraitv5.png";
+												}
 												//console.log("path1:"+path1);
 												strVar += "<div class=\"clear mt-20 full-w bg-white pt-40 pb-35 pr-15\">";
 												strVar +="<div class=\"clear col-sm-2 pl-0 pr-0\">";
 												strVar +="<img class=\"img-70 pull-right\" src=\"" ;
-												strVar +=path1+"\/resources\/img\/user\/Appraise\/appraise-portraitv1.png\"";
+												strVar +=path1+"\/resources\/img\/user\/Appraise\/";
+												strVar +=str.userImg;
+												strVar +="\"";
 												strVar +="  alt=\"\">";
 												strVar += "<\/div>";
 												strVar += "<div class=\"clear col-sm-10 pl-20 pr-20\">";
 												strVar += "<p class=\"line-h-20 mb-20 clear\">";
 												strVar += "<input type=\"hidden\" class=\"appraisesuccess-state\" value=\"0\">";
 												strVar += "<span class=\"col-8d665a f-18 pull-left dis-ib\">" ;
-												strVar += str.user_guid ;
+												strVar += str.nick_name ;
 												strVar += "<\/span>";
 												strVar += "<span class=\"f-20 col-ffd600 dis-ib pull-right cur-d mr-10 appraisesuccess-statetext\">";
 												strVar += str.appraise_degree;

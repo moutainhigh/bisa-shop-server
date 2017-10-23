@@ -47,8 +47,8 @@
                     </span>
                     <span class="col-white f-30-22-ipad ml-15 dis-ib pull-left">评价发表成功啦！</span>
                     <span class="col-white f-22-16-ipad ml-30 dis-ib pull-left">你还可以</span>
-                    <a class="col-ffd600 f-22-16-ipad dis-ib pull-left t-nonehove hovecol-ffd600" href="<%=request.getContextPath() %>/useAppraise">继续评价其他商品</a>
-                    <button class="h-50-35-ipad w-200-150-ipad pull-right bor-none bg-fec517 line-h-50-35-ipad col-white f-22 hovebg-FFCE37 mt-0-7-ipad" onclick="window.location.href='<%=request.getContextPath() %>/index'">
+                    <a class="col-ffd600 f-22-16-ipad dis-ib pull-left t-nonehove hovecol-ffd600" href="<%=request.getContextPath() %>、user/useAppraise">继续评价其他商品</a>
+                    <button class="h-50-35-ipad w-200-150-ipad pull-right bor-none bg-fec517 line-h-50-35-ipad col-white f-22 hovebg-FFCE37 mt-0-7-ipad" onclick="window.location.href='<%=request.getContextPath() %>/l/index'">
                         	继续购物
                     </button>
                 </div>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col-sm-1 pt-70 pb-30 text-center pl-0 pr-0">
-                        <img class="" src="<%=request.getContextPath() %>/resources/${userImg}" alt="">
+                        <img class="" src="${userImg}" alt="无用户头像">
                     </div>
                     <div class="col-sm-6 pt-70 pb-30">
                         <div class="clear col-sm-9 pl-0 pr-0">

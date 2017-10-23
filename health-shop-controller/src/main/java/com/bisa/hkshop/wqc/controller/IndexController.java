@@ -18,6 +18,7 @@ public class IndexController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String requestReport(Model model){
+		
 		return "index";
 	}
 }

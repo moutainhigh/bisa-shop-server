@@ -42,6 +42,7 @@ public interface IUserOrderService {
 	 * @return
 	 */
 	public int Ordertra_statusCount(int user_guid, int tra_status,int appraise_status);
-
+	
+	
 	
 }

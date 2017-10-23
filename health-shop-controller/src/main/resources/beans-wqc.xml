@@ -16,5 +16,14 @@
          http://www.springframework.org/schema/cache    
         http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
         
+        <!-- <bean id="orderQuartzWork" class="com.bisa.hkshop.wqc.web.quartz.QuartzOrderPushScheduler">     
+         	 	<constructor-arg name="runenabled" value="${push.runenabled}" />
+         		<constructor-arg name="OrderInterval" value="${push.interval}" /> 
+         		<constructor-arg ref="orderService" /> 
+         		<constructor-arg ref="orderDetailService" /> 
+      </bean> 
+      <bean name="orderService" class="com.bisa.hkshop.wqc.service.OrderServiceImpl"></bean>
+      <bean name="orderDetailService" class="com.bisa.hkshop.wqc.service.OrderDetailServiceImpl"></bean> -->
+        
 
 </beans>
