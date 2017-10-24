@@ -45,6 +45,8 @@ import com.bisa.hkshop.wqc.service.IPackageService;
 import com.bisa.hkshop.wqc.service.ITradeService;
 import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.zj.basic.utility.BaseDelayed;
+import com.bisa.hkshop.zj.component.IOrderRedis;
+import com.bisa.hkshop.zj.service.IDelayedService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -72,11 +74,17 @@ public class OrderController {
 	
 	@Autowired
 	private ICartService shopCartService;
-
-/*	
-
+	
+	
+	//注入队列
 	@Autowired
-	private RedisTemplate orderPayTimer;*/
+	private IDelayedService delayedService;
+	
+	
+	@Autowired
+	private IOrderRedis orderRedis;
+	
+
 
 	private  Logger logger =LogManager.getLogger(OrderController.class);
 	/*
@@ -237,52 +245,6 @@ public class OrderController {
 					logger.error(user_guid+"添加订单失败"+orderN.getOrder_no());
 				}
 				order = orderN;
-
-				//在这里添加延时队列进来,并且加入redis	
-				//现在加入delayQueque
-				/*DelayedService service = new DelayedService();
-				service.start(new OnStartListener(){
-					@Override
-					public void onStart() {
-						System.out.println("启动完成");
-					}
-				}, 
-				new OnDelayedListener(){
-					@Override
-					public <T extends BaseDelayed<?>> void onDelayedArrived(T delayed) {
-						System.out.println("[onDelayedArrived]"+delayed.toString());
-						//在这里插入一天后要做的事，关闭订单
-						order.setTra_status(50);
-						order.setEffective_statu(2);
-						Boolean o=orderService.updateOrder(user_guid, order);
-						if(o) {
-							System.out.println("取消订单执行成功"+order.getOrder_no());
-						}else {
-							System.out.println("取消订单执行失败"+order.getOrder_no());
-						}
-						List<OrderDetail> orderList=orderDetailService.loadOrderDetailList(user_guid, order.getOrder_no());
-						for(OrderDetail OrderDetail: orderList) {
-							 OrderDetail.setTra_status(50);
-							 OrderDetail.setAppraise_status(2);
-							 int od=orderDetailService.updateActive(user_guid, OrderDetail);
-							 if(od>0) {
-									System.out.println("订单详情关闭成功"+OrderDetail.getOrder_detail_guid());
-								}else {
-									System.out.println("订单详情关闭失败"+OrderDetail.getOrder_detail_guid());
-								}
-						 }
-					}
-				});
-				service.add(new DelayedOrder(86400,order.getOrder_no(),user_guid));*/
-				//现在加入redis
-			/*	orderPayTimer.execute(new RedisCallback<Boolean>() {
-					public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-						String sms_key = "order_userguid" + order.getUser_guid();
-						connection.setEx(sms_key.getBytes(), 12, CacheUtity.toByteArray(order));
-						return true;
-					}
-				});*/
-				//在这里添加延时队列进来,并且加入redis结束
 			}else{
 				//立即购买过来结算
 				if(from_data.equals("product")){
@@ -358,6 +320,9 @@ public class OrderController {
 					orderN.setEffective_statu(1);
 					orderN.setAppraise_status(1);
 					Boolean r=orderService.addOrder(user_guid,orderN);
+					
+					
+					
 					if(r) {
 						logger.error(user_guid+"添加订单成功"+orderN.getOrder_no());
 					}else {
@@ -370,6 +335,12 @@ public class OrderController {
 				}
 			}
 			
+			
+			//添加到24小时队列
+    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,24);
+    	   delayedService.add(delayedOrder);//存到队列中
+   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
+   		   
 			String trade_no = GuidGenerator.generate(16)+"N"+user_guid; //随机产生的订单号
 			Trade trade = new Trade();
 			trade.setOrder_guid(order.getOrder_no());
@@ -455,6 +426,12 @@ public class OrderController {
 			 }else {
 				 logger.error(user_guid+"修改订单失败"+order.getOrder_no()); 
 			 }
+			 
+			 
+			//取消订单从队列和redis删除
+	    	delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+	   		orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+			 
 			List<OrderDetail> OrderDetail=orderDetailService.loadOrderDetailList(user_guid, order_no);
 			for(OrderDetail od:OrderDetail) {
 				od.setTra_status(50);

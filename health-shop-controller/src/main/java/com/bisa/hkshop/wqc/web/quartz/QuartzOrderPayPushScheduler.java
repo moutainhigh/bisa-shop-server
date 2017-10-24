@@ -11,36 +11,42 @@ import com.bisa.hkshop.wqc.service.IOrderDetailService;
 import com.bisa.hkshop.wqc.service.IOrderService;
 import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.wqc.service.IUserOrderService;
+import com.bisa.hkshop.zj.component.IOrderRedis;
+import com.bisa.hkshop.zj.service.IDelayedService;
 @Component
 public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInterface {
 	
-	 private static final String JOB_NAME = "OrderpayJob";
+	 private static final String JOB_NAME = "OrderAppraiseJob";
 	 private Scheduler scheduler;
 	 private boolean enabled = false;
 	 private boolean schedulerImplicitlyCreated = false;
 	 
-	 @Autowired
-	 private IUserOrderService userOrderService;
-	 
-	 @Autowired
-	 private IUserOrderDetailService userOrderDetailService;
+	@Autowired
+	private IOrderRedis orderRedis;
+	@Autowired
+	private IDelayedService delayedService;
+	@Autowired
+	private IOrderDetailService orderDetailService;
+	@Autowired
+	private IOrderService orderService;
 
 	/**
 	   * 改到配置参数里面去
 	   */
 	//private long OrderInterval = 30*1000;
-	private long OrderpayInterval;
+	private long OrderInterval;
 	
 	public QuartzOrderPayPushScheduler() {
 	
 	}
 	
-    public QuartzOrderPayPushScheduler(boolean runenabled, long OrderpayInterval,IUserOrderService userOrderService,IUserOrderDetailService userOrderDetailService) {
-    	
-		this.OrderpayInterval = OrderpayInterval;
-		this.userOrderService = userOrderService;
-		this.userOrderDetailService=userOrderDetailService;
-		
+    public QuartzOrderPayPushScheduler(boolean runenabled, long OrderInterval,IOrderRedis orderRedis,
+    		IDelayedService delayedService,IOrderService orderService,IOrderDetailService orderDetailService) {
+		this.OrderInterval = OrderInterval;
+		this.orderService = orderService;
+		this.orderDetailService=orderDetailService;
+		this.delayedService=delayedService;
+		this.orderRedis=orderRedis;
 		if(runenabled==true&&enabled==false){
 			enableSessionValidation();
 		}
@@ -60,12 +66,13 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
     
   
 
-	public long getOrderpayInterval() {
-		return OrderpayInterval;
+
+	public long getOrderInterval() {
+		return OrderInterval;
 	}
 
-	public void setOrderpayInterval(long orderpayInterval) {
-		OrderpayInterval = orderpayInterval;
+	public void setOrderInterval(long orderInterval) {
+		OrderInterval = orderInterval;
 	}
 
 	@Override
@@ -79,11 +86,13 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
             SimpleTrigger trigger = new SimpleTrigger(getClass().getName(),
                     Scheduler.DEFAULT_GROUP,
                     SimpleTrigger.REPEAT_INDEFINITELY,
-                    OrderpayInterval);
+                    OrderInterval);
 
-            JobDetail detail = new JobDetail(JOB_NAME, Scheduler.DEFAULT_GROUP, OrderpayJob.class);
-            detail.getJobDataMap().put(OrderpayJob.ORDER_MANAGER_KEY, userOrderService);
-            detail.getJobDataMap().put(OrderpayJob.ORDER_TWO_KEY, userOrderDetailService);
+            JobDetail detail = new JobDetail(JOB_NAME, Scheduler.DEFAULT_GROUP, OrderAppraiseJob.class);
+            detail.getJobDataMap().put(OrderAppraiseJob.ORDER_MANAGER_KEY, orderDetailService);
+            detail.getJobDataMap().put(OrderAppraiseJob.ORDER_TWO_KEY, orderService);
+            detail.getJobDataMap().put(OrderAppraiseJob.ORDER_THREE_KEY, orderRedis);
+            detail.getJobDataMap().put(OrderAppraiseJob.ORDER_FOUR_KEY, delayedService);
             Scheduler scheduler = getScheduler();
 
             scheduler.scheduleJob(detail, trigger);

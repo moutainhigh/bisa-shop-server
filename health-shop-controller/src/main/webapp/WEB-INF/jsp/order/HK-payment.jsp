@@ -149,7 +149,7 @@
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/shopping/HK_Payment.js"></script>
     
-    <%-- 
+    
     <script type="text/javascript">
     var i=0;
     $(document).ready(function(){ 	 
@@ -165,8 +165,6 @@
  	           dataType:'json',
  	           async: false,
  	           success:function(json){
- 	        	  
- 	        	   alert("sa");
  	               if(json.hadpay == "1001"){ //处理自己的业务
  	                   window.location.href = '<%=request.getContextPath()%>/l/success';
  	               }
@@ -180,7 +178,7 @@
   	 }
 
     </script>
- --%>
+
     
 </body>
 

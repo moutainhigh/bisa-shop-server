@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,11 +53,6 @@ import com.bisa.hkshop.zj.service.IDelayedService;
 @Controller
 @RequestMapping("/l")
 public class ShopPayCallBack {
-	
-	
-	
-	
-	
 	
 	@Autowired
 	private IOrderService orderService;
@@ -212,12 +206,19 @@ public class ShopPayCallBack {
 	        	   orderService.updateOrder(user_guid,order);
 	        	   
 	        	   
+	        	   
+			   		//立即付款 定时24小时关闭的订单从队列和redis删除
+				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+	        	   
+	        	   
 	        	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
 		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);
 		    	   delayedService.add(delayedOrder);//存到队列中
 		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
-	        	   
-		   			
+	        
+		   		   
+		   		   
 		   			 /** 将交易的状态改为已添加过的服务状态*/
 		   			 
 		   		  	tradeService.updateTrade(trade);
@@ -331,6 +332,12 @@ public class ShopPayCallBack {
 		    	   logger.info("支付成功，修改订单状态为支付");
 		    	   order.setUpdate_time(date);
 		    	   orderService.updateOrder(user_guid,order);
+		    	   
+		    	   
+		    	    //立即付款 定时24小时关闭的订单从队列和redis删除
+				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+		    	   
 		    	   
 		    	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
 		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);

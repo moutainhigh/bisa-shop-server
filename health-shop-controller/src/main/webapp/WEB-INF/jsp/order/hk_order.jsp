@@ -257,7 +257,7 @@
                         </div>
                     </div>
                 </div>
-                    <form action="<%=request.getContextPath() %>/a/commitOrder" method="post">
+                    <form action="<%=request.getContextPath() %>/a/commitOrder" method="get">
                             <div class="clear mt-5 bg-white pd-20">
                                 <div class="col-sm-9 clear pl-10 pr-10 cur-d conanorder-tips-showmsg">
                                     <p class="f-16 family-h line-h-20">

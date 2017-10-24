@@ -76,12 +76,12 @@ public class OrderRedisImp implements IOrderRedis{
 
 	
 	//删除缓存中某个order
-	public void delOrderRedis(BaseDelayed<?> delayed) {
+	public void delOrderRedis(String order_no) {
 		/*
 		 * 将delay从redis中的删除
 		 */
 		HashMap<String,BaseDelayed<String>> delayList = this.getOrderRedis();
-		delayList.remove(delayed.getValue());
+		delayList.remove(order_no);
 		DelayOrderDto order = new DelayOrderDto();
 		order.setDelaylist(delayList); //存到封装好的list中
 		redisTemp.execute(new RedisCallback<Boolean>() {
