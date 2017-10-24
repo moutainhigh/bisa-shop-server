@@ -123,7 +123,7 @@ public class UserAppraiseController {
 				SystemContext.setOrder("desc");
 				SystemContext.setPageSize(6);
 				//这里可能涉及到时间的问题
-				Pager<OrderDetail> listordertails=IUserOrderDetailService.page_userdetails(user_guid,0,30,2);
+				Pager<OrderDetail> listordertails=IUserOrderDetailService.page_userdetails(user_guid,1,30,2);
 				List<OrderDetail> odtas=listordertails.getDatas();
 				model.addAttribute("odtas",listordertails);
 			

@@ -23,9 +23,13 @@ import org.apache.logging.log4j.Logger;
 import org.jdom.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.bisa.health.appserver.zj.utils.AppAlipayConfig;
 import com.bisa.hkshop.model.Active;
 import com.bisa.hkshop.model.Commodity;
 import com.bisa.hkshop.model.Order;
@@ -36,13 +40,14 @@ import com.bisa.hkshop.wqc.service.ICommodityService;
 import com.bisa.hkshop.wqc.service.IOrderDetailService;
 import com.bisa.hkshop.wqc.service.IOrderService;
 import com.bisa.hkshop.wqc.service.ITradeService;
+import com.bisa.hkshop.zj.basic.utility.BaseDelayed;
 import com.bisa.hkshop.zj.basic.utility.DateUtil;
 import com.bisa.hkshop.zj.basic.utility.WechatPayCommonUtil;
 import com.bisa.hkshop.zj.basic.utility.WechatPayConfigUtil;
 import com.bisa.hkshop.zj.basic.utility.XMLUtil;
+import com.bisa.hkshop.zj.component.IOrderRedis;
 import com.bisa.hkshop.zj.service.IActiveService;
-
-
+import com.bisa.hkshop.zj.service.IDelayedService;
 
 
 @Controller
@@ -64,7 +69,30 @@ public class ShopPayCallBack {
 	@Autowired
 	private ICommodityService commodityService;
 	
+	@Autowired
+	private IOrderRedis orderRedis;
+	
+	
+	@Autowired
+	private IDelayedService delayedService;
+	
 	private static Logger logger = LogManager.getLogger(ShopPayCallBack.class.getName());
+	
+	
+	//打印队列中的值
+	@RequestMapping(value="/getDelay",method=RequestMethod.GET)
+	public void getDelayQue(Model model){
+		if(delayedService!=null){
+			BaseDelayed<?>[] array = delayedService.getDelayQueue();
+			for (BaseDelayed<?> delayed : array) {
+				System.out.println(delayed.getUid() + "    " + delayed.getStartTime()+"   " + delayed.getValue() + "     " + delayed.getClassId());
+			}
+		}
+	}
+	
+	
+	
+	
 	
 	/**
 	 * 微信平台发起的回调方法，
@@ -74,7 +102,7 @@ public class ShopPayCallBack {
 	 */
 	@RequestMapping(value="/notify",method=RequestMethod.POST)
 	public void  weixinNotify(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws JDOMException, Exception{
-		 int user_guid = 2;
+		
 		  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		  Date date = new Date();
 	       //读取参数  
@@ -125,19 +153,22 @@ public class ShopPayCallBack {
 	               String out_trade_no = (String)packageParams.get("out_trade_no");  	                
 	               String total_fee = (String)packageParams.get("total_fee");                
 	        	   System.out.println(">>>>>回调中的tradeNo" + out_trade_no);
-	        	   Trade trade = tradeService.loadTrade(2,out_trade_no);
+	        	   
+	        	   int user_guid = Integer.valueOf(out_trade_no.substring(out_trade_no.indexOf("N") + 1));
+	        	   
+	        	   Trade trade = tradeService.loadTrade(user_guid,out_trade_no);
 	        	   trade.setStatus(1002);//已支付
 	        	   trade.setPay_type(1002);//微信支付
-	        	   Order order = orderService.loadOrderByOrderId(2,trade.getOrder_guid());
+	        	   Order order = orderService.loadOrderByOrderId(user_guid,trade.getOrder_guid());
 	        	   List<OrderDetail> orderDetailList = orderDetailService.loadOrderDetailList(user_guid, out_trade_no);
 	        	   int i=0;//用来判定订单里购买的是否都是服务，如果都是服务在生成激活码之后，订单显示为已收货，不用发货。
 	        	   for(OrderDetail orderDetail : orderDetailList){
 	        		  
-	        		   if(orderDetail.getAscription_guid()=="4001"||orderDetail.getAscription_guid()=="4002"
-	        				   ||orderDetail.getAscription_guid()=="4003"){
-	        				/*
-	   		   		  	 * 生成激活码
-	   		   		  	 */
+	        		   if(orderDetail.getAscription_guid()=="68a73783656e47ce806ccec6d00301a4"||orderDetail.getAscription_guid()=="78ec2b16c4554c4e9633ae7c3cece863"
+		    				   ||orderDetail.getAscription_guid()=="51409f91960848579d64bd5f103ea66a"){
+	        				
+	   		   		  	 /** 生成激活码*/
+	   		   		  	 
 	        			i++;
 	        			Commodity commodtity = commodityService.getcommodity(orderDetail.getAscription_guid());//拿到当前服务信息
 	   		   		  	Active active = new Active();
@@ -159,7 +190,7 @@ public class ShopPayCallBack {
 	        		   }
 	        		   orderDetail.setAppraise_status(1);//是否已经评价过了
 	        		   orderDetail.setAppraise_isnot(1);//评价有效
-	        		   orderDetailService.updateActive(2,orderDetail);
+	        		   orderDetailService.updateActive(user_guid,orderDetail);
 	        	   }
 	        	   //判断如果全是购买的服务则订单交易完成
 	        	   if(i==orderDetailList.size()){
@@ -169,14 +200,27 @@ public class ShopPayCallBack {
 	        	   }else{
 	        		   order.setTra_status(20);
 	        	   }
-	        	   logger.info("修改订单");
+	        	   
+	        	   logger.info("付款成功，修改订单的状态");
 	        	   order.setUpdate_time(date);
-	        	   orderService.updateOrder(2,order);
+	        	   orderService.updateOrder(user_guid,order);
 	        	   
 	        	   
-		   			/*
-		   			 * 将交易的状态改为已添加过的服务状态
-		   			 */
+	        	   
+			   		//立即付款 定时24小时关闭的订单从队列和redis删除
+				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+	        	   
+	        	   
+	        	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
+		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);
+		    	   delayedService.add(delayedOrder);//存到队列中
+		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
+	        
+		   		   
+		   		   
+		   			 /** 将交易的状态改为已添加过的服务状态*/
+		   			 
 		   		  	tradeService.updateTrade(trade);
 		   		  	
 	                System.out.println("支付成功");  
@@ -211,70 +255,109 @@ public class ShopPayCallBack {
 		public void loadCallback(HttpServletRequest request,HttpServletResponse response, HttpSession session){
 			System.out.println(">>>>>>>>>>>>>>>>>>>ali回调");
 			Date date = new Date();
-			int user_guid = 2;
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-dd-mm HH:mm:ss");
 			String tradeNo = request.getParameter("out_trade_no");
-			//String tradeNo = (String)session.getAttribute("tradeNo");
-			if(request.getParameter("trade_status").equals("TRADE_SUCCESS")){
-		 	    System.out.println("huitiaozhong >>>>>>>>>>>" + tradeNo);
-		 	   //int user_guid = Integer.valueOf(tradeNo.substring(tradeNo.indexOf("N")));
-		 	   Trade trade = tradeService.loadTrade(user_guid,tradeNo);
-	    	   trade.setStatus(1002);//已支付
-	    	   trade.setPay_type(1002);//微信支付
-	    	   Order order = orderService.loadOrderByOrderId(user_guid,trade.getOrder_guid());
-	    	   List<OrderDetail> orderDetailList = orderDetailService.loadOrderDetailList(user_guid, tradeNo);
-	    	   int i=0;//用来判定订单里购买的是否都是服务，如果都是服务在生成激活码之后，订单显示为已收货，不用发货。
-	    	   for(OrderDetail orderDetail : orderDetailList){
-	    		  
-	    		   if(orderDetail.getAscription_guid()=="4001"||orderDetail.getAscription_guid()=="4002"
-	    				   ||orderDetail.getAscription_guid()=="4003"){
-	    				/*
-			   		  	 * 生成激活码
-			   		  	 */
-	    			   	i++;
-	    			   	Commodity commodtity = commodityService.getcommodity(orderDetail.getAscription_guid());//拿到当前服务信息
-			   		  	Active active = new Active();
-			   		  	active.setActive_code(GuidGenerator.generate(16));
-			   		  	active.setActive_life(DateUtil.getAddTime(24, null));
-			   		  	active.setActive_statu(1);
-			   		  	active.setGuid(commodtity.getType());//设置服务类型
-			   		  	active.setService_guid(orderDetail.getAscription_guid());
-			   		  	active.setService_name(orderDetail.getProduct_name());
-			   		  	active.setService_number(orderDetail.getCount());
-			   		  	active.setStart_time(date);
-			   		  	active.setUser_guid(user_guid);
-			   		    orderDetail.setTra_status(30);//交易状态
-	    		   }else{
-	    			   orderDetail.setTra_status(20); //交易状态
-	    		   }
-	    		   orderDetail.setAppraise_status(1);//是否已经评价过了
-	    		   orderDetail.setAppraise_isnot(1);//评价有效
-	    		   orderDetailService.updateActive(2,orderDetail);
-	    	   }
-	    	   //判断如果全是购买的服务则订单交易完成
-	    	   if(i==orderDetailList.size()){
-	    		   order.setTra_status(30);
-	    		   order.setTrade_ok_time(date);
-	    		   order.setAppraise_status(1);
-	    	   }else{
-	    		   order.setTra_status(20);
-	    	   }
-	    	   logger.info("修改订单");
-	    	   order.setUpdate_time(date);
-	    	   orderService.updateOrder(2,order);
-	   			/*
-	   			 * 将交易的状态改为已添加过的服务状态
-	   			 */
-	   			tradeService.updateTrade(trade);
-	            System.out.println("支付成功");  
-					try {
-						response.getWriter().write("success"); //告诉支付宝通知已经推送成功
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		         System.out.println("支付成功");
+			
+			int user_guid = Integer.valueOf(tradeNo.substring(tradeNo.indexOf("N") + 1));
+			
+			Map<String, String> params1 = new HashMap<String, String>();
+
+			Map requestParams = request.getParameterMap();
+			
+			//对请求的参数进行再次封装
+			for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+				String name = (String) iter.next();
+				String[] values = (String[]) requestParams.get(name);
+				String valueStr = "";
+				for (int i = 0; i < values.length; i++) {
+					valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+				}
+				params1.put(name, valueStr);
 			}
+
+			// 支付的签名验证
+			boolean b = false;
+			try {
+				b = AlipaySignature.rsaCheckV1(params1, AppAlipayConfig.alipayPubliKey, "UTF-8", "RSA2");
+			} catch (AlipayApiException e1) {
+				logger.debug("签名验证出现异常");
+			}
+			
+			
+			if(b){//签名验证正确
+				if(request.getParameter("trade_status").equals("TRADE_SUCCESS")){
+			 	    System.out.println("huitiaozhong >>>>>>>>>>>" + tradeNo);
+			 	   Trade trade = tradeService.loadTrade(user_guid,tradeNo);
+		    	   trade.setStatus(1002);//已支付
+		    	   trade.setPay_type(1002);//微信支付
+		    	   Order order = orderService.loadOrderByOrderId(user_guid,trade.getOrder_guid());
+		    	   List<OrderDetail> orderDetailList = orderDetailService.loadOrderDetailList(user_guid, tradeNo);
+		    	   int i=0;//用来判定订单里购买的是否都是服务，如果都是服务在生成激活码之后，订单显示为已收货，不用发货。
+		    	   for(OrderDetail orderDetail : orderDetailList){
+		    		  
+		    		   if(orderDetail.getAscription_guid()=="68a73783656e47ce806ccec6d00301a4"||orderDetail.getAscription_guid()=="78ec2b16c4554c4e9633ae7c3cece863"
+		    				   ||orderDetail.getAscription_guid()=="51409f91960848579d64bd5f103ea66a"){
+		    				
+				   		  /*	 * 生成激活码*/
+				   		  	 
+		    			   	i++;
+		    			   	Commodity commodtity = commodityService.getcommodity(orderDetail.getAscription_guid());//拿到当前服务信息
+				   		  	Active active = new Active();
+				   		  	active.setActive_code(GuidGenerator.generate(16));
+				   		  	active.setActive_life(DateUtil.getAddTime(24, null));
+				   		  	active.setActive_statu(1);
+				   		  	active.setGuid(commodtity.getType());//设置服务类型
+				   		  	active.setService_guid(orderDetail.getAscription_guid());
+				   		  	active.setService_name(orderDetail.getProduct_name());
+				   		  	active.setService_number(orderDetail.getCount());
+				   		  	active.setStart_time(date);
+				   		  	active.setUser_guid(user_guid);
+				   		  	activeService.addActive(active);//添加激活码
+				   		    orderDetail.setTra_status(30);//交易状态
+		    		   }else{
+		    			   orderDetail.setTra_status(20); //交易状态
+		    		   }
+		    		   orderDetail.setAppraise_status(1);//是否已经评价过了
+		    		   orderDetail.setAppraise_isnot(1);//评价有效
+		    		   orderDetailService.updateActive(user_guid,orderDetail);
+		    	   }
+		    	   //判断如果全是购买的服务则订单交易完成
+		    	   if(i==orderDetailList.size()){
+		    		   order.setTra_status(30);
+		    		   order.setTrade_ok_time(date);
+		    		   order.setAppraise_status(1);
+		    	   }else{
+		    		   order.setTra_status(20);
+		    	   }
+		    	   logger.info("支付成功，修改订单状态为支付");
+		    	   order.setUpdate_time(date);
+		    	   orderService.updateOrder(user_guid,order);
+		    	   
+		    	   
+		    	    //立即付款 定时24小时关闭的订单从队列和redis删除
+				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+		    	   
+		    	   
+		    	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
+		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);
+		    	   delayedService.add(delayedOrder);//存到队列中
+		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
+		   		   
+		   			
+		   			 /** 将交易的状态改为已添加过的服务状态*/
+		   			 
+		   			tradeService.updateTrade(trade);
+						try {
+							response.getWriter().write("success"); //告诉支付宝通知已经推送成功
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+			         System.out.println("支付成功");
+				}
+			}
+			
+			
 		}
 		
 }
