@@ -12,18 +12,18 @@ public  class BaseDelayed<T> implements Delayed,Serializable{
 	
 	private int uid;
 	
+	private int classId;
 	
-
 	public BaseDelayed(){
 		
 	}
 	
-	public BaseDelayed(int timeout, T value,int uid){
+	public BaseDelayed(int timeout, T value,int uid,int classId){
 		System.out.println("baselayed进来了实例化"+startTime + "    " + timeout);
 		this.startTime = System.currentTimeMillis() + timeout*1000L;
-		//System.out.println("baselayed进来了过程"+getStartTime());
 		this.value = value;
 		this.uid = uid;
+		this.classId = classId;
 		System.out.println("baselayed结束"+startTime);
 	}
 
@@ -39,6 +39,14 @@ public  class BaseDelayed<T> implements Delayed,Serializable{
 	public int getUid() {
 		return uid;
 	}
+	
+	
+	
+	public int getClassId() {
+		return classId;
+	}
+	
+	
 	
 	@Override
 	public long getDelay(TimeUnit unit) {

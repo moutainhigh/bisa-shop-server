@@ -45,10 +45,6 @@ import com.bisa.hkshop.wqc.service.IPackageService;
 import com.bisa.hkshop.wqc.service.ITradeService;
 import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.zj.basic.utility.BaseDelayed;
-import com.bisa.hkshop.zj.basic.utility.DelayedService;
-import com.bisa.hkshop.zj.basic.utility.DelayedService.OnDelayedListener;
-import com.bisa.hkshop.zj.basic.utility.DelayedService.OnStartListener;
-import com.bisa.hkshop.zj.controller.OrderCloseTestController.DelayedOrder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -368,35 +364,7 @@ public class OrderController {
 						logger.error(user_guid+"添加订单失败"+orderN.getOrder_no());
 					}
 					order = orderN;
-					
-					//在这里添加延时队列进来,并且加入redis	
-					//现在加入delayQueque
-					DelayedService service = new DelayedService();
-					service.start(new OnStartListener(){
-						@Override
-						public void onStart() {
-							System.out.println("启动完成");
-						}
-					}, 
-					new OnDelayedListener(){
-						@Override
-						public <T extends BaseDelayed<?>> void onDelayedArrived(T delayed) {
-							System.out.println("[onDelayedArrived]"+delayed.toString());
-						}
-						
-					});
-					service.add(new DelayedOrder(86400,order.getOrder_no(),user_guid));
-					//现在加入redis
-					/*orderPayTimer.execute(new RedisCallback<Boolean>() {
-						public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-							String sms_key = "order_userguid" + order.getUser_guid();
-							//connection.setEx(sms_key.getBytes(), null, CacheUtity.toByteArray(order));
-							return true;
-						}
-					});*/
-					//在这里添加延时队列进来,并且加入redis结束
-			
-					
+									
 				}else{
 					return "500";
 				}

@@ -1,30 +1,25 @@
-package com.bisa.hkshop.zj.basic.utility;
+package com.bisa.hkshop.zj.service;
 
 import java.util.concurrent.DelayQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import com.bisa.hkshop.zj.basic.utility.BaseDelayed;
+import com.bisa.hkshop.zj.basic.utility.ThreadPoolUtil;
 
-public class DelayedService {
+@Component
+public class DelayedService  implements IDelayedService{
 	
-private static Logger log = LoggerFactory.getLogger(DelayedService.class);
+	private static Logger log = LoggerFactory.getLogger(DelayedService.class);
 	
     private boolean start ;     
     
-    private DelayQueue<BaseDelayed<?>> delayQueue = new DelayQueue<BaseDelayed<?>>();  
-    
-    //声明一个接口用于
-    public static interface OnDelayedListener{  
-        public <T extends BaseDelayed<?>> void onDelayedArrived(T delayed);  
-    }  
-    
-    public static interface OnStartListener{
-    	public void onStart();
-    }
+    private static DelayQueue<BaseDelayed<?>> delayQueue = new DelayQueue<BaseDelayed<?>>();  
     
     //匿名的内部类
-    public <T> void start(final OnStartListener onStartListener, final OnDelayedListener listener){  
+    public <T> void start(OnStartListener onStartListener,OnDelayedListener listener){  
         if(start){  
             return;  
         }  
