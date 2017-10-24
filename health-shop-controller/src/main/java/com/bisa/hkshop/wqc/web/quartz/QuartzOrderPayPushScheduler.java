@@ -1,9 +1,13 @@
 package com.bisa.hkshop.wqc.web.quartz;
+import java.text.ParseException;
+
 import org.osgi.service.component.annotations.Component;
+import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleTrigger;
+import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +22,7 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
 	
 	 private static final String JOB_NAME = "OrderAppraiseJob";
 	 private Scheduler scheduler;
+	 
 	 private boolean enabled = false;
 	 private boolean schedulerImplicitlyCreated = false;
 	 
@@ -66,14 +71,14 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
     
   
 
-
+/*
 	public long getOrderInterval() {
 		return OrderInterval;
 	}
 
 	public void setOrderInterval(long orderInterval) {
 		OrderInterval = orderInterval;
-	}
+	}*/
 
 	@Override
 	public boolean isEnabled() {
@@ -83,11 +88,8 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
 	@Override
 	public void enableSessionValidation() {
 		try {
-            SimpleTrigger trigger = new SimpleTrigger(getClass().getName(),
-                    Scheduler.DEFAULT_GROUP,
-                    SimpleTrigger.REPEAT_INDEFINITELY,
-                    OrderInterval);
-
+			
+			Trigger trigger=new CronTrigger("trigger_1", "tGroup1","0 0 24 * * ?");
             JobDetail detail = new JobDetail(JOB_NAME, Scheduler.DEFAULT_GROUP, OrderAppraiseJob.class);
             detail.getJobDataMap().put(OrderAppraiseJob.ORDER_MANAGER_KEY, orderDetailService);
             detail.getJobDataMap().put(OrderAppraiseJob.ORDER_TWO_KEY, orderService);
@@ -104,7 +106,10 @@ public class QuartzOrderPayPushScheduler implements QuartzOrderPushSchedulerInte
 
         } catch (SchedulerException e) {
            e.printStackTrace();
-        }
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -56,7 +56,7 @@ $(document).ready(function() {
        // var userId = $("input[name='userId']").val();
     		$.ajax({
  	        url: path + "user/upCart",
- 	        type: "post",
+ 	        type: "get",
  	        dataType: "text",
  	        async: false,
  	        data: {
@@ -131,7 +131,7 @@ $(document).ready(function() {
     //   var userId = $("input[name='userId']").val();
    		$.ajax({
 	        url: path + "user/upCart",
-	        type: "post",
+	        type: "get",
 	        dataType: "text",
 	        async: false,
 	        data: {

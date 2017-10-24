@@ -53,6 +53,8 @@ import com.google.gson.reflect.TypeToken;
 @Controller
 @RequestMapping("/a")
 public class OrderController {
+	@Autowired
+	private ICartService ICartService;
 
 	@Autowired
 	private IAddressService addressService;
@@ -141,7 +143,7 @@ public class OrderController {
 	
 	//从购物车过来结算
 	@RequestMapping(value="/commitOrder",method=RequestMethod.GET)
-	public String commitOrder(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo){
+	public String commitOrder(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo,HttpSession session){
 		
 		Order order;
 		Address address ;
@@ -364,6 +366,8 @@ public class OrderController {
 		model.addAttribute("price",order.getPrice());
 		model.addAttribute("orderId",order.getOrder_no());
 		model.addAttribute("address",address);
+		int cartnum=ICartService.selCartNum(user_guid);
+		session.setAttribute("cartNum", cartnum);
 		return "order/HK-payment";
 	}
 	

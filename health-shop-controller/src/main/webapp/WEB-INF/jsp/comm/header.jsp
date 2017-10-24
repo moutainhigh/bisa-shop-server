@@ -34,7 +34,8 @@
                        <a href="<%=request.getContextPath()%>/user/Cart">购物车(
                         <a class="col-333 find-cartNum" href="<%=request.getContextPath()%>/user/Cart"><%
                         		int cartNum=(int) session.getAttribute("cartNum");
-                        %><%=cartNum %></a>
+                        %><%=cartNum %>
+                        </a>
                         )
                         </a>  
                         </li>

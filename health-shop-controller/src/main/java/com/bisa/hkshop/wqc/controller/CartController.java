@@ -53,7 +53,7 @@ public class CartController {
 	
 	private  Logger logger =LogManager.getLogger(CartController.class);
 	@RequestMapping(value = "/addCart", method = RequestMethod.GET)
-	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{	
+	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo,HttpSession session) throws Exception{	
 		Date date=new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String packId=request.getParameter("add_packId");
@@ -215,11 +215,13 @@ public class CartController {
 					}
 				}
 			}
-				//return "success";
+				
+			 int cartNum=ICartService.selCartNum(user_guid);
+			 session.setAttribute("cartNum", cartNum);
 				return "redirect:/user/Cart";
 		}
 	@RequestMapping(value = "/Cart", method = RequestMethod.GET)
-	public String getCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+	public String getCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo,HttpSession session) throws Exception{
 		
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
@@ -243,12 +245,13 @@ public class CartController {
 			model.addAttribute("listcart", listcart);
 			//model.addAttribute("listPackdetails", listPackdetails);
 			model.addAttribute("mapPackdetails", map);
-		
+			int cartnum=ICartService.selCartNum(user_guid);
+			 session.setAttribute("cartNum", cartnum);
 		return "shopping/cart";
 }
 	@RequestMapping(value = "/delCart", method = RequestMethod.GET)
 	@ResponseBody
-	public String delCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+	public String delCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo,HttpSession session) throws Exception{
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
 		String deleteId=request.getParameter("deleteId");
@@ -261,11 +264,13 @@ public class CartController {
 			result="false";
 			 logger.error(user_guid+"删除购物车失败单号："+deleteId);  
 		}
+		int cartnum=ICartService.selCartNum(user_guid);
+		session.setAttribute("cartNum", cartnum);
 		return result;
 	}
 	@RequestMapping(value = "/upCart", method = RequestMethod.GET)
 	@ResponseBody
-	public String upCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
+	public String upCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo,HttpSession session) throws Exception{
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
 		String num=request.getParameter("num");
@@ -281,6 +286,8 @@ public class CartController {
 				result="error";
 				logger.error(user_guid+"修改购物车失败单号："+product.getCart_number());  
 			}
+		int cartnum=ICartService.selCartNum(user_guid);
+		session.setAttribute("cartNum", cartnum);
 		return result;
 	}
 }

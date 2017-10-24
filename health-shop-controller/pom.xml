@@ -30,6 +30,19 @@
 			<artifactId>health-shop-client</artifactId>
 		</dependency> -->
 		
+<!-- 		
+		<dependency>
+    		<groupId>org.quartz-scheduler</groupId>
+    		<artifactId>quartz</artifactId>
+    		<version>2.3.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz-jobs</artifactId>
+		    <version>2.3.0</version>
+		</dependency> -->
+		
+		
 		<dependency>
 			<groupId>com.bisa.health</groupId>
 			<version>0.0.1-SNAPSHOT</version>
