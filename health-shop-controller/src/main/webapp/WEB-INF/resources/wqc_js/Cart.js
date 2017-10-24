@@ -9,7 +9,7 @@ $(document).ready(function() {
 		var cart_product=1;
 		$.ajax({
 			url : path + "user/addCart",
-			type : "post",
+			type : "get",
 			dataType : "text",
 			async : false,
 			data : {
@@ -28,7 +28,7 @@ $(document).ready(function() {
 			var deleteId=$("input[name='deleteId']").val();	
 			$.ajax({
 				url : path + "user/delCart",
-				type : "post",
+				type : "get",
 				dataType : "text",
 				async : false,
 				data : {

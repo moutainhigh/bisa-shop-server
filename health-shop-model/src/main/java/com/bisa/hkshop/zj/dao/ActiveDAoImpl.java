@@ -15,7 +15,7 @@ public class ActiveDAoImpl extends BaseDao<Active> implements IActiveDAo{
 	
 	@Override
 	public Pager<Active> loadActiveByUser(int user_guid) {
-			String sql = "select * from s_active where user_guid=? order by active_statu";
+			String sql = "select * from s_active where user_guid=?";
 			return super.findBySql(sql, new Object[]{user_guid}, Active.class, true);
 	}
 
@@ -62,7 +62,7 @@ public class ActiveDAoImpl extends BaseDao<Active> implements IActiveDAo{
 	@Override
 	public Boolean updateActive(Active active) {
 		try{
-			String sql = "update Active  s_active set s_active.active_code=?,s_active.active_life=?,"
+			String sql = "update Active s_active set s_active.active_code=?,s_active.active_life=?,"
 					+ "s_active.active_statu=?,s_active.active_time=?,s_active.guid=?,s_active.service_guid=?,"
 					+ "s_active.service_name=?,s_active.service_number=?,s_active.start_time=?"
 					+ "where s_active.user_guid=? s_active.id=?";

@@ -1,11 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
+<%@ page language="java"  pageEncoding="UTF-8"%>
+<%@ page import="com.bisa.health.model.SystemContext" %>
+<%@ include file="../comm/tag.jsp" %>
+<%  String menuType="active_list"; %>
+  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 
 <head>
+	<base href="<%=basePath%>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- necessary -->
@@ -27,7 +29,7 @@
 </head>
 
 <body>
-   <jsp:include page="/jsp/head.jsp"></jsp:include>
+   <%@ include file="../comm/header.jsp" %>
     <div class="wrap clear">
         <div class="container pl-0 pr-0">
             <div class="clear">
@@ -38,43 +40,16 @@
             </div>
         </div>
         <div class="clear full-w">
-            <img class="full-w" src="<%=request.getContextPath() %>/resources/images/news/HK_NewsIndex/banner.jpg" alt="">
+            <img class="full-w" src="<%=request.getContextPath() %>/resources/img/news/HK_NewsIndex/banner.jpg" alt="">
         </div>
         <div class="container pl-0 pr-0 mt-30 clear bg-f5f5f5 pt-30 pb-70 mb-60">
-            <div class="col-sm-3 pl-30 pr-20">
-                <div class="clear bg-white pd-40-10-ipad">
-                    <p class="mt-10 mb-10 col-212121 f-30 line-h-40 cur-d">
-                        订单中心
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-40 mb-20 cur-p hovecol-309DE2 col-active">
-                        我的订单
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        评价晒单
-                    </p>
-                    <p class="mt-30 mb-30 col-212121 f-30 line-h-40 cur-d">
-                        个人中心
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        我的个人中心
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        充值服务
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        收货地址
-                    </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2">
-                        账号安全
-                    </p>
-                </div>
-            </div>
+            <%@ include file="../user/comm/menu.jsp" %>
             <div class="clear col-sm-9 pr-30 pl-0">
                 <div class="clear bg-white pb-280 plr-50-10-ipad">
                     <p class="pt-40-20-ipad f-50-40-ipad col-757575 line-h-70-50-ipad pb-20">
                       	  服务管理
                       	 <span class="clear pull-right dis-ib f-14 col-757575 pl-20 pr-20 h-30 line-h-30 bor bor-col-ccc cur-p mt-20">
-                          		 <a href="<%=request.getContextPath()%>/l/active_service"> 激活码激活 </a>
+                          		 <a href="<%=request.getContextPath()%>/a/active_service"> 激活码激活 </a>
                          </span>
                     </p>
                     <div class="clear bor bor-b bor-col-f5f5f5">
@@ -133,7 +108,7 @@
                                                 ${activeList.active_code}
                                             </span>
                                             <c:if test="${activeList.active_statu==1}">
-                                            <button class="pull-right h-30 line-h-30 pl-30 pr-30 bor-none bg-76bd27 hovebg-89D92E col-white ml-10" onclick="window.location.href='<%=request.getContextPath()%>/l/active_service?active_code=${activeList.active_code}'">
+                                            <button class="pull-right h-30 line-h-30 pl-30 pr-30 bor-none bg-76bd27 hovebg-89D92E col-white ml-10" onclick="window.location.href='<%=request.getContextPath()%>/a/active_service?active_code=${activeList.active_code}'">
                                                	 激活服务
                                             </button>
                                             </c:if>
@@ -147,20 +122,22 @@
                         </div>
                     </div>
                     </c:forEach>
-                     <jsp:include page="/jsp/pager.jsp">
-						<jsp:param name="url" value="active_list"/>
-						<jsp:param name="totalRecord" value="${pager.total}"/>
-					 </jsp:include>
+                    <div class="clear full-w text-center f-16 col-333 mt-20">
+                            <jsp:include page="../comm/pager.jsp">
+        						<jsp:param name="url" value="a/active_list"/>
+        						<jsp:param name="totalRecord" value="${pager.total}"/>
+					       </jsp:include>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <jsp:include page="/jsp/foot.jsp"></jsp:include>
-	
+    <%@ include file="../comm/footer.jsp" %> 
 	<script src="<%=request.getContextPath() %>/resources/js/comm/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/user/HK_Appraise.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/wqc_js/user/comm/menu.js"></script>
 	
 </body>
 

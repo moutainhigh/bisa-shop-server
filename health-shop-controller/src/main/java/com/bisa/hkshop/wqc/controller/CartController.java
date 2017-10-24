@@ -246,7 +246,7 @@ public class CartController {
 		
 		return "shopping/cart";
 }
-	@RequestMapping(value = "/delCart", method = RequestMethod.POST)
+	@RequestMapping(value = "/delCart", method = RequestMethod.GET)
 	@ResponseBody
 	public String delCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
 		User user =userInfo.getUser();
@@ -263,7 +263,7 @@ public class CartController {
 		}
 		return result;
 	}
-	@RequestMapping(value = "/upCart", method = RequestMethod.POST)
+	@RequestMapping(value = "/upCart", method = RequestMethod.GET)
 	@ResponseBody
 	public String upCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo) throws Exception{
 		User user =userInfo.getUser();

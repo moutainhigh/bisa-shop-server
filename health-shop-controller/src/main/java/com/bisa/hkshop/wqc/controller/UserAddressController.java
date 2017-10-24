@@ -35,6 +35,6 @@ public class UserAddressController {
 		model.addAttribute("addressList", addressList);
 		List<Area> areaList = areaService.getAreaList();
 		model.addAttribute("areaList", areaList);
-		return "user/userAddress";
+		return "user/userAddressManager";
 	}
 }

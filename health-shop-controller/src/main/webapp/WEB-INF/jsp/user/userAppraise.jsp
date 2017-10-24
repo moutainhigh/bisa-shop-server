@@ -188,6 +188,7 @@
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/user/HK_Appraise.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/wqc_js/product/Uappraise.js"></script>
+	<script src="<%=request.getContextPath() %>/resources/wqc_js/user/comm/menu.js"></script>
 </body>
 
 </html>

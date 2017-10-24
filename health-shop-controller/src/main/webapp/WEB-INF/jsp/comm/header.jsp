@@ -32,12 +32,9 @@
                         <li class="pull-left pr-5 col-333 cur-d hovecol-black">
                         <i class="icon-shopping-cart pr-5 f-14 col-333 hovecol-black"></i>
                        <a href="<%=request.getContextPath()%>/user/Cart">购物车(
-                        <a class="col-333 find-cartNum" href="<%=request.getContextPath()%>/user/Cart">0<%-- <%
-                       
-            			User user=(User) subject.getSession().getAttribute("user");
-            			int user_guid=user.getUser_guid();
-            			/* int cartNum=ICartService.selCartNum(user_guid); */
-                        %> --%></a>
+                        <a class="col-333 find-cartNum" href="<%=request.getContextPath()%>/user/Cart"><%
+                        		int cartNum=(int) session.getAttribute("cartNum");
+                        %><%=cartNum %></a>
                         )
                         </a>  
                         </li>

@@ -26,7 +26,7 @@ import com.bisa.hkshop.model.Active;
 import com.bisa.hkshop.zj.service.IActiveService;
 
 @Controller
-@RequestMapping("/active")
+@RequestMapping("/a")
 //@RequestMapping("/l")
 public class ActiveController {
 	
@@ -45,17 +45,17 @@ public class ActiveController {
 	@RequestMapping(value="/active_list",method=RequestMethod.GET)
 	public String loadActivePager(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
 		User user = userInfoDto.getUser();
-		int pager_offset=0;
+		/*int pager_offset=0;
 		String offset=request.getParameter("pager.offset");
 		if(offset!=null) {
 			pager_offset=Integer.parseInt(offset);
 		}
 		if(pager_offset!=0) {
 			SystemContext.setPageOffset(pager_offset);
-		}
-			SystemContext.setPageSize(6);
-			/*SystemContext.setSort("start_time");
-			SystemContext.setOrder("desc");*/
+		}*/
+			//SystemContext.setPageSize(6);
+			SystemContext.setSort("start_time");
+			SystemContext.setOrder("desc");
 		
 		Pager<Active> pager = activeService.loadActiveByUser(user.getUser_guid());
 		System.out.println(">>>>>>>>>total:"+pager.getTotal());
@@ -63,7 +63,7 @@ public class ActiveController {
 		return "active/hk_activeList";
 	}
 	
-	//跳转到 激活服务页面
+	//跳转到激活服务页面
 	@RequestMapping(value="/active_service",method=RequestMethod.GET)
 	public String active_service(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
 		//取出悉心账号

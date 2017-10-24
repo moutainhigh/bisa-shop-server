@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <jsp:include page="/jsp/head.jsp"></jsp:include>
+    <%@ include file="../comm/header.jsp" %>
     <div class="wrap clear bg-f5f5f5">
         <div class="clear full-w bg-white">
             <div class="container pl-0 pr-0">
@@ -64,7 +64,7 @@
             </div>
         </div>
     </div>
-    <jsp:include page="/jsp/foot.jsp"></jsp:include>
+      <%@ include file="../comm/footer.jsp" %> 
 
 	 <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

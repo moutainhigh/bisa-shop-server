@@ -86,9 +86,10 @@ public class OrderController {
 	/*
 	 * 跳转到下订单页面
 	 */
-	@RequestMapping(value="orderIndex",method=RequestMethod.POST)
-	public String orderIndex(Model model,HttpServletRequest request){
-		
+	@RequestMapping(value="orderIndex",method=RequestMethod.GET)
+	public String orderIndex(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfo){
+		User user =userInfo.getUser();
+		int user_guid=user.getUser_guid();
 		/*
 		 * 加个判断用户是否登录
 		 */
@@ -120,7 +121,7 @@ public class OrderController {
 		
 		
 		//取出username
-		List<Address> addressList = addressService.loadAddressList(2);
+		List<Address> addressList = addressService.loadAddressList(user_guid);
 		Gson gson = new Gson();
 		//System.out.println(">>>>>>>>>>gson:" + data);
 		model.addAttribute("productStr",str);
@@ -189,6 +190,7 @@ public class OrderController {
 				//处理订单信息，添加订单中的具体的商品细节，并且删除购物车中的物品
 				for(Cart orderCar : car){
 					price = price + orderCar.getTotal();
+					System.out.println("price"+price);
 					OrderDetail orderDetail = new OrderDetail();
 					//添加订单细节表
 					orderDetail.setOrder_detail_guid(GuidGenerator.generate());

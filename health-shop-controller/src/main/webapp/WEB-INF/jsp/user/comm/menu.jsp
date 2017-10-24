@@ -16,7 +16,7 @@
                 <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 user-munu user-center">
                     我的个人中心
                 </p>
-                <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 user-munu user-active">
+                <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2  <% if("userActive".equals(menuType)){ %>col-active<% } %> user-munu user-active">
                     激活服务
                 </p>
                 <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 <% if("userAddress".equals(menuType)){ %>col-active<% } %> user-munu user-address">

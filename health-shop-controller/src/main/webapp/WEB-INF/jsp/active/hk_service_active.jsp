@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <jsp:include page="/jsp/head.jsp"></jsp:include>
+  <%@ include file="../comm/header.jsp" %>
      <div class="wrap clear bg-f5f5f5">
         <div class="clear full-w bg-white">
             <div class="container pl-0 pr-0">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="clear full-w">
-            <img class="full-w" src="<%=request.getContextPath() %>/resources/images/news/HK_NewsIndex/banner.jpg" alt="">
+            <img class="full-w" src="<%=request.getContextPath() %>/resources/img/news/HK_NewsIndex/banner.jpg" alt="">
         </div>
         <div class="clear full-w">
             <div class="container clear pt-30 pb-70 mt-30 mb-60">
@@ -63,7 +63,7 @@
                             <p class="f-20 col-666">
                                 请输入需要激活服务的悉心APP帐号（手机号、邮箱、微信ID）
                             </p>
-                            <form class="servicact-validate clear" action="<%=request.getContextPath() %>/l/active_commit" method="post">
+                            <form class="servicact-validate clear" action="<%=request.getContextPath() %>/a/active_commit" method="post">
                                 <div class="clear full-w">
                                     <div class="clear col-sm-6 plr-15-5-ipad">
                                         <input type="text" class="form-control mt-20 radius-0 activate-code" name="active_code" value="${active_code }" placeholder="请输入您的激活码">
@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-   <jsp:include page="/jsp/foot.jsp"></jsp:include>
+     <%@ include file="../comm/footer.jsp" %> 
     <script src="<%=request.getContextPath()%>/resources/js/comm/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/comm/jquery.validate.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/comm/jquery.validate.messages_zh.js"></script>

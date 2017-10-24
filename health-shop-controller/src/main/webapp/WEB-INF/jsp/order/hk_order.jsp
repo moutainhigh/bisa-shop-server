@@ -257,7 +257,7 @@
                         </div>
                     </div>
                 </div>
-                    <form action="<%=request.getContextPath() %>/a/commitOrder" method="post">
+                    <form action="<%=request.getContextPath() %>/a/commitOrder" method="get">
                             <div class="clear mt-5 bg-white pd-20">
                                 <div class="col-sm-9 clear pl-10 pr-10 cur-d conanorder-tips-showmsg">
                                     <p class="f-16 family-h line-h-20">
@@ -341,7 +341,7 @@
                         修改收货地址
                         <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/img/net_shopping/close.png" alt="">
                     </div>
-                    <form class="clear pos-r shippingaddress-revise" action="">
+                    <form class="clear pos-r shippingaddress-revise" action="" >
                         <div class="clear pd-40">
                         	<input type="hidden" class="show-input-shipping-value inshaddrnum" value="" id="shaddrnum">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r">

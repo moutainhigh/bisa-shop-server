@@ -36,8 +36,7 @@ $(document).ready(function() {
     	 
     });
     $(".user-active").click(function() {
-        //$(".user-munu").hide();
-        //$(".user-active").show();
+    	window.location.href=path+"/a/active_list";
     });
     $(".user-address").click(function() {
     	window.location.href=path+"/user/userAddress";

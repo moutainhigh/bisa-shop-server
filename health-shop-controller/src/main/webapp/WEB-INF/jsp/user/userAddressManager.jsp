@@ -1,12 +1,13 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page import="com.bisa.health.model.SystemContext" %>
 <%@ include file="../comm/tag.jsp" %>
-<%  String menuType="userAddressManager"; %>
+<%  String menuType="userAddress"; %>
 
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
+    <base href="<%=basePath%>">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,8 +59,8 @@
                     </p>
                     <div class="clear bor bor-b bor-col-f5f5f5">
                     </div>
-                    <c:forEach var="addressList" item="${addressList}">
 	                    <div class="clear pt-30">
+                    	<c:forEach var="addressList" items="${addressList}">
 	                        <div class="clear col-sm-4 pl-5 pr-5 pt-10 pb-10 address-tips cur-d">
 	                            <div class="clear bor bor-col-7a7a7a pd-10 min-h-160 address-tips-in">
 	                                <p class="f-18 col-252525 text-line-1">
@@ -73,7 +74,7 @@
 	                                </p>
 	                                <p class="clear min-h-20">
 	                                    <span class="pull-right col-309DE2 f-14 mt-3 cur-p dis-n address-tips-edit">修改</span>
-	                                     <input type="hidden" class="add-name" value=" ${addressList.addr_num}">
+	                                     <input type="hidden" class="add-addr_num" value="${addressList.addr_num}">
 	                                    <input type="hidden" class="add-name" value=" ${addressList.name}">
 	                                    <input type="hidden" class="add-phone" value="${addressList.tel}">
 	                                    <input type="hidden" class="add-area" value="${addressList.county}">
@@ -82,6 +83,7 @@
 	                                </p>
 	                            </div>
 	                        </div>
+	                       
 	                    </c:forEach> 
                         <div class="clear col-sm-4 pl-5 pr-5 pt-10 pb-10 address-tipsv2">
                             <div class="clear bor bor-col-7a7a7a pd-10 min-h-160 cur-p address-tipsv2-in add-address-control">
@@ -110,45 +112,45 @@
                     添加收货地址
                     <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/img/net_shopping/close.png" alt="">
                 </div>
-                <form class="clear pos-r shippingaddress-add" action="">
+                 <form class="clear pos-r shippingaddress-add" action="">
                     <div class="clear pd-40">
                         <div class="clear full-w">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入收货人姓名">
-                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shname">
+                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shname" id="shname">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">姓名</div>
                             </div>
                             <div class="col-xs-6 text-center pl-10 pr-0 pos-r">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入收货人手机号">
-                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shphone">
+                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shphone" id="shphone">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">手机号</div>
                             </div>
                         </div>
                         <div class="clear full-w">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r mt-15">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入您的电子邮件">
-                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shemail">
+                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shemail" id="shemail">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">电子邮件</div>
                             </div>
                             <div class="col-xs-6 text-center pl-10 pr-0 pos-r mt-15">
-                            	<c:forEach var="areaList" item="${areaList}">
-	                                <select class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" name="sharea">
-	                                  <option value="${areaList.areaname}">${areaList.areaname}</option>
+	                                <select class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" name="sharea" id="sharea">
+		                            	<c:forEach var="areaList" items="${areaList}">
+			                                  <option value="${areaList.area_name}">${areaList.area_name}</option>
+			                            </c:forEach>
 	                                </select>
-	                            </c:forEach>
                             </div>
                         </div>
                         <div class="col-xs-12 text-center mt-15 pl-0 pr-0 pos-r">
                             <input type="hidden" class="show-input-shipping-value" value="请输入您的详细地址">
-                            <textarea rows="2" cols="20" class="full-w bor line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shaddress"></textarea>
+                            <textarea rows="2" cols="20" class="full-w bor line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shaddress" id="shaddress"></textarea>
                             <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">详细地址</div>
                         </div>
                     </div>
                     <div class="clear full-w h-75 bg-f5f5f5 mt-10 pt-20 pb-20 line-h-35 text-center">
-                        <button type="submit" class="full-h w-150 mr-10 bor-none bg-309DE2 hovbg-2D90CF col-white">保存</button>
+                        <button type="submit" class="full-h w-150 mr-10 bor-none bg-309DE2 hovbg-2D90CF col-white add-useraddress">保存</button>
                         <button type="reset" class="full-h w-150 ml-10 bor-none bg-9a9a9a hovbg-666 col-white">重置</button>
                     </div>
-                </form>
+                 </form> 
             </div>
         </div>
     </div>
@@ -164,33 +166,34 @@
                     <div class="clear pd-40">
                         <div class="full-w clear">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r">
+                                <input class="inreaddr_num" type="hidden" value="" id="upaddrnum">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入收货人姓名">
-                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrename" type="text" name="shname">
+                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrename" type="text" name="shname" id="upname">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">姓名</div>
                             </div>
                             <div class="col-xs-6 text-center pl-10 pr-0 pos-r">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入收货人手机号">
-                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrephone" type="text" name="shphone">
+                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrephone" type="text" name="shphone" id="upphone">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">手机号</div>
                             </div>
                         </div>
                         <div class="clear full-w">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r mt-15">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入您的电子邮件">
-                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inreemail" type="text" name="shemail">
+                                <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inreemail" type="text" name="shemail" id="upemail">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">电子邮件</div>
                             </div>
                             <div class="col-xs-6 text-center pl-10 pr-0 pos-r mt-15">
-                            	<c:forEach var="areaList" item="${areaList}">
-	                                <select class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrearea" name="sharea">
-	                                   <option value="${areaList.areaname}">${areaList.areaname}</option>
+	                                <select class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrearea" name="sharea" id="uparea">
+		                            	<c:forEach var="areaList" items="${areaList}">
+			                                   <option value="${areaList.area_name}">${areaList.area_name}</option>
+			                            </c:forEach>
 	                                </select>
-	                            </c:forEac>
                             </div>
                         </div>
                         <div class="col-xs-12 text-center mt-15 pl-0 pr-0 pos-r">
                             <input type="hidden" class="show-input-shipping-value" value="请输入您的详细地址">
-                            <textarea rows="2" cols="20" class="full-w bor line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inreaddress" type="text" name="shaddress"></textarea>
+                            <textarea rows="2" cols="20" class="full-w bor line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inreaddress" type="text" name="shaddress" id="upaddress"></textarea>
                             <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">详细地址</div>
                         </div>
                     </div>
@@ -229,6 +232,7 @@
     <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/user/HK_AddressManage.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/wqc_js/user/comm/menu.js"></script>
 
 </body>
 
