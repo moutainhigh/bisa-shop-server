@@ -27,7 +27,6 @@ import com.bisa.hkshop.zj.service.IActiveService;
 
 @Controller
 @RequestMapping("/a")
-//@RequestMapping("/l")
 public class ActiveController {
 	
 	@Autowired

@@ -61,7 +61,7 @@
                      <div class="clear">
                         <div class="clear mt-40">
                             <p class="h-50 line-h-50 ${activeList.active_statu==1?'bg-76bd27 f-16 col-white':'bor bor-col-b0b0b0 f-16 col-333' } pl-30 pr-30">
-                                HC3A250 悉心心电记录仪 悉心铃服务 12个月（每月最多可呼救200次）
+                               		${activeList.service_name }
                             </p>
                         </div>
                         <div class="clear bor bor-t-none bor-col-76bd27">

@@ -85,79 +85,24 @@ public class OrderAppraiseJob implements Job{
 										 				}
 										 			}
 										 		}
-										 		logger.info("订单:"+od.getOrder_no()+"收货了");
-										 	
+										 		
+										 	   //如果收货成功记得从redis删除order		
+												orderRedis.delOrderRedis(od.getOrder_no());
+												delayedService.remove(BaseDelayed.class, od.getOrder_no());
+												//七天自动收货了之后，添加当前订单的评价30天后失效
+										    	BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,od.getOrder_no(),od.getUser_guid(),30);
+										    	delayedService.add(delayedOrder);//存到队列中
+										   		orderRedis.addOrderRedis(delayedOrder);//存到redis中
+										   		logger.info("订单:"+od.getOrder_no()+"收货了");
+										   		
 										}
 									}
 								}
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								logger.info(od.getOrder_no()+"定时器查询收货订单:异常");
 							}
-					//记得从redis删除order		
-					 orderRedis.delOrderRedis(od.getOrder_no());
-					 
-						//七天自动收货了之后，添加当前订单的评价30天后失效
-			    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,od.getOrder_no(),od.getUser_guid(),30);
-			    	   delayedService.add(delayedOrder);//存到队列中
-			   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
-					 
-					break;
-				case 24:
-					
-					Order orderTwo = orderService.loadOrderByOrderId(delayed.getUid(),
-							(String) delayed.getValue());
-					orderTwo.setTra_status(50);
-					orderTwo.setEffective_statu(2);
-					boolean i = orderService.updateOrder(orderTwo.getUser_guid(), orderTwo);
-					if (i) {
-						System.out.println("订单关闭成功" + orderTwo.getOrder_no());
-					} else {
-						System.out.println("订单关闭失败" + orderTwo.getOrder_no());
-					}
-					List<OrderDetail> OrdertailList = orderDetailService
-							.loadOrderDetailList(orderTwo.getUser_guid(), orderTwo.getOrder_no());
-					for (OrderDetail OrderDetail : OrdertailList) {
-						OrderDetail.setTra_status(50);
-						OrderDetail.setAppraise_status(2);
-						int b = orderDetailService.updateActive(orderTwo.getUser_guid(), OrderDetail);
-						if (b > 0) {
-							System.out.println("订单详情关闭成功" + OrderDetail.getOrder_detail_guid());
-						} else {
-							System.out.println("订单详情关闭失败" + OrderDetail.getOrder_detail_guid());
-						}
-					}
-					//记得从redis删除order		
-					 orderRedis.delOrderRedis(orderTwo.getOrder_no());
-					break;
-				case 30:
-					 Order order=orderService.loadOrderByOrderId(delayed.getUid(), (String)delayed.getValue());
-					 List<OrderDetail> orderDetailList = orderDetailService.loadOrderDetailList(order.getUser_guid(), order.getOrder_no());
-					 
-					 for(OrderDetail orderDetail : orderDetailList){
-						 orderDetail.setAppraise_status(2);
-						 int isnot = orderDetailService.updateActive(order.getUser_guid(), orderDetail);
-						 if(isnot>0){
-								logger.error(order.getUser_guid()+"修改订单详情成功为无效，订单号为"+orderDetail.getOrder_detail_guid());
-							}else{
-								logger.error(order.getUser_guid()+"修改订单详情失败为无效，订单号为"+orderDetail.getOrder_detail_guid());
-							}
-					 }
-					 
-					 order.setAppraise_status(2);
-					 boolean orderis_not=orderService.updateOrder(order.getUser_guid(),order);
-					 if(orderis_not){
-							logger.error(order.getUser_guid()+"修改订单成功为无效，订单号为"+order.getOrder_no());
-					 }else{
-						logger.error(order.getUser_guid()+"修改订单失败为无效，订单号为"+order.getOrder_no());
-					 }
-					 
-					//记得从redis删除order	
-					orderRedis.delOrderRedis(order.getOrder_no());
-					 
 					break;
 				}
-				
 			}
 		}
 	}
