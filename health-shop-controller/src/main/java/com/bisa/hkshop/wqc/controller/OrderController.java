@@ -435,9 +435,11 @@ public class OrderController {
 			 
 			 
 			//取消订单从队列和redis删除
-	    	delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
-	   		orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
-			 
+			HashMap<String,BaseDelayed<String>> map = orderRedis.getOrderRedis();
+			if(map.containsKey(order.getOrder_no())){
+		    	delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+		   		orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+			}
 			List<OrderDetail> OrderDetail=orderDetailService.loadOrderDetailList(user_guid, order_no);
 			for(OrderDetail od:OrderDetail) {
 				od.setTra_status(50);
