@@ -78,7 +78,7 @@ public class UserOrderController {
 
 
 				Pager<Order> orderList3=null;
-				orderList3=iUserOrderService.seltra_status4(user_guid, 2);
+				orderList3=iUserOrderService.seltra_status4(user_guid,2);
 				long oListnum2=orderList3.getTotal();
 				model.addAttribute("oListnum2", oListnum2);
 				 
@@ -123,7 +123,7 @@ public class UserOrderController {
 			model.addAttribute("listordertails", map);
 			//查询其他的状态
 			Pager<Order> orderList3=null;
-			orderList3=iUserOrderService.seltra_status4(user_guid, 2);
+			orderList3=iUserOrderService.seltra_status4(user_guid,2);
 			long oListnum2=orderList3.getTotal();
 			model.addAttribute("oListnum2", oListnum2);
 			 
@@ -152,7 +152,7 @@ public class UserOrderController {
 				SystemContext.setSort("start_time");   
 				SystemContext.setOrder("desc");
 				Pager<Order> orderList3=null;
-				orderList3=iUserOrderService.seltra_status4(user_guid, 2);
+				orderList3=iUserOrderService.seltra_status4(user_guid,2);
 				long oListnum2=orderList3.getTotal();
 				model.addAttribute("oListnum2", oListnum2);
 				model.addAttribute("orderList3", orderList3);
@@ -217,7 +217,7 @@ public class UserOrderController {
 		model.addAttribute("oListnum1", oListnum1);
 
 		Pager<Order> orderList3=null;
-		orderList3=iUserOrderService.seltra_status4(user_guid, 2);
+		orderList3=iUserOrderService.seltra_status4(user_guid,2);
 		long oListnum2=orderList3.getTotal();
 		model.addAttribute("oListnum2", oListnum2);
 		return "user/userOrder";
@@ -256,7 +256,7 @@ public class UserOrderController {
 		
 		model.addAttribute("address",address);
 		
-		return "user/userOrderDetail";
+		return "/user/userOrderDetail";
 		
 	}
 }

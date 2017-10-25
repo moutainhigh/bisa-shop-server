@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,6 +78,7 @@ public class ShopPayController {
 		System.out.println("zhuangtai>>>>>>>>>>>>" + trade.getStatus());
 		if(trade.getStatus()==1002){
 			map.put("hadpay","1001"); //支付成功跳转到支付成功的页面
+		
 		}
 		return map;
 	}
@@ -294,7 +296,9 @@ public class ShopPayController {
 	 * 支付成功，进行添加服务
 	 */
 	@RequestMapping(value="/success",method=RequestMethod.GET)
-	public String loadsuccess(){
+	public String loadsuccess(HttpServletRequest request,Model model){
+		String orderno=request.getParameter("order_no");
+		model.addAttribute("order_no", orderno);
 		return "order/success";
 	}
     

@@ -452,7 +452,7 @@ public class OrderController {
 					 logger.error(user_guid+"修改订单详情失败"+order.getOrder_no()); 
 				 }
 			}
-			return "order/success";
+			return "redirect:/user/order_detail?order_no="+order.getOrder_no();
 		}
 
 }

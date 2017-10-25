@@ -56,7 +56,7 @@
                     </div>
                     <!-- 状态一 -->
                     
-                    <c:forEach items="${pager.datas }" var="activeList">
+                    <c:forEach items="${active.datas }" var="activeList">
                     
                      <div class="clear">
                         <div class="clear mt-40">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="clear bor bor-t-none bor-col-76bd27">
                             <div class="clear col-sm-2 pt-30 pb-30 pl-15 pr-15 text-center">
-                                <img class="" src="<%=request.getContextPath() %>/resources/images/user/Appraise/appraise-portraitv1.png" alt="">
+                                <img class="" src="<%=request.getContextPath() %>/resources/img/user/Service/service-prov1.png" alt="">
                             </div>
                             <div class="clear col-sm-5 pt-30 pb-10">
                                 <p class="f-16 col-333 line-h-20">
@@ -108,11 +108,11 @@
                                                 ${activeList.active_code}
                                             </span>
                                             <c:if test="${activeList.active_statu==1}">
-                                            <button class="pull-right h-30 line-h-30 pl-30 pr-30 bor-none bg-76bd27 hovebg-89D92E col-white ml-10" onclick="window.location.href='<%=request.getContextPath()%>/a/active_service?active_code=${activeList.active_code}'">
+                                            <button class="pull-right h-30 line-h-30 pl-30 pr-30 bor-none bg-76bd27 hovebg-89D92E col-white ml-10" onclick="window.location.href='<%=request.getContextPath()%>/a/active_service2?active_code=${activeList.active_code}&serviceName=${activeList.service_name }'">
                                                	 激活服务
                                             </button>
                                             </c:if>
-                                            <a class="pull-right f-12 col-757575 hovcol-76bd27 t-nonehove" href="#">
+                                            <a class="pull-right f-12 col-757575 hovcol-76bd27 t-nonehove" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=51409f91960848579d64bd5f103ea66a">
                                                	 了解 悉心铃服务 更多细节
                                             </a>
                                         </p>
@@ -123,9 +123,9 @@
                     </div>
                     </c:forEach>
                     <div class="clear full-w text-center f-16 col-333 mt-20">
-                            <jsp:include page="../comm/pager.jsp">
+                           <jsp:include page="../comm/pager.jsp">
         						<jsp:param name="url" value="a/active_list"/>
-        						<jsp:param name="totalRecord" value="${pager.total}"/>
+        						<jsp:param name="items" value="${active.total}"/>
 					       </jsp:include>
                     </div>
                 </div>

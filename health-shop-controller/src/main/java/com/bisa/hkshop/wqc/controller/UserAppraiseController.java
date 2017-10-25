@@ -98,7 +98,7 @@ public class UserAppraiseController {
 				SystemContext.setSort("start_time");
 				SystemContext.setOrder("desc");
 				SystemContext.setPageSize(6);
-				Pager<OrderDetail> listordertails=IUserOrderDetailService.page_userdetails(user_guid,0,30,1);
+				Pager<OrderDetail> listordertails=IUserOrderDetailService.page_isAppraise(user_guid,0,30);
 				SystemContext.setSort("start_time");
 				SystemContext.setOrder("desc");
 				model.addAttribute("odpingjia",listordertails);
