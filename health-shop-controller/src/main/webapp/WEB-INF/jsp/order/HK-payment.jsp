@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+	<base href="<%=basePath%>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- necessary -->
@@ -42,6 +43,7 @@
             <div class="clear pt-20 pl-20 pr-20 bg-f5f5f5 pb-45 full-w cur-d">
                 <div class="clear bg-white">
                     <div class="clear col-sm-2 pt-60 pb-60">
+                    	<input type="hidden" id="order_no" value="${orderId}">
                         <img class="clear img-80 mg-0-auto dis-b" src="<%=request.getContextPath() %>/resources/img/net_shopping/produ-right.png" alt="">
                     </div>
                     <div class="col-sm-7 pt-40 pb-40">
@@ -49,7 +51,7 @@
                             订单提交成功，请选择付款方式。
                         </p>
                         <p class="f-16 family-h col-252525 line-h-30 pt-10">
-                            请在 <span class="col-309DE2">2小时</span> 内完成支付，超时后将取消订单
+                            请在 <span class="col-309DE2">24小时</span> 内完成支付，超时后将取消订单
                         </p>
                         <p class="f-16 family-h col-252525 line-h-30 pt-10">
                             收货信息：<span class="col-252525">${address.address }</span>
@@ -164,10 +166,13 @@
  	           url:'<%=request.getContextPath()%>/l/hadPay',
  	           dataType:'json',
  	           async: false,
- 	           success:function(json){
- 	               if(json.hadpay == "1001"){ //处理自己的业务
- 	                   window.location.href = '<%=request.getContextPath()%>/l/success';
- 	               }
+ 	           success:function(json){ 
+ 	        	  var path=$("base").attr("href");
+ 	        	   	var orderId=$("#orderId").val();
+		 	               if(json.hadpay== "1001"){ //处理自己的业务
+		 	                   window.location.href =path+"/a/success?order_no="+orderId;
+		 	               }
+ 	        	   }
  	        		//设置轮询了多少次停止轮询
  	              if(i==6){
  	           	  	window.clearInterval(c);

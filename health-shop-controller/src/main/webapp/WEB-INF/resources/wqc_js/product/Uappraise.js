@@ -66,8 +66,8 @@ $(document).ready(function() {
 				url : path+"l/shopping/addUappraise?productId="+productId+"&pager.offset="+(pageOffset-1)*1+"&pageNum="+pageNum, // 目标地址
 				success : function(data) {
 					var path1=$("base").attr("href");
-					console.log(path1);
-					console.log(data);
+					//console.log(path1);
+					//console.log(data);
 					var datas = eval(data);
 						for(var key in datas){
 							url=key;

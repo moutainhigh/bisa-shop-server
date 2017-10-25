@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	/*激活服务部分的校验*/
-    $.validator.setDefaults({
+    /*$.validator.setDefaults({
         submitHandler: function() {
             alert("提交事件!");
         }
-    });
+    });*/
     $().ready(function() {
         // 在键盘按下并释放及提交后验证提交表单
         $(".servicact-validate").validate({
@@ -29,8 +29,15 @@ $(document).ready(function() {
                 },
                 appidagain: {
                     required: "请再次输入悉心APP帐号",
-                    equalTo: "两次账号输入不一致",
-                },
+                    equalTo: "两次账号输入不一致"
+                }
+            },
+            submitHandler: function() {
+            	  var path=$("base").attr("href");
+            	var active_code=$("input[name='appcode']").val();
+            	var account1=$("input[name='appid']").val();
+            	var account2=$("input[name='appidagain']").val();
+                window.location.href=path+"/a/active_commit?active_code="+active_code+"&account1="+account1+"&account2="+account2;
             }
         });
     });

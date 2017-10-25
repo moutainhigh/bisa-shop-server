@@ -92,6 +92,13 @@ public class IUserOrderDetailServiceImpl implements IUserOrderDetailService{
 		// TODO Auto-generated method stub
 		return  IUserOrderDetailDao.Appraiselist(user_guid, appraise_isnot,tra_status,appraise_status);
 	}
+
+	@Override
+	@DataRouting("user_guid")
+	public Pager<OrderDetail> page_isAppraise(@DataGuid("user_guid") int user_guid, int appraise_isnot, int tra_status) {
+		// TODO Auto-generated method stub
+		return  IUserOrderDetailDao.page_isAppraise(user_guid, appraise_isnot,tra_status);
+	}
 	
 	
 
