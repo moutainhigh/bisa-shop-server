@@ -15,11 +15,11 @@ public class IAppraiseDaoImpl extends BaseDao<Appraise> implements IAppraiseDao{
 		// TODO Auto-generated method stub
 		String sql="insert into s_appraise(id,appraise_no,product_number,main_picture,price,"
 				+ "title,appraise_one,appraise_two,appraise_degree,appraise_status,user_guid,"
-				+ "insert_time,update_time,order_detail_guid,userImg,product_guid) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "insert_time,update_time,order_detail_guid,userImg,product_guid,nick_name) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		return super.addObjectBySql(sql, new Object[] {appraise.getId(),appraise.getAppraise_no(),appraise.getProduct_number(),appraise.getMain_picture(),
 				appraise.getPrice(),appraise.getTitle(),appraise.getAppraise_one(),appraise.getAppraise_two(),appraise.getAppraise_degree(),
 				appraise.getAppraise_status(),appraise.getUser_guid(),appraise.getInsert_time(),appraise.getUpdate_time(),
-				appraise.getOrder_detail_guid(),appraise.getUserImg(),appraise.getProduct_guid()});
+				appraise.getOrder_detail_guid(),appraise.getUserImg(),appraise.getProduct_guid(),appraise.getNick_name()});
 	}
 
 	@Override
@@ -35,11 +35,11 @@ public class IAppraiseDaoImpl extends BaseDao<Appraise> implements IAppraiseDao{
 		// TODO Auto-generated method stub
 		String sql="update s_appraise a set a.id=?,a.appraise_no=?,a.product_number=?,a.main_picture=?,a.price=?,a.title=?"
 				+ "a.appraise_one=?,a.appraise_two=?,a.appraise_degree=?,a.appraise_status=?,a.user_guid=?,a.insert_time=?,a.update_time=?,"
-				+ "a.order_detail_guid=?,a.userImg=?,a.product_guid=?";
+				+ "a.order_detail_guid=?,a.userImg=?,a.product_guid=?,a.nick_name=?";
 		return super.delUpObjectBySql(sql, new Object[] {appraise.getId(),appraise.getAppraise_no(),appraise.getProduct_number(),appraise.getMain_picture(),
 				appraise.getPrice(),appraise.getTitle(),appraise.getAppraise_one(),appraise.getAppraise_two(),appraise.getAppraise_degree(),
 				appraise.getAppraise_status(),appraise.getUser_guid(),appraise.getInsert_time(),appraise.getUpdate_time(),
-				appraise.getOrder_detail_guid(),appraise.getUserImg(),appraise.getProduct_guid()});
+				appraise.getOrder_detail_guid(),appraise.getUserImg(),appraise.getProduct_guid(),appraise.getNick_name()});
 	}
 
 	@Override

@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java"  pageEncoding="UTF-8"%>
+<%@ include file="../comm/tag.jsp" %>
+
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
+	<base href="<%=basePath%>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- necessary -->
@@ -56,7 +58,7 @@
                                 </span>
                             </p>
                             <p class="text-center">
-                                <button class="bor-none pl-40 pr-40 col-white bg-309DE2 hovbg-2D90CF h-35 line-h-35" type="">返回个人中心</button>
+                                <button class="bor-none pl-40 pr-40 col-white bg-309DE2 hovbg-2D90CF h-35 line-h-35" type="button" onclick="window.location.href='<%=request.getContextPath() %>/user/userOrder'">返回个人中心</button>
                             </p>
                         </div>
                     </div>

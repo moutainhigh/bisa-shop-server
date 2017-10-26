@@ -102,7 +102,6 @@ public class ShopPayCallBack {
 	 */
 	@RequestMapping(value="/notify",method=RequestMethod.POST)
 	public void  weixinNotify(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws JDOMException, Exception{
-		
 		  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		  Date date = new Date();
 	       //读取参数  
@@ -201,11 +200,15 @@ public class ShopPayCallBack {
 	        		   order.setTra_status(20);
 	        	   }
 	        	   
-	        	   logger.info("付款成功，修改订单的状态");
+	        	  
 	        	   order.setUpdate_time(date);
-	        	   orderService.updateOrder(user_guid,order);
-	        	   
-	        	   
+	        	   boolean b = orderService.updateOrder(user_guid,order);
+	        	   if(b){
+		        	   logger.info("付款成功，修改订单的状态");
+		        	   logger.info("付款成功，同意售后政策和免责条款");
+	        	   }else{
+	        		   logger.info("付款成功，修改订单的状态失败");
+	        	   }
 	        	   
 			   		//立即付款 定时24小时关闭的订单从队列和redis删除
 				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
@@ -329,15 +332,19 @@ public class ShopPayCallBack {
 		    	   }else{
 		    		   order.setTra_status(20);
 		    	   }
-		    	   logger.info("支付成功，修改订单状态为支付");
 		    	   order.setUpdate_time(date);
-		    	   orderService.updateOrder(user_guid,order);
-		    	   
+		    	  boolean boo =  orderService.updateOrder(user_guid,order);
+		    	   if(boo){
+		        	   logger.info("付款成功，修改订单的状态");
+		        	   logger.info("付款成功，同意售后政策和免责条款");
+	        	   }else{
+	        		   logger.debug("付款成功，修改订单的状态失败");
+	        	   }
 		    	   
 		    	    //立即付款 定时24小时关闭的订单从队列和redis删除
 				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
 				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
-		    	   
+		    	    
 		    	   
 		    	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
 		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);

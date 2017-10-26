@@ -23,6 +23,7 @@ import com.bisa.health.model.User;
 import com.bisa.health.routing.annotation.CurrentUser;
 import com.bisa.health.routing.entity.RoutingTable;
 import com.bisa.hkshop.model.Active;
+import com.bisa.hkshop.wqc.basic.dao.StringUtil;
 import com.bisa.hkshop.zj.service.IActiveService;
 
 @Controller
@@ -44,37 +45,54 @@ public class ActiveController {
 	@RequestMapping(value="/active_list",method=RequestMethod.GET)
 	public String loadActivePager(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
 		User user = userInfoDto.getUser();
-		/*int pager_offset=0;
+		int user_guid=user.getUser_guid();
 		String offset=request.getParameter("pager.offset");
-		if(offset!=null) {
+		int pager_offset=0;
+		if(StringUtil.isNotEmpty(offset)) {
 			pager_offset=Integer.parseInt(offset);
 		}
 		if(pager_offset!=0) {
 			SystemContext.setPageOffset(pager_offset);
-		}*/
-			//SystemContext.setPageSize(6);
-			SystemContext.setSort("start_time");
-			SystemContext.setOrder("desc");
+		}
+		SystemContext.setPageSize(1);
 		
-		Pager<Active> pager = activeService.loadActiveByUser(user.getUser_guid());
-		System.out.println(">>>>>>>>>total:"+pager.getTotal());
-		model.addAttribute("pager",pager);
+		SystemContext.setSort("start_time");   
+		SystemContext.setOrder("desc");
+		Pager<Active> active = activeService.loadActiveByUser(user_guid);
+		System.out.println(">>>>>>>>>total:"+active.getTotal());
+		model.addAttribute("active",active);
 		return "active/hk_activeList";
 	}
 	
 	//跳转到激活服务页面
 	@RequestMapping(value="/active_service",method=RequestMethod.GET)
-	public String active_service(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
+	public String active_service1(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
 		//取出悉心账号
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		User user = userInfoDto.getUser();
 		String active_code = request.getParameter("active_code");
-		model.addAttribute("user",user.getUser_guid());
+		model.addAttribute("user",user.getUsername());
 		model.addAttribute("active_code",active_code);
 		return "active/hk_service_active";
 	}
 	
+	//跳转到激活服务2页面
+	@RequestMapping(value="/active_service2",method=RequestMethod.GET)
+	public String active_service2(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfoDto){
+		//取出悉心账号
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		User user = userInfoDto.getUser();
+		String active_code = request.getParameter("active_code");
+		String serviceName = request.getParameter("serviceName");
+		model.addAttribute("serviceName",serviceName);
+		model.addAttribute("user",user.getUsername());
+		model.addAttribute("active_code",active_code);
+		return "active/hk_service_active2";
+	}
+	
+	
 	//激活服务
-	@RequestMapping(value="/active_commit",method=RequestMethod.POST)
+	@RequestMapping(value="/active_commit",method=RequestMethod.GET)
 	public String active_commit(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfoDto){
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -131,7 +149,7 @@ public class ActiveController {
 				serviceDtl.setCount(active.getService_number()*200); //平安钟可以发送的短信
 			}else{
 				serviceDtl.setFinished_time(sdf.format(date));
-				serviceDtl.setCount(active.getService_number());//平安钟可以发送的短信
+				serviceDtl.setCount(active.getService_number());//
 			}
 			
 			serviceDetailService.addServiceDetail(serviceDtl);

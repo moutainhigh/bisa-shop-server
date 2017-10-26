@@ -24,7 +24,7 @@
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/logout">退出</a></li>              
                          <%}else{ %>
                                          
-                        <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/register">注册</a></li>
+                      <%--   <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/l/register">注册</a></li> --%>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="${pageContext.request.contextPath}/login">登录</a></li>
                         <% } %>
                         <li class="pull-left pr-10"><a class="col-333 hovecol-black" href="">简</a></li>

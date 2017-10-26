@@ -2,7 +2,6 @@
 <%@ include file="../comm/tag.jsp" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <base href="<%=basePath%>">
     <meta charset="utf-8">
@@ -20,9 +19,9 @@
     <link href="<%=request.getContextPath() %>/resources/css/comm/base.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resources/css/index/index.css" rel="stylesheet">
     <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
     <style>
     label.error {
         display: block;
@@ -32,10 +31,9 @@
     }
     </style>
 </head>
-
 <body>
-	<%@ include file="../comm/header.jsp" %> 
-   <div class="wrap">
+    <%@ include file="../comm/header.jsp" %>
+    <div class="wrap">
         <div class="container pl-0 pr-0">
             <div class="clear">
                 <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 bg-f5f5f5 cur-d ">
@@ -54,12 +52,12 @@
                     <div class="clear full-w conanorder-main">
                         <!-- 循环部分 -->
                         <!-- 一 -->
-                    <c:if test="${addressList != null}">
-                        <c:forEach items="${addressList }" var="address" varStatus="statu">
+                        <c:if test="${addressList != null}">
+                            <c:forEach items="${addressList }" var="address" varStatus="statu">
                                 <div class="clear col-sm-3 pd-15-5-ipad conanorder-block">
                                     <div class="clear pd-15-5-ipad bor bor-col-7A7A7A ${statu.index==0?'bor-col-activate':'' } min-h-190-160-ipad conanorder-tips">
                                         <p class="line-h-30-20-ipad f-18 family-h">
-                                            <input type="hidden" class="conanorder-tips-addr_number" id="shaddr_num" value="${address.addr_num}"/>
+                                            <input type="hidden" class="conanorder-tips-addr_number" id="shaddr_num" value="${address.addr_num}" />
                                             <input type="hidden" value="${statu.index}" id="pre" />
                                             <span class="col-252525 conanorder-tips-name text-line-1">${address.name}</span>
                                         </p>
@@ -76,8 +74,8 @@
                                         </p>
                                     </div>
                                 </div>
-                        </c:forEach>
-                    </c:if>
+                            </c:forEach>
+                        </c:if>
                         <!-- 循环结束 -->
                         <!-- 添加收货地址 -->
                         <div class="clear col-sm-3 pd-15-5-ipad">
@@ -119,84 +117,82 @@
                         <span class="f-18 col-252525 family-h dis-ib mr-30">
                             商品清单
                         </span>
-                        <a class="f-14 col-252525 mr-10 family-h dis-ib pull-right t-nonehove hovecol-309DE2" href="<%=request.getContextPath() %>/l/Cart">
+                        <a class="f-14 col-252525 mr-10 family-h dis-ib pull-right t-nonehove hovecol-309DE2" href="<%=request.getContextPath() %>/user/Cart">
                             返回购物车 >
                         </a>
                     </div>
-                <c:if test="${not empty productList.records}">
-                <c:forEach items="${productList.records }" var="list">
-                    <div class="clear full-w pt-10 pb-10">
-                        <div class="clear col-sm-7 line-h-30 h-30 pl-0 pr-0">
-                            <img class="img-30" src="${list.cartimg}" alt="">
-                            <span class="f-14 family-h col-252525">${list.cartdir }</span>
-                        </div>
-                        <div class="clear col-sm-5  pl-0 pr-0">
-                            <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
-                                <span class="f-14 family-h col-252525">
-                                     ${list.cartprice}
-                                </span>
-                                <span class="f-14 family-h col-252525">
-                                    ×
-                                </span>
-                                <span class="f-14 family-h col-252525">
-                                    ${list.cartnum }
-                                </span>
+                    <c:if test="${not empty productList.records}">
+                        <c:forEach items="${productList.records }" var="list">
+                            <div class="clear full-w pt-10 pb-10">
+                                <div class="clear col-sm-7 line-h-30 h-30 pl-0 pr-0">
+                                    <img class="img-30" src="${list.cartimg}" alt="">
+                                    <span class="f-14 family-h col-252525">${list.cartdir }</span>
+                                </div>
+                                <div class="clear col-sm-5  pl-0 pr-0">
+                                    <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
+                                        <span class="f-14 family-h col-252525">
+                                             ${list.cartprice}
+                                        </span>
+                                        <span class="f-14 family-h col-252525">
+                                            ×
+                                        </span>
+                                        <span class="f-14 family-h col-252525">
+                                            ${list.cartnum }
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
+                                        <span class="f-14 family-h col-252525">
+                                        有货
+                                    </span>
+                                    </div>
+                                    <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
+                                        <span class="f-14 family-h col-309DE2">
+                                              ${list.cartprice*list.cartnum}
+                                        </span>
+                                        <span class="f-14 family-h col-309DE2">
+                                        元
+                                    </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
-                                <span class="f-14 family-h col-252525">
-                                    有货
-                                </span>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${not empty productList.product}">
+                        <c:forEach items="${productList.product }" var="list">
+                            <div class="clear full-w pt-10 pb-10">
+                                <div class="clear col-sm-7 line-h-30 h-30 pl-0 pr-0">
+                                    <img class="img-30" src="${list.cartimg}" alt="">
+                                    <span class="f-14 family-h col-252525">${list.cartdir }</span>
+                                </div>
+                                <div class="clear col-sm-5  pl-0 pr-0">
+                                    <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
+                                        <span class="f-14 family-h col-252525">
+                                             ${list.cartprice}
+                                        </span>
+                                        <span class="f-14 family-h col-252525">
+                                            ×
+                                        </span>
+                                        <span class="f-14 family-h col-252525">
+                                            ${list.cartnum }
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
+                                        <span class="f-14 family-h col-252525">
+                                            有货
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
+                                        <span class="f-14 family-h col-309DE2">
+                                              ${list.cartprice*list.cartnum}
+                                        </span>
+                                        <span class="f-14 family-h col-309DE2">
+                                            元
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
-                                <span class="f-14 family-h col-309DE2">
-                                      ${list.cartprice*list.cartnum}
-                                </span>
-                                <span class="f-14 family-h col-309DE2">
-                                    元
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach> 
-               </c:if>
-               
-               <c:if test="${not empty productList.product}">
-                <c:forEach items="${productList.product }" var="list">
-                    <div class="clear full-w pt-10 pb-10">
-                        <div class="clear col-sm-7 line-h-30 h-30 pl-0 pr-0">
-                            <img class="img-30" src="${list.cartimg}" alt="">
-                            <span class="f-14 family-h col-252525">${list.cartdir }</span>
-                        </div>
-                        <div class="clear col-sm-5  pl-0 pr-0">
-                            <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
-                                <span class="f-14 family-h col-252525">
-                                     ${list.cartprice}
-                                </span>
-                                <span class="f-14 family-h col-252525">
-                                    ×
-                                </span>
-                                <span class="f-14 family-h col-252525">
-                                    ${list.cartnum }
-                                </span>
-                            </div>
-                            <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
-                                <span class="f-14 family-h col-252525">
-                                    有货
-                                </span>
-                            </div>
-                            <div class="col-sm-4 line-h-30 h-30 pl-0 pr-0">
-                                <span class="f-14 family-h col-309DE2">
-                                      ${list.cartprice*list.cartnum}
-                                </span>
-                                <span class="f-14 family-h col-309DE2">
-                                    元
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach> 
-               </c:if>
-               
+                        </c:forEach>
+                    </c:if>
                     <div class="clear full-w pt-20 pb-20 bor bor-t bor-col-B2B2B2">
                         <div class="clear col-sm-3 pull-right pr-0 pl-0">
                             <div class="col-sm-6 text-right h-20 line-h-20 pr-0 pl-0">
@@ -257,35 +253,35 @@
                         </div>
                     </div>
                 </div>
-                    <form action="<%=request.getContextPath() %>/a/commitOrder" method="get">
-                            <div class="clear mt-5 bg-white pd-20">
-                                <div class="col-sm-9 clear pl-10 pr-10 cur-d conanorder-tips-showmsg">
-                                    <p class="f-16 family-h line-h-20">
-                                    	<input type="hidden" class="conanorder-tips-showmsg-addr_number" id="addr_num" name="addr_num">
-                                        <span class="col-252525 conanorder-tips-showmsg-name">
-                                            
-                                        </span>
-                                        <span class="col-252525 pl-10 conanorder-tips-showmsg-phone">
-                                            
-                                        </span>
-                                    </p>
-                                    <p class="f-16 family-h line-h-20">
-                                        <span class="col-252525 conanorder-tips-showmsg-address">
-                                            
-                                        </span>
-                                        <span class="f-14 col-309DE2 hovecol-309DE2 t-nonehove main-order-tips-alter">修改</span>
-                                    </p>
-                                    <input type="hidden" class="conanorder-tips-showmsg-emal" value="987654321@qq.com">
-                                    <input type="hidden" class="conanorder-tips-showmsg-about" value="1234">
-                                    <input type="hidden" name="productList" value='${productStr}'>
-                                </div>
-                                <div class="col-sm-3 clear pl-0 pr-0">
-                                    <button class="full-w h-40 line-h-40 col-white f-14 family-h text-center bor-none bg-309DE2 hovbg-2D90CF">
-                                        立即下单
-                                    </button>
-                                </div>
-                            </div>
-                    </form>
+                <form action="<%=request.getContextPath() %>/a/commitOrder" method="get">
+                    <div class="clear mt-5 bg-white pd-20">
+                        <div class="col-sm-9 clear pl-10 pr-10 cur-d conanorder-tips-showmsg">
+                            <p class="f-16 family-h line-h-20">
+                                <input type="hidden" class="conanorder-tips-showmsg-addr_number" id="addr_num" name="addr_num">
+                                <span class="col-252525 conanorder-tips-showmsg-name">
+                                
+                            </span>
+                                <span class="col-252525 pl-10 conanorder-tips-showmsg-phone">
+                                
+                            </span>
+                            </p>
+                            <p class="f-16 family-h line-h-20">
+                                <span class="col-252525 conanorder-tips-showmsg-address">
+                                
+                            </span>
+                                <span class="f-14 col-309DE2 hovecol-309DE2 t-nonehove main-order-tips-alter cur-p">修改</span>
+                            </p>
+                            <input type="hidden" class="conanorder-tips-showmsg-emal" value="">
+                            <input type="hidden" class="conanorder-tips-showmsg-about" value="">
+                            <input type="hidden" name="productList" value='${productStr}'>
+                        </div>
+                        <div class="col-sm-3 clear pl-0 pr-0">
+                            <button class="full-w h-40 line-h-40 col-white f-14 family-h text-center bor-none bg-309DE2 hovbg-2D90CF tijiao-anniu">
+                                立即下单
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- 弹出层 -->
@@ -300,7 +296,7 @@
                     <form class="clear pos-r shippingaddress-add" action="">
                         <div class="clear pd-40">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r">
-                                <input type="hidden" class="show-input-shipping-value" value="请输入收货人姓名" >
+                                <input type="hidden" class="show-input-shipping-value" value="请输入收货人姓名">
                                 <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shname" id="name">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">姓名</div>
                             </div>
@@ -326,7 +322,7 @@
                             </div>
                         </div>
                         <div class="clear full-w h-75 bg-f5f5f5 mt-10 pt-20 pb-20 line-h-35 text-center">
-                            <button  class="full-h w-150 mr-10 bor-none bg-309DE2 hovbg-2D90CF col-white" id="addAddress">保存</button>
+                            <button class="full-h w-150 mr-10 bor-none bg-309DE2 hovbg-2D90CF col-white" id="addAddress">保存</button>
                             <button type="reset" class="full-h w-150 ml-10 bor-none bg-9a9a9a hovbg-666 col-white">重置</button>
                         </div>
                     </form>
@@ -341,11 +337,10 @@
                         修改收货地址
                         <img class="pos-a t-20 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/img/net_shopping/close.png" alt="">
                     </div>
-                    <form class="clear pos-r shippingaddress-revise" action="" >
+                    <form class="clear pos-r shippingaddress-revise" action="">
                         <div class="clear pd-40">
-                        	<input type="hidden" class="show-input-shipping-value inshaddrnum" value="" id="shaddrnum">
+                            <input type="hidden" class="show-input-shipping-value inshaddrnum" value="" id="shaddrnum">
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r">
-                                
                                 <input type="hidden" class="show-input-shipping-value" value="请输入修改后的收货人姓名">
                                 <input class="full-w bor h-36 line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inrename" type="text" name="shname" id="shname">
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">姓名</div>
@@ -372,7 +367,7 @@
                             </div>
                         </div>
                         <div class="clear full-w h-75 bg-f5f5f5 mt-10 pt-20 pb-20 line-h-35 text-center">
-                            <button  class="full-h w-150 mr-10 bor-none bg-309DE2 hovbg-2D90CF col-white" id="updateAddresspost">保存</button>
+                            <button class="full-h w-150 mr-10 bor-none bg-309DE2 hovbg-2D90CF col-white" id="updateAddresspost">保存</button>
                             <button type="button" class="full-h w-150 ml-10 bor-none bg-9a9a9a hovbg-666 col-white close-mod">取消</button>
                         </div>
                     </form>
@@ -401,14 +396,14 @@
             </div>
         </div>
     </div>
-	<%@ include file="../comm/footer.jsp" %> 
+    <%@ include file="../comm/footer.jsp" %>
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.validate.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.validate.messages_zh.js"></script>
     <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/ctrl/layer/layer.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/shopping/HK_Order.js"></script>
-	<script src="<%=request.getContextPath() %>/resources/wqc_js/order/order.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/wqc_js/order/order.js"></script>
 </body>
-
 </html>

@@ -14,16 +14,8 @@ $(document).ready(function() {
     $(document).click(function() {
         $('.mainsearchinput').fadeOut();
     });
-/*确认订单页面校验部分*/
-  /*  $.validator.setDefaults({
-        submitHandler: function(form) {
-           // alert("提交事件!");
-           console.log(111111);
-        }
-    });
-  */
     $().ready(function() {
-        // 在键盘按下并释放及提交后验证提交表单
+        // 在键盘按下并释放及提交后验证提交表单，校验部分在内部
         $(".shippingaddress-add").validate({
             rules: {
                 shname: {
@@ -55,9 +47,10 @@ $(document).ready(function() {
                     email: "请输入正确的电子邮件地址"
                 }
             },
-                submitHandler: function() {
-                    addAddress();
-                }
+            submitHandler: function() {
+                /*跳添加方法*/
+                addAddress();
+            }
         });
         $(".shippingaddress-revise").validate({
             rules: {
@@ -90,10 +83,10 @@ $(document).ready(function() {
                     email: "请输入正确的电子邮件地址"
                 }
             },
-                submitHandler: function() {
-                    updateAddress();
-                }
-           
+            submitHandler: function() {
+                /*跳更新方法*/
+                updateAddress();
+            }
         });
     });
     /*确认订单页面页面控制部分js*/
@@ -109,6 +102,7 @@ $(document).ready(function() {
             $(strtips).hide();
         }
     }
+    /*点击显示更多地址的隐藏和显示*/
     $(".conanorder-moreaddress").click(function() {
         if (conblocklength < 8) {
             for (var i = 0; i < conblocklength; i++) {
@@ -123,7 +117,6 @@ $(document).ready(function() {
         };
         $(".conanorder-moreaddress").hide();
         $(".conanorder-moreaddresspullup").show();
-
     });
     $(".conanorder-moreaddresspullup").click(function() {
         for (var i = 3; i < conblocklength; i++) {
@@ -133,6 +126,33 @@ $(document).ready(function() {
         $(".conanorder-moreaddress").show();
         $(".conanorder-moreaddresspullup").hide();
     });
+    /*页面加载完毕后执行初始地址赋值,判断是否有收货地址*/
+    if (conblocklength > 0) {
+        var cfirstname = $(".conanorder-tips-name:eq(0)").text();
+        var cfirstphone = $(".conanorder-tips-phone:eq(0)").text();
+        var cfirstaddress = $(".conanorder-tips-address:eq(0)").text();
+        var cfirstemal = $(".conanorder-tips-emal:eq(0)").val();
+        var cfirstabout = $(".conanorder-tips-about:eq(0)").val();
+        var cfirstaddnum = $(".conanorder-tips-addr_number:eq(0)").val();
+        $(".conanorder-tips-showmsg-name").text(cfirstname);
+        $(".conanorder-tips-showmsg-phone").text(cfirstphone);
+        $(".conanorder-tips-showmsg-address").text(cfirstaddress);
+        $(".conanorder-tips-showmsg-emal").val(cfirstemal);
+        $(".conanorder-tips-showmsg-about").val(cfirstabout);
+        $(".conanorder-tips-showmsg-addr_number").val(cfirstaddnum);
+    }else {
+        $(".conanorder-tips-showmsg-name").text("请添加收货地址！");
+        /*弹窗提示部分*/
+        $(".main-order-tips-alter").hide();
+        $(".tijiao-anniu").attr("disabled","true");
+        $(".tijiao-anniu").css("cursor","not-allowed");
+        $(".tijiao-anniu").css("opacity","0.5");
+        $(".tijiao-anniu").removeClass("hovbg-2D90CF");
+        layer.alert('请添加收货地址。', {
+            icon: 0,
+            title: '收货地址为空',
+        })
+    };
     /*鼠标移动*/
     $(".conanorder-tips").mouseenter(function() {
         $(this).addClass("bor-col-309DE2");
@@ -174,25 +194,6 @@ $(document).ready(function() {
         $(this).find("i").addClass("col-252525");
         $(this).find("i").removeClass("col-white");
     });
-    /*页面加载完毕后执行初始地址赋值*/
-    var cphonelength = $(".conanorder-tips-phone").length
-    if (cphonelength > 0) {
-        var cfirstname = $(".conanorder-tips-name:eq(0)").text();
-        var cfirstphone = $(".conanorder-tips-phone:eq(0)").text();
-        var cfirstaddress = $(".conanorder-tips-address:eq(0)").text();
-        var cfirstemal = $(".conanorder-tips-emal:eq(0)").val();
-        var cfirstabout = $(".conanorder-tips-about:eq(0)").val();
-        var cfirstaddnum = $(".conanorder-tips-addr_number:eq(0)").val();
-        $(".conanorder-tips-showmsg-name").text(cfirstname);
-        $(".conanorder-tips-showmsg-phone").text(cfirstphone);
-        $(".conanorder-tips-showmsg-address").text(cfirstaddress);
-        $(".conanorder-tips-showmsg-emal").val(cfirstemal);
-        $(".conanorder-tips-showmsg-about").val(cfirstabout);
-        $(".conanorder-tips-showmsg-addr_number").val(cfirstaddnum);
-
-    } else {
-        $(".conanorder-tips-showmsg-name").text("请添加收货地址！");
-    }
     /*鼠标点击收货地址发生的变化*/
     $(".conanorder-tips").click(function() {
         $(".conanorder-tips").removeClass("bor-col-activate");
@@ -205,7 +206,7 @@ $(document).ready(function() {
         //这里添加address编号
         var caddr_number = $(this).find(".conanorder-tips-addr_number").val();
         //console.log(addr_number);
-		$(".conanorder-tips-showmsg-addr_number").val(caddr_number);
+        $(".conanorder-tips-showmsg-addr_number").val(caddr_number);
         $(".conanorder-tips-showmsg-name").text(cname);
         $(".conanorder-tips-showmsg-phone").text(cphone);
         $(".conanorder-tips-showmsg-address").text(caddress);
@@ -229,7 +230,6 @@ $(document).ready(function() {
         $(this).siblings(".show-div-shipping").animate({ 'top': '-6px', 'font-size': '12px' }, 300);
         setTimeout(function() { thispoint.attr("placeholder", shipplaceholder) }, 300);
     });
-
     $(".show-input-shipping").focusout(function() {
         var shipinputval = $(this).val();
         if (shipinputval == "" || undefined || null || NaN) {
@@ -282,9 +282,9 @@ $(document).ready(function() {
         $(".inreaddress").val(caddress);
         $(".inreemail").val(cemal);
         $(".inreabout").val(cabout);
-      /*  //添加address编号
+        /*  //添加address编号
         var addr_number = $(this).parent().siblings().find(".conanorder-tips-addr_number").val();
-		$("#shaddrnum").val(addr_number);*/
+        $("#shaddrnum").val(addr_number);*/
         $(".show-revise-shippingaddress").find(".show-div-shipping").animate({ 'top': '-6px', 'font-size': '12px' }, 10);
         document.documentElement.style.overflow = "hidden";
     });
@@ -303,70 +303,56 @@ $(document).ready(function() {
         var caddress = $(".conanorder-tips-showmsg-address").text();
         var cemal = $(".conanorder-tips-showmsg-emal").val();
         var cabout = $(".conanorder-tips-showmsg-about").val();
-        var caddr_number=$(".conanorder-tips-showmsg-addr_number").val();
+        var caddr_number = $(".conanorder-tips-showmsg-addr_number").val();
         $(".inrename").val(cname);
         $(".inrephone").val(cphone);
         $(".inreaddress").val(caddress);
         $(".inreemail").val(cemal);
         $(".inreabout").val(cabout);
         $(".inshaddrnum").val(caddr_number);
-        
-      //添加address编号
+
+        //添加address编号
         //$("#addr_num").val($("#shaddrnum").val());
         $(".show-revise-shippingaddress").find(".show-div-shipping").animate({ 'top': '-6px', 'font-size': '12px' }, 10);
         document.documentElement.style.overflow = "hidden";
     });
     //添加方法
-    function addAddress(){
-       //  $("#addAddress").click(function(){
-            var path=$("base").attr("href");
-            var str={"name":$("#name").val(),"address":$("#address").val(),"tel":$("#tel").val(),"email":$("#email").val(),"guid":$("#guid").val(),"area":null};
-             var i=JSON.stringify(str); 
-             $.ajax({
-                url : path + "user/addAddress",
-                type : "post",
-                dataType : "json",
-                async : false,
-                data : {
-                    "str":i,
-                    "sss":1,
-                },
-                success : function(str) {
-                    //console.log(str);
-                   /*$(".show-add-shippingaddress").fadeOut();
-                   document.documentElement.style.overflow = "scroll";
-                     html_str=pinjie(str);
-                    $(".conanorder-main").prepend(html_str);*/
-                    window.location.reload();
-                },error:function(){
-                }
-
-            });
-          //   });
-     }
-     //修改方法
-   function updateAddress(){
-        var path=$("base").attr("href");
-	    var str={"name":$("#shname").val(),"address":$("#shaddress").val(),"tel":$("#shphone").val(),"email":$("#shemail").val(),"guid":$("#shguid").val(),"addr_num":$("#shaddrnum").val(),"area":null};
-		 var i=JSON.stringify(str);	
-		 $.ajax({
-			url : path + "user/updateAddress",
-			type : "post",
-			dataType : "json",
-			async : false,
-			data : {
-				"str":i,
-			},
-			success : function(str) {
-				//console.log(str);
-			 /*  $(".show-revise-shippingaddress").fadeOut();
-	          document.documentElement.style.overflow = "scroll";
-				 html_str=pinjie2(str);
-				$(".conanorder-main").prepend(html_str);*/
-				window.location.reload();
-			},error:function(){
-			}
-	
-		});
-   }
+    function addAddress() {
+        var path = $("base").attr("href");
+        var str = { "name": $("#name").val(), "address": $("#address").val(), "tel": $("#tel").val(), "email": $("#email").val(), "guid": $("#guid").val(), "area": null };
+        var i = JSON.stringify(str);
+        $.ajax({
+            url: path + "user/addAddress",
+            type: "post",
+            dataType: "json",
+            async: false,
+            data: {
+                "str": i,
+                "sss": 1,
+            },
+            success: function(str) {
+                window.location.reload();
+            },
+            error: function() {}
+        });
+    }
+    //修改方法
+    function updateAddress() {
+        var path = $("base").attr("href");
+        var str = { "name": $("#shname").val(), "address": $("#shaddress").val(), "tel": $("#shphone").val(), "email": $("#shemail").val(), "guid": $("#shguid").val(), "addr_num": $("#shaddrnum").val(), "area": null };
+        var i = JSON.stringify(str);
+        $.ajax({
+            url: path + "user/updateAddress",
+            type: "post",
+            dataType: "json",
+            async: false,
+            data: {
+                "str": i,
+            },
+            success: function(str) {
+                window.location.reload();
+            },
+            error: function() {}
+        });
+    }
 });

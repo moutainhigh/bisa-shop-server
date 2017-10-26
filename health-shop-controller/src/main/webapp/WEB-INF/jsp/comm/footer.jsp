@@ -19,9 +19,12 @@
             <div class="col-xs-2" id="4000B">
                 <ul class="">
                     <li class="f-14 f-w"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/healthInquiry">健康咨询</a></li>
-                    <li class="pt-20"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/newProducts">新品推荐</a></li>
-                    <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/recentNews">最新动态</a></li>
-                    <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/healthNews">健康新闻</a></li>
+  <%--              <li class="pt-20"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/newProducts">新品推荐</a></li>
+              		<li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/recentNews">最新动态</a></li>
+                    <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/healthNews">健康新闻</a></li> --%>
+                    <li class="pt-20"><a class="col-8c8c8c t-nonehove hovecol-999" href="#">新品推荐</a></li>
+                    <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="#">最新动态</a></li>
+                    <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="#">健康新闻</a></li>
                 </ul> 
             </div>
             <div class="col-xs-2" id="5000B">
@@ -39,7 +42,8 @@
                     <li class="f-14 f-w"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/contactUs">联络我们</a></li>
                     <li class="pt-20"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/contactUs">联络我们</a></li>
                     <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/disclaimer">免责声明</a></li>
-                    <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/healthNews">隐私原则</a></li>
+<%--                     <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="<%=request.getContextPath()%>/l/healthNews">隐私原则</a></li> --%>
+                     <li class="pt-10"><a class="col-8c8c8c t-nonehove hovecol-999" href="#">隐私原则</a></li>
                 </ul> 
             </div>
             <div class="col-xs-2">
