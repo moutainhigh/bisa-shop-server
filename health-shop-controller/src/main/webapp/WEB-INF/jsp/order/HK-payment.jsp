@@ -82,7 +82,7 @@
                         <img class="pull-left dis-b w-150 bor bor-col-B2B2B2 ml-20 pt-10 pb-10 pl-30 pr-30 cur-p zhifubaopay" src="<%=request.getContextPath() %>/resources/img/net_shopping/zhifubaopay.png" alt="">
                     </div>
                      <p class="mt-30 f-14 col-666 mb-30">
-                        注:选择付款方式，即表示您已确认订单无误以及同意右边显示的总金额，且同意 <a class="t-nonehove hovecol-309DE2 col-309DE2" href="">售后政策</a> 和 <a class="t-nonehove hovecol-309DE2 col-309DE2" href="">免责条款</a> 。
+                        注:选择付款方式，即表示您已确认订单无误以及同意右边显示的总金额，且同意 <a class="t-nonehove hovecol-309DE2 col-309DE2" href="javascript:;">售后政策</a> 和 <a class="t-nonehove hovecol-309DE2 col-309DE2" href="javascript:;">免责条款</a> 。
                     </p>
                 </div>
             </div>

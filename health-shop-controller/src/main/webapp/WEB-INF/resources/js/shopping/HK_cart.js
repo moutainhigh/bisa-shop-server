@@ -260,6 +260,18 @@ $(document).ready(function() {
         $(".tot-num-of-kinds").text(allcheckbox);
         $(".tot-num-of-goods").text(allnumofcase);
         $(".tot-num-of-totprice").text(allnumoftotprices.toFixed(2));
+        //判断是否可以去结算
+        if(allcheckbox==0 && allnumofcase==0 && allnumoftotprices==0){
+            $(".HK-cartsubmit").attr("disabled","true");
+            $(".HK-cartsubmit").css("cursor","not-allowed");
+            $(".HK-cartsubmit").css("opacity","0.5");
+            $(".HK-cartsubmit").removeClass("hovbg-38B3FF");
+            layer.alert('请添加商品再去结算。', {
+                icon: 0,
+                title: '收货地址为空',
+            })
+        }
+        //判断结算结束
     }
     function countsingletips(){
         /*套餐部分*/

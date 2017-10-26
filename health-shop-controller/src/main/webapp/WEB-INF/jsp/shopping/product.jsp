@@ -98,7 +98,7 @@
         <div class="containerv2 pt-10 pb-10 clear line-h-30 plr-0-10-ipad">
             <span class="col-black family-h pull-left cur-d f-20 ">${commodity.title }</span>
             <button class="pull-right f-20 line-h-30 h-30 text-center bor-none bg-309DE2 hovbg-2D90CF col-white pl-20 pr-20">
-                立即购买
+                	立即购买
             </button>
         </div>
     </div>
@@ -267,10 +267,10 @@
                                 </form>
                             </div>
                             <form action="<%=request.getContextPath()%>/a/orderIndex" method="get">
-                            <div class="clear col-sm-4 pl-10 pr-0">
-                            	<input type="hidden" class="product-submit" value="" name="data">
-                                <button class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-9BD2F4 bor-none hovbg-9BD2F4 pro-buynow" type="submit">立即购买</button>
-                            </div>
+	                            <div class="clear col-sm-4 pl-10 pr-0">
+	                            	<input type="hidden" class="product-submit" value="" name="data">
+	                                <button class="line-h-45-30-ipad h-45-30-ipad col-white f-18-14-ipad text-center full-w radius-0 bg-9BD2F4 bor-none hovbg-9BD2F4 pro-buynow" type="submit">立即购买</button>
+	                            </div>
                             </form>
                         </div>
                         <p class="pt-10 pb-10 line-h-30 f-16 ">
@@ -290,8 +290,8 @@
                                 <div class="clear pos-r bor bor-col-B2B2B2 pull-left mt-10 mb-10 cur-p">
                                     <a href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${listproduct.shop_number}"><img class="full-wh" src="<%=request.getContextPath() %>/resources/${listproduct.main_picture}" alt=""></a>
                                     <div class="clear h-25 line-h-25 rgba-d2d2d2-20 pos-a b-0 l-0 pl-10 pr-10 full-w hidden-sm hidden-md">
-                                       <a href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${listproduct.shop_number}">
-                                       <span class="col-727272 t-nonehove hovecol-309DE2"> 
+                                       <a class="col-727272 t-nonehove hovecol-309DE2" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${listproduct.shop_number}">
+                                       <span class="col-727272 t-nonehove hovecol-309DE2 text-line-1"> 
                                            ${listproduct.description}
                                        </span>
                                        </a>

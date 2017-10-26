@@ -64,7 +64,7 @@
                                         <p class="line-h-20 mt-15-0-ipad f-14 family-h">
                                             <span class="col-555 conanorder-tips-phone">${address.tel}</span>
                                         </p>
-                                        <p class="line-h-25 f-14 family-h text-line-4">
+                                        <p class="line-h-25 f-14 family-h text-line-2 min-h-50">
                                             <span class="col-555 conanorder-tips-address">${address.address }</span>
                                         </p>
                                         <input type="hidden" class="conanorder-tips-emal" value="${address.email}">
@@ -258,17 +258,11 @@
                         <div class="col-sm-9 clear pl-10 pr-10 cur-d conanorder-tips-showmsg">
                             <p class="f-16 family-h line-h-20">
                                 <input type="hidden" class="conanorder-tips-showmsg-addr_number" id="addr_num" name="addr_num">
-                                <span class="col-252525 conanorder-tips-showmsg-name">
-                                
-                            </span>
-                                <span class="col-252525 pl-10 conanorder-tips-showmsg-phone">
-                                
-                            </span>
+                                <span class="col-252525 conanorder-tips-showmsg-name"></span>
+                                <span class="col-252525 pl-10 conanorder-tips-showmsg-phone"></span>
                             </p>
-                            <p class="f-16 family-h line-h-20">
-                                <span class="col-252525 conanorder-tips-showmsg-address">
-                                
-                            </span>
+                            <p class="f-16 family-h line-h-25">
+                                <span class="col-252525 conanorder-tips-showmsg-address"></span>
                                 <span class="f-14 col-309DE2 hovecol-309DE2 t-nonehove main-order-tips-alter cur-p">修改</span>
                             </p>
                             <input type="hidden" class="conanorder-tips-showmsg-emal" value="">
@@ -307,7 +301,7 @@
                             </div>
                             <div class="col-xs-12 text-center mt-15 pl-0 pr-0 pos-r">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入您的详细地址">
-                                <textarea rows="2" cols="20" class="full-w bor line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shaddress" id="address"></textarea>
+                                <textarea rows="3" cols="20" class="full-w bor line-h-25 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping" type="text" name="shaddress" maxlength="60" id="address"></textarea>
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">详细地址</div>
                             </div>
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r mt-15">
@@ -352,7 +346,7 @@
                             </div>
                             <div class="col-xs-12 text-center mt-15 pl-0 pr-0 pos-r">
                                 <input type="hidden" class="show-input-shipping-value" value="请输入修改后的详细地址">
-                                <textarea rows="2" cols="20" class="full-w bor line-h-36 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inreaddress" type="text" name="shaddress" id="shaddress"></textarea>
+                                <textarea rows="3" cols="20" class="full-w bor line-h-25 bor-col-B2B2B2 pl-15 family-h f-14 col-252525 show-input-shipping inreaddress" type="text" name="shaddress" maxlength="60" id="shaddress"></textarea>
                                 <div class="clear pos-a t-11 l-15 f-14 show-div-shipping col-9a9a9a bg-white">详细地址</div>
                             </div>
                             <div class="col-xs-6 text-center pl-0 pr-10 pos-r mt-15">

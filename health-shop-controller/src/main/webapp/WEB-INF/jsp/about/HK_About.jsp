@@ -151,7 +151,9 @@
             </div>
         </div>
     </div>
-    <jsp:include page="./../comm/footer.jsp"/>
+   
+     
+        <%@ include file="../comm/footer.jsp" %> 
    	<script src="<%=request.getContextPath() %>/resources/js/comm/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/bootstrap.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
