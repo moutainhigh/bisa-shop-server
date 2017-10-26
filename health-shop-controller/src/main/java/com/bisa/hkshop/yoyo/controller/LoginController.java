@@ -47,7 +47,6 @@ public class LoginController {
          /*
           * 查询临期的服务信息，生成消息
           */
-         
          model.addAttribute("message", error);
          return "appreg/login";
 	}

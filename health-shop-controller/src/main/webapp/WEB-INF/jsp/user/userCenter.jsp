@@ -1,9 +1,12 @@
 <%@ page language="java" pageEncoding="utf-8"%>
-
+<%@ page import="java.util.Date"%>
+<%@ include file="../comm/tag.jsp" %>
+<%  String menuType="userCenter"; %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
+	<base href="<%=basePath%>">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +27,9 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+    	var request_url = "<%=request.getContextPath() %>";
+    </script>
 </head>
 
 <body>
@@ -41,13 +47,13 @@
             <img class="full-w" src="<%=request.getContextPath() %>/resources/img/news/HK_HowToShop/banner.jpg" alt="">
         </div>
         <div class="container pl-0 pr-0 mt-30 clear bg-f5f5f5 pt-30 pb-70 mb-60">
-           <%@ include file="./comm/menu.jsp" %>
+          <%@ include file="./comm/menu.jsp" %>
             <div class="clear col-sm-9 pr-30 pl-0">
                 <div class="clear bg-white pb-100 plr-50-10-ipad pt-40">
                     <div class="clear">
                         <div class="clear col-sm-3 pl-0 pr-0">
                             <div class="clear pull-left w-120">
-                                <img class="img-120 overflow-h full-radius bor bor-3px bor-col-fff box-sha-imgsha" src="<%=request.getContextPath() %>/resources/img/user/User/user-head-portrait.jpg" alt="">
+                                <img class="img-120 overflow-h full-radius bor bor-3px bor-col-fff box-sha-imgsha" src="${img_pic }" alt="">
                                 <p class="text-center cur-p line-h-40 f-20 col-309DE2 set-heads">
                                     设置头像
                                 </p>
@@ -55,17 +61,52 @@
                         </div>
                         <div class="clear col-sm-9 pl-0 pr-0">
                             <p class="line-h-40 f-28 col-616161">
-                                123456754
+                                ${username}
                             </p>
+ <%--                             <%
+    	Date d=new Date();
+        String greetings = "";
+		if(d.getHours() >= 6 && d.getHours() <= 12){
+			greetings = "Good morning!";
+		}else  if(d.getHours() > 12 && d.getHours() <= 18){
+			greetings = "Good afternoon!";
+		}else{
+			greetings = "Good evening!";
+		}
+    	
+     %> --%>
                             <p class="line-h-40 f-22 col-b0b0b0">
-                                早上好~
+                              <%
+								Date d=new Date();
+								if(d.getHours()>=6&&d.getHours()<=12){
+									out.println("Good morning!");
+								}else if(d.getHours()>12&&d.getHours()<=18){
+									out.println("Good afternoon!");
+								}else{
+									out.println("Good evening!");
+								}
+								%>
                             </p>
+                            <c:if test=" ${phone==null}">
+                           		 <p class="line-h-40 f-20 col-757575">
+                           		  绑定手机：未绑定<span class="col-309DE2 cur-p f-16 ml-20">立即绑定</span>
+                            	</p>
+                            </c:if>
+                            <c:if test=" ${phone!=null}">
                             <p class="line-h-40 f-20 col-757575">
-                                绑定手机：未绑定<span class="col-309DE2 cur-p f-16 ml-20">立即绑定</span>
+                                绑定手机：${phone}<span class="col-309DE2 cur-p f-16 ml-20">修改</span>
                             </p>
+                            </c:if>
+                             <c:if test=" ${mail==null}">
+                           		 <p class="line-h-40 f-20 col-757575">
+                           		  绑定邮箱：未绑定<span class="col-309DE2 cur-p f-16 ml-20">立即绑定</span>
+                            	</p>
+                            </c:if>
+                              <c:if test=" ${mail!=null}">
                             <p class="line-h-40 f-20 col-757575">
-                                绑定邮箱：youxianshenghenduoyouxiang.com<span class="col-309DE2 cur-p f-16 ml-20">修改</span>
+                                绑定邮箱：${mail}<span class="col-309DE2 cur-p f-16 ml-20">修改</span>
                             </p>
+                            </c:if>
                         </div>
                         <div class="clear col-sm-12 mt-40 bor bor-t bor-col-e0e0e0">
                         </div>
@@ -135,7 +176,7 @@
             <div class="w-900 mg-0-auto clear pos-r bg-white selhead-content radius-5 t--300 modal-content">
                 <div class="pt-10 pb-10 line-h-25 pos-r f-20 pl-20 pr-20 col-333 full-w radius-5 cur-d">
                    	 选择头像
-                    <img class="pos-a t-10 r-20 img-20 close-mod cur-p" src="<%=request.getContextPath() %>/resources/img/user/User/close.png" alt="">
+                    <img class="pos-a t-10 r-20 img-20 close-mod cur-p" id="img_close" src="<%=request.getContextPath() %>/resources/img/user/User/close.png" alt="">
                 </div>
                 <div class="clear bor bor-t bor-col-f2 pd-20">
                     <div class="clear col-sm-9 h-364 bg-fcfcfc box-sha-inset-big pos-r pl-0 pr-0 overflow-h">
@@ -181,6 +222,7 @@
     <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/ctrl/layer/layer.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/wqc_js/user/comm/menu.js"></script> 
     <script src="<%=request.getContextPath() %>/resources/js/user/HK_User.js"></script>
 <!-- 	<script type="text/javascript" src="http://localhost:8082/upload/resources/wqc_js/user/userCenter.js"></script> -->
 </body>

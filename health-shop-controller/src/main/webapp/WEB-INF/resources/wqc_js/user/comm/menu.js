@@ -33,7 +33,7 @@ $(document).ready(function() {
     });
     $(".user-center").click(function() {
 
-    	 
+    	 window.location.href=path+"/user/userCenter";
     });
     $(".user-active").click(function() {
     	window.location.href=path+"/a/active_list";

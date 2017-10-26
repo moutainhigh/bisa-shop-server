@@ -33,7 +33,12 @@
                         <i class="icon-shopping-cart pr-5 f-14 col-333 hovecol-black"></i>
                        <a href="<%=request.getContextPath()%>/user/Cart">购物车(
                         <a class="col-333 find-cartNum" href="<%=request.getContextPath()%>/user/Cart"><%
-                        		int cartNum=(int) session.getAttribute("cartNum");
+                        		int cartNum=0;
+                       			try{
+                        			cartNum=(int) session.getAttribute("cartNum");
+                        		}catch(NullPointerException e){
+                        			cartNum=0;
+                        		}
                         %><%=cartNum %>
                         </a>
                         )

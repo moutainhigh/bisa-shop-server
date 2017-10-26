@@ -53,31 +53,27 @@ $(document).ready(function() {
     $(".cro-btn-submit").click(function(){
         var submitspace = $('#show-main-img').cropper("getCroppedCanvas",{width:200,height:200});
         var submiturl = submitspace.toDataURL('image/jpeg');
-        console.log(submiturl);
+        console.log("submiturl:"+submiturl);
         //kuoyu();
         $.ajax({
              type: "POST", //用POST方式传输
-             dataType: "jsonp", //数据格式:JSON
-             url: 'http://192.168.1.137:8082/upload/c', //目标地址 
+             dataType: "text", //数据格式:text
+             url: request_url+'/l/upload_portrait', //目标地址 
              jsonp:'callback',  
              data: {
-				"uid":2,
-			//ajax上传的标签
-				"name":"wc",
 			//base64 的图片
-				"pic":submiturl,
-     		//压缩格式 “32x32,256x128”
-				"compressfmt":"32*32" ,             	
-				"CKEditorFuncNum":"0",
+				"img_portrait":submiturl,
             	 },//传参数
              error: function (XMLHttpRequest, textStatus, errorThrown) { 
-            	 console.log("fail");
-                 alert('fail');
+                 alert('上传图片失败！');
              },
-             success: function (json){
-            	 //返回的值：jQuery32109464002082243712_1508230040695({"name":"wc","path":"http://192.168.1.137:8082/upload/user/2/612799e0ec9e4743a9bc5ee20b18c2cd.jpg","compressfmt":"32*32","uploaded":1,"fileName":"wc","url":"http://192.168.1.137:8082/upload/user/2/612799e0ec9e4743a9bc5ee20b18c2cd.jpg"})
-            	 console.log("jhdghasdgjhasg:"+json.path);
-                 // alert("验证码已发送！");
+             success: function (msg){
+            	 if(msg=="true"){
+            		 //模拟点击关闭弹出窗按键
+            		 $("#img_close").click();
+            		 //刷新页面
+            		 window.location.reload();
+            	 }
              }
         	
         });

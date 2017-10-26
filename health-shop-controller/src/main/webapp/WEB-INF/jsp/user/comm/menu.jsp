@@ -13,7 +13,7 @@
                 <p class="mt-30 mb-30 col-212121 f-30 line-h-40 cur-d">
                     个人中心
                 </p>
-                <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 user-munu user-center">
+                <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 <% if("userCenter".equals(menuType)){ %>col-active<% } %> user-munu user-center">
                     我的个人中心
                 </p>
                 <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2  <% if("userActive".equals(menuType)){ %>col-active<% } %> user-munu user-active">
