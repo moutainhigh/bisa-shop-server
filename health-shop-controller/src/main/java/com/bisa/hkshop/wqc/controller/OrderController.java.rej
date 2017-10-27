@@ -1,0 +1,29 @@
+diff a/health-shop-controller/src/main/java/com/bisa/hkshop/wqc/controller/OrderController.java b/health-shop-controller/src/main/java/com/bisa/hkshop/wqc/controller/OrderController.java	(rejected hunks)
+@@ -7,27 +7,20 @@
+ import java.util.List;
+ import java.util.Map;
+ 
+-import javax.annotation.Resource;
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpSession;
+ 
+ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
+-import org.apache.shiro.dao.DataAccessException;
+ import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.data.redis.connection.RedisConnection;
+-import org.springframework.data.redis.core.RedisCallback;
+-import org.springframework.data.redis.core.RedisTemplate;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
+-import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
+ import com.bisa.hkshop.model.Package;
+ import com.bisa.health.beans.dto.UserInfoDto;
+ import com.bisa.health.model.User;
+ import com.bisa.health.routing.annotation.CurrentUser;
+-import com.bisa.health.utils.CacheUtity;
+ import com.bisa.hkshop.model.Address;
+ import com.bisa.hkshop.model.Cart;
+ import com.bisa.hkshop.model.Commodity;

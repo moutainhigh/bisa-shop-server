@@ -44,7 +44,12 @@ public class AddressController {
 		address.setTel(jsonObj.getString("tel"));
 		address.setEmail(jsonObj.getString("email"));
 		address.setGuid(jsonObj.getString("guid"));
-		address.setCounty(jsonObj.getString("area"));
+		String county=jsonObj.getString("area");
+		if(county==null) {
+			address.setCounty("中国");
+		}else {
+			address.setCounty(county);
+		}
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
 		
