@@ -27,7 +27,7 @@
 </head>
 <body>
 	<%@ include file="../comm/header.jsp" %> 
-    <div class="wrap min-h-40">
+    <div class="clear wrap">
         <div class="container pl-0 pr-0">
             <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 bg-f5f5f5 cur-d">
                 <a class="col-666 t-nonehove hovecol-309DE2" href="">首页 </a>
@@ -63,7 +63,6 @@
                     <!-- 套餐外循环 -->
                     <c:forEach var="listcart" items="${listcart }">
                         <c:if test="${listcart.sing_cox=='1' }">
-                        
                             <div class="clear full-w bg-white mt-4 mb-4">
                                 <div class="clear full-w pl-0 pr-0 mb-10 car-kinds is-checkbox">
                                     <div class="clear col-md-2 col-sm-1 pl-0 pr-0 pt-10 pb-10 line-h-30">
@@ -136,7 +135,7 @@
 		                                        <div class="clear col-sm-1 bg-eee pl-0 pr-0 h-60-40-ipad">
 		                                        </div>
 		                                    </div>
-		                                    </c:forEach>
+		                              </c:forEach>
                                     </c:if>
                                </c:forEach>
                             </div>
@@ -265,9 +264,8 @@
                         <span class="col-309DE2 ">元</span>
                     </div>
                     <div class="clear col-sm-3 pl-0 pr-0 line-h-60 h-60">
-                        <form action="<%=request.getContextPath()%>/a/orderIndex" method="get">
+                        <form class="full-wh" action="<%=request.getContextPath()%>/a/orderIndex" method="get">
                             <input class="HK-cartsubmitinput" type="hidden" name="data" value="">
-                            
                             <button class="bor-none full-wh bg-309DE2 col-white f-24 text-center pos-r t--2 hovbg-38B3FF HK-cartsubmit" type="submit">
                                 去结算
                             </button>
@@ -299,12 +297,13 @@
             </div>
         </div>
     </div>
-      <%@ include file="../comm/footer.jsp" %> 
+    <%@ include file="../comm/footer.jsp" %> 
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/bootstrap.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/ctrl/layer/layer.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/shopping/HK_cart.js"></script>
-     <script src="<%=request.getContextPath() %>/resources/wqc_js/Cart.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/wqc_js/Cart.js"></script>
 </body>
 
 </html>
