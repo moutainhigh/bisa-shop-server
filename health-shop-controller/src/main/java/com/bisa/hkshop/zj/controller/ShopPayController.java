@@ -69,16 +69,16 @@ public class ShopPayController {
 	public Map<String,String> loadby1Package(HttpServletRequest request,HttpSession session,@CurrentUser UserInfoDto userInfo){
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
+		
 		Map<String,String> map = new HashMap<String,String>();
 		String order_no = request.getParameter("order_no");
-		System.out.println("轮询："+order_no);
+		System.out.println(user_guid+"轮询："+order_no);
 		map.put("hadpay", "1002");
 		//判断UUID是否相等
-		Trade trade  = tradeService.loadTrade(user_guid,order_no);
+		Trade trade  = tradeService.loadTradeByorder_no(user_guid,order_no);
 		System.out.println("zhuangtai>>>>>>>>>>>>" + trade.getStatus());
 		if(trade.getStatus()==1002){
 			map.put("hadpay","1001"); //支付成功跳转到支付成功的页面
-		
 		}
 		return map;
 	}
@@ -166,6 +166,7 @@ public class ShopPayController {
        // 商户操作员编号，添加此参数可以为商户操作员做销售统计
        String operatorId = "test_operator_id";
 
+       
        // (必填) 商户门店编号，通过门店号和商家后台可以配置精准到门店的折扣信息，详询支付宝技术支持
        String storeId = "test_store_id";
 
@@ -175,12 +176,12 @@ public class ShopPayController {
 
        // 支付超时，定义为120分钟
        String timeoutExpress = "120m";
-
+       
        // 商品明细列表，需填写购买商品详细信息，
        List<GoodsDetail> goodsDetailList = new ArrayList<GoodsDetail>();
        // 创建一个商品信息，参数含义分别为商品id（使用国标）、名称、单价（单位为分）、数量，如果需要添加商品类别，详见GoodsDetail
        // 创建好一个商品后添加至商品明细列表
-
+       
        // 继续创建并添加第一条商品信息，用户购买的产品为“黑人牙刷”，单价为5.00元，购买了两件
        GoodsDetail goods2 = GoodsDetail.newInstance("goods_id002", "xxx牙刷", 500, 2);
        goodsDetailList.add(goods2);
@@ -249,15 +250,6 @@ public class ShopPayController {
 			        BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, 300, 300, hints);
 					BufferedImage image = CommonUtil.toBufferedImage(bitMatrix);
 					ImageIO.write(image, "jpg", response.getOutputStream());
-	  /*  } catch (Exception e) {
-	    	System.out.println(">>>>>>>支付宝请求扫码出现异常");
-	    	try {
-				response.sendRedirect(request.getContextPath() + "/l/error");
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-	    }
-	*/
 	
 	}
 	

@@ -163,16 +163,16 @@
   		 //这里写你的代码 
  		  $.ajax({
  	          type:'get',
- 	           url:'<%=request.getContextPath()%>/l/hadPay',
+ 	           url:'<%=request.getContextPath()%>/a/hadPay?order_no=${orderId}',
  	           dataType:'json',
  	           async: false,
  	           success:function(json){ 
  	        	  var path=$("base").attr("href");
  	        	   	var orderId=$("#orderId").val();
 		 	               if(json.hadpay== "1001"){ //处理自己的业务
-		 	                   window.location.href =path+"/a/success?order_no="+orderId;
+		 	                   window.location.href ="<%=request.getContextPath()%>/a/success?order_no='${orderId}'";
 		 	               }
- 	        	   }
+ 	        	   
  	        		//设置轮询了多少次停止轮询
  	              if(i==6){
  	           	  	window.clearInterval(c);

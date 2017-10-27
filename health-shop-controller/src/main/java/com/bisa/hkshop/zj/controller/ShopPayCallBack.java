@@ -216,7 +216,7 @@ public class ShopPayCallBack {
 	        	   
 	        	   
 	        	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
-		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);
+		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(1296000,order.getOrder_no(),user_guid,7);
 		    	   delayedService.add(delayedOrder);//存到队列中
 		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
 	        
@@ -347,7 +347,7 @@ public class ShopPayCallBack {
 		    	    
 		    	   
 		    	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
-		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,7);
+		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(1296000,order.getOrder_no(),user_guid,7);
 		    	   delayedService.add(delayedOrder);//存到队列中
 		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
 		   		   

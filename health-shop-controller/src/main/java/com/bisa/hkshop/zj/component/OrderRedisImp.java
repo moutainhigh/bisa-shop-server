@@ -28,7 +28,7 @@ public class OrderRedisImp implements IOrderRedis{
 	//获取所有redis中所有的order
 	@Override
 	public HashMap<String,BaseDelayed<String>> getOrderRedis() {
-		DelayOrderDto order;
+		DelayOrderDto order = null;
 		if(redisTemp.hasKey("order")){
 			        order = (DelayOrderDto) redisTemp.execute(new RedisCallback<Object>() {
 					public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -37,7 +37,7 @@ public class OrderRedisImp implements IOrderRedis{
 						if(value.length>0){
 							return CacheUtity.toObject(value);
 						}else{
-							return "";
+							return new DelayOrderDto();
 						}
 					}
 				});

@@ -122,7 +122,7 @@ public class OrderDelayAndRedisController {
 							 orderRedis.delOrderRedis(od.getOrder_no());
 							 
 								//七天自动收货了之后，添加当前订单的评价30天后失效
-					    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,od.getOrder_no(),od.getUser_guid(),30);
+					    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(2592000,od.getOrder_no(),od.getUser_guid(),30);
 					    	   service.add(delayedOrder);//存到队列中
 					   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
 							 

@@ -8,8 +8,8 @@ public class AlipayConfig {
 	public static final String format = "json";
 	public static final String charset = "utf-8";
 	public static final String signType = "RSA2";
-	public static final String returnUrl = "http://17a6315d87.iask.in/bisa-hkshop-controller-zj/l/success";
-	public static final String notifyUrl = "http://17a6315d87.iask.in/bisa-hkshop-controller-zj/l/aliPayCallback";
+	public static final String returnUrl = "http://17a6315d87.iask.in/health-shop/l/success";
+	public static final String notifyUrl = "http://17a6315d87.iask.in/health-shop/l/aliPayCallback";
 	
 	
 }
