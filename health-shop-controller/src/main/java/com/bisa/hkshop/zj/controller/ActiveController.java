@@ -54,7 +54,7 @@ public class ActiveController {
 		if(pager_offset!=0) {
 			SystemContext.setPageOffset(pager_offset);
 		}
-		SystemContext.setPageSize(1);
+		SystemContext.setPageSize(6);
 		
 		SystemContext.setSort("start_time");   
 		SystemContext.setOrder("desc");

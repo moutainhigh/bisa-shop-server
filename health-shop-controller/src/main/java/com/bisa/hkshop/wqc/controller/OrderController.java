@@ -96,22 +96,36 @@ public class OrderController {
 	public String orderIndex(Model model,HttpServletRequest request,@CurrentUser UserInfoDto userInfo){
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
-		/*
-		 * 加个判断用户是否登录
-		 */
 		//从购物车中传来的
 		/*String str1 = "{\"records\":[{'cartid':'630ed3c3971b46b5a091c5e0616f101e','cartnum':'1','cartkind':1,'cartimg':'/resources/images/producttipsv1.png','cartdir':'HC3A250 悉心心电仪','cartprice':'2000'}]}";
 		String str = "{\"product\":[{\"cartid\":\"120001\",\"cartnum\":\"1\",\"cartkind\":1,\"cartimg\":\"/resources/images/producttipsv1.png\",\"cartdir\":\"HC3A250 悉心心电仪\",\"cartprice\":\"2000\"}]}";*/
 		String str=request.getParameter("data");
+		System.out.println("str===="+str);
 		//从立即购买传来的
 		Map<String,List<OrderDetailDto>> map = new Gson().fromJson(str, new TypeToken<HashMap<String,List<OrderDetailDto>>>(){}.getType());
 		System.out.println("Gsonmap:" + new Gson().toJson(map));
 		double price = 0;
 		int count = 0;
+		//服务个数
+		int servicecount=0;
+		//除服务外商品个数
+		int shopcount=0;
+		String service1="51409f91960848579d64bd5f103ea66a";
+		String service2="68a73783656e47ce806ccec6d00301a4";
+		String service3="78ec2b16c4554c4e9633ae7c3cece863";
 		for (Map.Entry entry : map.entrySet()) {       
 		    String key = (String) entry.getKey( );    
 		    List<OrderDetailDto> orderDetailList = map.get(key);
 		    for(OrderDetailDto orderDetail : orderDetailList){
+		    	String cartId=orderDetail.getCartid();
+		    	//如果包含服务而且别的包含其他商品的话，就什么都不用，不包含服务，就计算邮费
+		    	if(cartId.equals(service1)||cartId.equals(service2)||cartId.equals(service3)) {
+		    	  //1.有服务就进来,并且计算服务个数
+		    		servicecount=servicecount+1;
+		    	}else{
+		    	   //2.这是没有服务就进来的，计算除服务外商品个数
+		    		shopcount=shopcount+1;
+		    	}
 		    	price = price + Double.valueOf(orderDetail.getCartprice()) * Integer.valueOf(orderDetail.getCartnum());
 		    	count = count + Integer.valueOf(orderDetail.getCartnum());
 		    }
@@ -119,13 +133,15 @@ public class OrderController {
 		
 		double postPrice = 0;
 		double total = price;
-		
-		if(price<350){
-			postPrice = 30.00;
-			total = price + postPrice;
+		//这里是只有服务的情况，不然就是有商品有服务，或者只有商品
+		if(shopcount==0 && servicecount>0) {
+			total=price;
+		}else {
+			if(price<350){
+				postPrice = 30.00;
+				total = price + postPrice;
+			}
 		}
-		
-		
 		//取出username
 		List<Address> addressList = addressService.loadAddressList(user_guid);
 		Gson gson = new Gson();
@@ -175,6 +191,15 @@ public class OrderController {
 			
 			List<OrderDetailDto> orderDetailList;
 			//从购物车过来的
+			
+			//服务个数
+			int servicecount=0;
+			//除服务外商品个数
+			int shopcount=0;
+			String service1="51409f91960848579d64bd5f103ea66a";
+			String service2="68a73783656e47ce806ccec6d00301a4";
+			String service3="78ec2b16c4554c4e9633ae7c3cece863";
+			String cartId=null;
 			if(from_data.equals("records")){
 				orderDetailList = map.get(from_data);
 				//把dto的每个记录都去购物车表里找，一个一个添加到list
@@ -185,10 +210,30 @@ public class OrderController {
 						num =  num + orderDetailList.get(i).getCartid();
 						Cart cart=shopCartService.getCart(user_guid, num);
 						car.add(cart);
+						//查出商品id
+						cartId=cart.getPackId();
+				    	//如果包含服务而且别的包含其他商品的话，就什么都不用，不包含服务，就计算邮费
+						if(cartId.equals(service1)||cartId.equals(service2)||cartId.equals(service3)) {
+				    	  //1.有服务就进来,并且计算服务个数
+				    		servicecount=servicecount+1;
+				    	}else{
+				    	   //2.这是没有服务就进来的，计算除服务外商品个数
+				    		shopcount=shopcount+1;
+				    	}
 					}else{
 						num = orderDetailList.get(i).getCartid();
 						Cart cart=shopCartService.getCart(user_guid, num);
 						car.add(cart);
+						//查出商品id
+						cartId=cart.getPackId();
+				    	//如果包含服务而且别的包含其他商品的话，就什么都不用，不包含服务，就计算邮费
+						if(cartId.equals(service1)||cartId.equals(service2)||cartId.equals(service3)) {
+				    	  //1.有服务就进来,并且计算服务个数
+				    		servicecount=servicecount+1;
+				    	}else{
+				    	   //2.这是没有服务就进来的，计算除服务外商品个数
+				    		shopcount=shopcount+1;
+				    	}
 					}
 				}
 			//查出购物车中的要买的东西				
@@ -231,11 +276,15 @@ public class OrderController {
 				//order.setId(1);
 				orderN.setOrder_no(orderGuid);
 				orderN.setAddr_num(addr_num);
-				
-				if(price<350){
-					orderN.setPrice(price+30 + "");
-				}else{
+				//这里是只有服务的情况，不然就是有商品有服务，或者只有商品
+				if(shopcount==0 && servicecount>0) {
 					orderN.setPrice(price+"");
+				}else {
+					if(price<350){
+						orderN.setPrice(price+30 + "");
+					}else{
+						orderN.setPrice(price+"");
+					}
 				}
 				orderN.setUser_guid(user_guid);
 				orderN.setTra_status(10);//未付款

@@ -54,17 +54,21 @@
                     </p>
                     <div class="clear bor bor-b bor-col-f5f5f5">
                     </div>
-                    <!-- 状态一 -->
-                    
                     <c:forEach items="${active.datas }" var="activeList">
-                    
                      <div class="clear">
                         <div class="clear mt-40">
-                            <p class="h-50 line-h-50 ${activeList.active_statu==1?'bg-76bd27 f-16 col-white':'bor bor-col-b0b0b0 f-16 col-333' } pl-30 pr-30">
+                            <c:if test="${ activeList.active_statu==1}">
+                               <p class="h-50 line-h-50 bg-76bd27 f-16 col-white pl-30 pr-30">
+                            </c:if>
+                            <c:if test="${ activeList.active_statu==2}">
+                                <p class="h-50 line-h-50 bor bor-col-b0b0b0 f-16 col-333 pl-30 pr-30">
+                            </c:if>  
                                		${activeList.service_name }
                             </p>
                         </div>
-                        <div class="clear bor bor-t-none bor-col-76bd27">
+                        <div class="clear bor bor-t-none
+                        <c:if test="${ activeList.active_statu==2}"> bor-col-b0b0b0 </c:if>
+                        <c:if test="${ activeList.active_statu==1}"> bor-col-76bd27</c:if>">
                             <div class="clear col-sm-2 pt-30 pb-30 pl-15 pr-15 text-center">
                                 <img class="" src="<%=request.getContextPath() %>/resources/img/user/Service/service-prov1.png" alt="">
                             </div>
@@ -112,7 +116,7 @@
                                                	 激活服务
                                             </button>
                                             </c:if>
-                                            <a class="pull-right f-12 col-757575 hovcol-76bd27 t-nonehove" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=51409f91960848579d64bd5f103ea66a">
+                                            <a class="pull-right f-12 col-757575 hovcol-76bd27 t-nonehove" href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${activeList.service_guid}">
                                                	 了解 悉心铃服务 更多细节
                                             </a>
                                         </p>

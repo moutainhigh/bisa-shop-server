@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	var path = "";
-	path = $("base").attr("href");
+    var path = "";
+    path = $("base").attr("href");
     /*购物车页面的商品单品价格相关的计算*/
     $(".cart-add").click(function() {
         var t = $(this).siblings(".cart-textbox");
@@ -47,28 +47,28 @@ $(document).ready(function() {
         }
         $(tot).html(s.toFixed(0));
         countalltips();
-        
-      //  console.log(t.siblings(".cart-tips-id").val());
-      //  console.log(t.val());
+
+        //  console.log(t.siblings(".cart-tips-id").val());
+        //  console.log(t.val());
         //改变单品的数量
-        var packId=t.siblings(".cart-tips-id").val();
-        var num=t.val();
-       // var userId = $("input[name='userId']").val();
-    		$.ajax({
- 	        url: path + "user/upCart",
- 	        type: "get",
- 	        dataType: "text",
- 	        async: false,
- 	        data: {
- 	            "packId": packId,
- 	          //  "userId": userId,
- 	            "num": num,
- 	        },
- 	        success: function(success) {
- 	            var i = "user/Cart";
- 	            window.location.href = path + i ;
- 	        }
-    		});
+        var packId = t.siblings(".cart-tips-id").val();
+        var num = t.val();
+        // var userId = $("input[name='userId']").val();
+        $.ajax({
+            url: path + "user/upCart",
+            type: "get",
+            dataType: "text",
+            async: false,
+            data: {
+                "packId": packId,
+                //  "userId": userId,
+                "num": num,
+            },
+            success: function(success) {
+                var i = "user/Cart";
+                window.location.href = path + i;
+            }
+        });
     }
     /*购物车套餐商品的价格计算以及其他部分*/
     $(".cart-combo-add").click(function() {
@@ -125,27 +125,26 @@ $(document).ready(function() {
         countalltips();
         //套餐的id,和数量,改变单品的数量
         //console.log(t.siblings(".cart-tips-id").val());
-       // console.log(t.val());
-       var packId=t.siblings(".cart-tips-id").val();
-       var num=t.val();
-    //   var userId = $("input[name='userId']").val();
-   		$.ajax({
-	        url: path + "user/upCart",
-	        type: "get",
-	        dataType: "text",
-	        async: false,
-	        data: {
-	            "packId": packId,
-	        //    "userId": userId,
-	            "num": num,
-	        },
-	        success: function(success) {
-	            var i = "user/Cart";
-	                  
-	            window.location.href = path + i;
-	        }
-   		});
-        
+        // console.log(t.val());
+        var packId = t.siblings(".cart-tips-id").val();
+        var num = t.val();
+        //var userId = $("input[name='userId']").val();
+        $.ajax({
+            url: path + "user/upCart",
+            type: "get",
+            dataType: "text",
+            async: false,
+            data: {
+                "packId": packId,
+                //    "userId": userId,
+                "num": num,
+            },
+            success: function(success) {
+                var i = "user/Cart";
+
+                window.location.href = path + i;
+            }
+        });
     }
     /*购物车页面的删除物品的弹出层*/
     $(".car-tipsdel").click(function() {
@@ -231,7 +230,7 @@ $(document).ready(function() {
         countalltips();
     });
     /*购物车页面计算总计和总件数等数据的函数*/
-    countsingletips();//页面加载完毕后进行一次每个商品的总价的计算
+    countsingletips(); //页面加载完毕后进行一次每个商品的总价的计算
     countalltips(); //页面加载完毕进行调用一次计算总价
     function countalltips() {
         var allcheckbox = $(".is-checkbox").length;
@@ -261,19 +260,24 @@ $(document).ready(function() {
         $(".tot-num-of-goods").text(allnumofcase);
         $(".tot-num-of-totprice").text(allnumoftotprices.toFixed(2));
         //判断是否可以去结算
-        if(allcheckbox==0 && allnumofcase==0 && allnumoftotprices==0){
-            $(".HK-cartsubmit").attr("disabled","true");
-            $(".HK-cartsubmit").css("cursor","not-allowed");
-            $(".HK-cartsubmit").css("opacity","0.5");
+        if (allnumoftotprices == 0) {
+            $(".HK-cartsubmit").attr("disabled", "true");
+            $(".HK-cartsubmit").css("cursor", "not-allowed");
+            $(".HK-cartsubmit").css("opacity", "0.5");
             $(".HK-cartsubmit").removeClass("hovbg-38B3FF");
             layer.alert('请添加商品再去结算。', {
                 icon: 0,
                 title: '收货地址为空',
             })
+        } else {
+            $(".HK-cartsubmit").addClass("hovbg-38B3FF");
+            $(".HK-cartsubmit").css("opacity", "1");
+            $(".HK-cartsubmit").css("cursor", "pointer");
         }
         //判断结算结束
     }
-    function countsingletips(){
+
+    function countsingletips() {
         /*套餐部分*/
         var combotipslength = $(".car-combo").find(".car-kinds").length;
         for (var i = 0; i < combotipslength; i++) {
@@ -281,13 +285,13 @@ $(document).ready(function() {
             var comboprice = $(".car-combo").find(combotipsstr).find(".cart-price").val();
             var combonum = $(".car-combo").find(combotipsstr).find(".cart-combo-textbox").val();
             $(".car-combo").find(combotipsstr).find(".cart-price-show").text(comboprice);
-            $(".car-combo").find(combotipsstr).find(".cart-total").text(combonum*comboprice);
+            $(".car-combo").find(combotipsstr).find(".cart-total").text(combonum * comboprice);
             var combotipslengthv = $(".car-combo").find(combotipsstr).siblings(".car-combo-tips").length;
             for (var j = 0; j < combotipslengthv; j++) {
                 var carcombotipsstr = ".car-combo-tips:eq(" + j + ")";
                 var comboprice = $(".car-combo").find(combotipsstr).siblings(carcombotipsstr).find(".car-combo-tips-unp").text();
                 $(".car-combo").find(combotipsstr).siblings(carcombotipsstr).find(".car-combo-tips-numcase").text(combonum);
-                $(".car-combo").find(combotipsstr).siblings(carcombotipsstr).find(".car-combo-tips-tot").text(comboprice*combonum);
+                $(".car-combo").find(combotipsstr).siblings(carcombotipsstr).find(".car-combo-tips-tot").text(comboprice * combonum);
             };
         };
         /*单品部分*/
@@ -297,7 +301,7 @@ $(document).ready(function() {
             var singleprice = $(".car-single").find(singletipsstr).find(".cart-price").val();
             var singlenum = $(".car-single").find(singletipsstr).find(".cart-textbox").val();
             $(".car-single").find(singletipsstr).find(".cart-price-show").text(singleprice);
-            $(".car-single").find(singletipsstr).find(".cart-total").text(singleprice*singlenum);
+            $(".car-single").find(singletipsstr).find(".cart-total").text(singleprice * singlenum);
         };
     };
     /*购物车页面提交封装*/
@@ -359,7 +363,8 @@ $(document).ready(function() {
     });
     /*当页面加载完毕之后，判断有没有购买悉心平安服务进行的一系列操作*/
     charfuwuisbuy();
-    function charfuwuisbuy(){
+
+    function charfuwuisbuy() {
         var cartservecidv1 = $(".servecontrolv1").find(".cart-serve-cid").val();
         var cartservecidv2 = $(".servecontrolv2").find(".cart-serve-cid").val();
         var cartservecidv3 = $(".servecontrolv3").find(".cart-serve-cid").val();
@@ -370,12 +375,11 @@ $(document).ready(function() {
             var combocid = $(".car-combo").find(combotipsstr).find(".cart-tips-id").val();
             if (cartservecidv1 == combocid) {
                 $(".servecontrolv1").hide();
-            }else if (cartservecidv2 == combocid) {
+            } else if (cartservecidv2 == combocid) {
                 $(".servecontrolv2").hide();
-            }else if (cartservecidv3 == combocid) {
+            } else if (cartservecidv3 == combocid) {
                 $(".servecontrolv3").hide();
-            }else{
-            }
+            } else {}
         };
         /*单品部分判断*/
         var singletipslength = $(".car-single").find(".car-kinds").length;
@@ -384,12 +388,11 @@ $(document).ready(function() {
             var singlecid = $(".car-single").find(singletipsstr).find(".cart-tips-id").val();
             if (cartservecidv1 == singlecid) {
                 $(".servecontrolv1").hide();
-            }else if (cartservecidv2 == singlecid) {
+            } else if (cartservecidv2 == singlecid) {
                 $(".servecontrolv2").hide();
-            }else if (cartservecidv3 == singlecid) {
+            } else if (cartservecidv3 == singlecid) {
                 $(".servecontrolv3").hide();
-            }else{
-            }
+            } else {}
         };
     };
 });

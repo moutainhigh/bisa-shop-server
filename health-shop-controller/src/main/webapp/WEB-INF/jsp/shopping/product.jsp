@@ -97,7 +97,7 @@
     <div class="clear full-w bor bor-t bor-col-D6D6D6 sha-float-titlev1 affix t-0 l-0 bg-white z-999 dis-n flo-menuv2-aff">
         <div class="containerv2 pt-10 pb-10 clear line-h-30 plr-0-10-ipad">
             <span class="col-black family-h pull-left cur-d f-20 ">${commodity.title }</span>
-            <button class="pull-right f-20 line-h-30 h-30 text-center bor-none bg-309DE2 hovbg-2D90CF col-white pl-20 pr-20">
+            <button class="pull-right f-20 line-h-30 h-30 text-center bor-none bg-309DE2 hovbg-2D90CF col-white pl-20 pr-20" disabled="disabled">
                 	立即购买
             </button>
         </div>
@@ -218,7 +218,7 @@
                                     </div>
                                     <div class="clear col-md-2 col-sm-2 pull-left pt-10 pl-0 pr-0">
                                         <p class="clear pb-10 line-h-30 col-309DE2 f-14 pr-10">
-                                            <a class="t-nonehove col-309DE2 pull-right hovecol-309DE2 " href="">选购</a>
+                                            <a class="t-nonehove col-309DE2 pull-right hovecol-309DE2 " href="javascript:;">选购</a>
                                         </p>
                                         <p class="clear line-h-20 pr-10 hidden-sm">
                                             <span class="col-aaa f-12 family-h pull-right">${comm.selling_price }元/月</span>
