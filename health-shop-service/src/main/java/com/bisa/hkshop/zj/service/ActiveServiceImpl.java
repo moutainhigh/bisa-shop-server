@@ -31,6 +31,7 @@ public class ActiveServiceImpl implements IActiveService{
 	}
 	
 	@Override
+	@DataRouting("user_guid")
 	public Boolean addActive(@DataGuid("user_guid") Active active) {
 		return activeDao.addActive(active);
 	}

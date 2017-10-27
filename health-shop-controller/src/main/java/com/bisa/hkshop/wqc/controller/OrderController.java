@@ -7,27 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.shiro.dao.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 import com.bisa.hkshop.model.Package;
 import com.bisa.health.beans.dto.UserInfoDto;
 import com.bisa.health.model.User;
 import com.bisa.health.routing.annotation.CurrentUser;
-import com.bisa.health.utils.CacheUtity;
 import com.bisa.hkshop.model.Address;
 import com.bisa.hkshop.model.Cart;
 import com.bisa.hkshop.model.Commodity;
@@ -43,7 +36,6 @@ import com.bisa.hkshop.wqc.service.IOrderDetailService;
 import com.bisa.hkshop.wqc.service.IOrderService;
 import com.bisa.hkshop.wqc.service.IPackageService;
 import com.bisa.hkshop.wqc.service.ITradeService;
-import com.bisa.hkshop.wqc.service.IUserOrderDetailService;
 import com.bisa.hkshop.zj.basic.utility.BaseDelayed;
 import com.bisa.hkshop.zj.component.IOrderRedis;
 import com.bisa.hkshop.zj.service.IDelayedService;
@@ -108,12 +100,14 @@ public class OrderController {
 		System.out.println("Gsonmap:" + new Gson().toJson(map));
 		double price = 0;
 		int count = 0;
+
 		for (Map.Entry entry : map.entrySet()) {       
 		    String key = (String) entry.getKey( );    
 		    List<OrderDetailDto> orderDetailList = map.get(key);
 		    for(OrderDetailDto orderDetail : orderDetailList){
 		    	price = price + Double.valueOf(orderDetail.getCartprice()) * Integer.valueOf(orderDetail.getCartnum());
 		    	count = count + Integer.valueOf(orderDetail.getCartnum());
+		   
 		    }
 		}   
 		
@@ -124,6 +118,8 @@ public class OrderController {
 			postPrice = 30.00;
 			total = price + postPrice;
 		}
+		
+		
 		
 		
 		//取出username

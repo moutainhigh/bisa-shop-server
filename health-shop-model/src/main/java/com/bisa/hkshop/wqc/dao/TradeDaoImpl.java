@@ -6,10 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bisa.hkshop.model.Trade;
 import com.bisa.hkshop.wqc.basic.dao.BaseDao;
-
-
-
-
 @Repository
 public class TradeDaoImpl extends BaseDao<Trade> implements ITradeDao{
 
@@ -59,7 +55,7 @@ public class TradeDaoImpl extends BaseDao<Trade> implements ITradeDao{
 	@Override
 	public Boolean updateTrade(Trade trade) {
 		try{
-			String sql = "UPDATE Trade s_trade SET s_trade.order_guid=?,s_trade.pay_type=?,"
+			String sql = "update Trade s_trade set s_trade.order_guid=?,s_trade.pay_type=?,"
 					+ "s_trade.price=?,s_trade.start_time=?,s_trade.status=?,"
 					+ "s_trade.guid=? where s_trade.user_guid=? and s_trade.trade_no=?";
 			this.updateByHql(sql, new Object[]{trade.getOrder_guid(),trade.getPay_type(),trade.getPrice()

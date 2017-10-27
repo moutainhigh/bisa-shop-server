@@ -37,7 +37,7 @@ $(document).ready(function() {
             	var active_code=$("input[name='appcode']").val();
             	var account1=$("input[name='appid']").val();
             	var account2=$("input[name='appidagain']").val();
-                window.location.href=path+"/a/active_commit?active_code="+active_code+"&account1="+account1+"&account2="+account2;
+                window.location.href=path+"a/active_commit?active_code="+active_code+"&account1="+account1+"&account2="+account2;
             }
         });
     });

@@ -45,7 +45,7 @@ public class ActiveDAoImpl extends BaseDao<Active> implements IActiveDAo{
 	
 	@Override
 	public Boolean addActive(Active active) {
-		try{
+		//try{
 			String sql = "insert into s_active(s_active.active_code,s_active.active_life,"
 					+ "s_active.active_statu,s_active.active_time,s_active.guid,s_active.service_guid,"
 					+ "s_active.service_name,s_active.service_number,s_active.start_time,s_active.user_guid)"
@@ -53,9 +53,9 @@ public class ActiveDAoImpl extends BaseDao<Active> implements IActiveDAo{
 			this.addObjectBySql(sql,new Object[]{active.getActive_code(),active.getActive_life(),active.getActive_statu()
 					,active.getActive_time(),active.getGuid(),active.getService_guid(),active.getService_name(),active.getService_number()
 					,active.getStart_time(),active.getUser_guid()});
-		}catch(Exception e){
+		/*}catch(Exception e){
 			return false;
-		}
+		}*/
 		return true;
 	}
 

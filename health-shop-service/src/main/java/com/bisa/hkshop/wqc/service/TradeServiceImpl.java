@@ -48,7 +48,6 @@ public class TradeServiceImpl implements ITradeService{
 	@Override
 	@DataRouting("user_guid")
 	public Boolean updateTrade(@DataGuid("user_guid") Trade trade) {
-		
 		return tradeDao.updateTrade(trade);
 	}
 

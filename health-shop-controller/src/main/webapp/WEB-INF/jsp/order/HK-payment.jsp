@@ -155,7 +155,7 @@
     <script type="text/javascript">
     var i=0;
     $(document).ready(function(){ 	 
-  		c = window.setInterval("getResult()",2000); //间隔多少秒去触发ajax
+  		c = window.setInterval("getResult()",10000); //间隔多少秒去触发ajax
   		 });
  
   	 function getResult(){
@@ -167,10 +167,8 @@
  	           dataType:'json',
  	           async: false,
  	           success:function(json){ 
- 	        	  var path=$("base").attr("href");
- 	        	   	var orderId=$("#orderId").val();
-		 	               if(json.hadpay== "1001"){ //处理自己的业务
-		 	                   window.location.href ="<%=request.getContextPath()%>/a/success?order_no='${orderId}'";
+		 	               if(json.hadpay=="1001"){ //处理自己的业务
+		 	                   window.location.href ="<%=request.getContextPath()%>/a/success?order_no=${orderId}";
 		 	               }
  	        	   
  	        		//设置轮询了多少次停止轮询

@@ -191,6 +191,10 @@ public class ShopPayCallBack {
 	        		   orderDetail.setAppraise_isnot(1);//评价有效
 	        		   orderDetailService.updateActive(user_guid,orderDetail);
 	        	   }
+	        		//立即付款 定时24小时关闭的订单从队列和redis删除
+				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+	        	   
 	        	   //判断如果全是购买的服务则订单交易完成
 	        	   if(i==orderDetailList.size()){
 	        		   order.setTra_status(30);
@@ -198,6 +202,10 @@ public class ShopPayCallBack {
 	        		   order.setAppraise_status(1);
 	        	   }else{
 	        		   order.setTra_status(20);
+	        		   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
+			    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(1296000,order.getOrder_no(),user_guid,7);
+			    	   delayedService.add(delayedOrder);//存到队列中
+			   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
 	        	   }
 	        	   
 	        	  
@@ -210,15 +218,9 @@ public class ShopPayCallBack {
 	        		   logger.info("付款成功，修改订单的状态失败");
 	        	   }
 	        	   
-			   		//立即付款 定时24小时关闭的订单从队列和redis删除
-				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
-				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+			   	
 	        	   
-	        	   
-	        	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
-		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(1296000,order.getOrder_no(),user_guid,7);
-		    	   delayedService.add(delayedOrder);//存到队列中
-		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
+	        	  
 	        
 		   		   
 		   		   
@@ -292,16 +294,15 @@ public class ShopPayCallBack {
 			 	    System.out.println("huitiaozhong >>>>>>>>>>>" + tradeNo);
 			 	   Trade trade = tradeService.loadTrade(user_guid,tradeNo);
 		    	   trade.setStatus(1002);//已支付
-		    	   trade.setPay_type(1002);//微信支付
+		    	   trade.setPay_type(1001);//支付宝支付
 		    	   Order order = orderService.loadOrderByOrderId(user_guid,trade.getOrder_guid());
-		    	   List<OrderDetail> orderDetailList = orderDetailService.loadOrderDetailList(user_guid, tradeNo);
+		    	   List<OrderDetail> orderDetailList = orderDetailService.loadOrderDetailList(user_guid, order.getOrder_no());
 		    	   int i=0;//用来判定订单里购买的是否都是服务，如果都是服务在生成激活码之后，订单显示为已收货，不用发货。
 		    	   for(OrderDetail orderDetail : orderDetailList){
-		    		  
-		    		   if(orderDetail.getAscription_guid()=="68a73783656e47ce806ccec6d00301a4"||orderDetail.getAscription_guid()=="78ec2b16c4554c4e9633ae7c3cece863"
-		    				   ||orderDetail.getAscription_guid()=="51409f91960848579d64bd5f103ea66a"){
+		    		  System.out.println(orderDetail.getAscription_guid() + "         " + orderDetail.getAscription_guid().equals("68a73783656e47ce806ccec6d00301a4"));
+		    		   if(orderDetail.getAscription_guid().equals("68a73783656e47ce806ccec6d00301a4")||orderDetail.getAscription_guid().equals("78ec2b16c4554c4e9633ae7c3cece863")
+		    				   ||orderDetail.getAscription_guid().equals("51409f91960848579d64bd5f103ea66a")){
 		    				
-				   		  /*	 * 生成激活码*/
 				   		  	 
 		    			   	i++;
 		    			   	Commodity commodtity = commodityService.getcommodity(orderDetail.getAscription_guid());//拿到当前服务信息
@@ -324,6 +325,11 @@ public class ShopPayCallBack {
 		    		   orderDetail.setAppraise_isnot(1);//评价有效
 		    		   orderDetailService.updateActive(user_guid,orderDetail);
 		    	   }
+		    	   
+		    	   //立即付款 定时24小时关闭的订单从队列和redis删除
+				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
+				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
+				   	
 		    	   //判断如果全是购买的服务则订单交易完成
 		    	   if(i==orderDetailList.size()){
 		    		   order.setTra_status(30);
@@ -331,8 +337,13 @@ public class ShopPayCallBack {
 		    		   order.setAppraise_status(1);
 		    	   }else{
 		    		   order.setTra_status(20);
+		    		   
+		    		 //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
+			    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(1296000,order.getOrder_no(),user_guid,7);
+			    	   delayedService.add(delayedOrder);//存到队列中
+			   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
 		    	   }
-		    	   order.setUpdate_time(date);
+		    	  order.setUpdate_time(date);
 		    	  boolean boo =  orderService.updateOrder(user_guid,order);
 		    	   if(boo){
 		        	   logger.info("付款成功，修改订单的状态");
@@ -341,20 +352,11 @@ public class ShopPayCallBack {
 	        		   logger.debug("付款成功，修改订单的状态失败");
 	        	   }
 		    	   
-		    	    //立即付款 定时24小时关闭的订单从队列和redis删除
-				    delayedService.remove(BaseDelayed.class, order.getOrder_no()); //从队列中删除
-				   	orderRedis.delOrderRedis(order.getOrder_no());;//从redis中删除
-		    	    
-		    	   
-		    	   //付款成功之后，将订单信息添加到缓存和队列中，七天自动出队列查询订单的收货状态
-		    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(1296000,order.getOrder_no(),user_guid,7);
-		    	   delayedService.add(delayedOrder);//存到队列中
-		   		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
-		   		   
 		   			
 		   			 /** 将交易的状态改为已添加过的服务状态*/
 		   			 
 		   			tradeService.updateTrade(trade);
+		   			
 						try {
 							response.getWriter().write("success"); //告诉支付宝通知已经推送成功
 						} catch (IOException e) {
