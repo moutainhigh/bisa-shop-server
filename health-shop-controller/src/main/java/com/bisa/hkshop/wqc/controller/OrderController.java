@@ -398,7 +398,7 @@ public class OrderController {
 			
 			
 			//添加到24小时队列
-    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(100,order.getOrder_no(),user_guid,24);
+    	   BaseDelayed<String> delayedOrder = new BaseDelayed<String>(86400,order.getOrder_no(),user_guid,24);
     	   delayedService.add(delayedOrder);//存到队列中
    		   orderRedis.addOrderRedis(delayedOrder);//存到redis中
    		   

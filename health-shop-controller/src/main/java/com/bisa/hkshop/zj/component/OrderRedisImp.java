@@ -88,13 +88,27 @@ public class OrderRedisImp implements IOrderRedis{
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				String sms_key = "order";
 				connection.setEx(sms_key.getBytes(), 3600, CacheUtity.toByteArray(order));
-				logger.info("从redis中删除订单");
+				logger.info("从redis中删除订单"+order_no);
 				return true;
 			}
 		});
 		
 	}
 
-	
+	 //删除缓存中所有的order
+	public void delAllOrderRedis() {
+		/*
+		 * 将delay从redis中的删除
+		 */
+		DelayOrderDto order = new DelayOrderDto();
+		redisTemp.execute(new RedisCallback<Boolean>() {
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+				String sms_key = "order";
+				connection.setEx(sms_key.getBytes(), 315360000, CacheUtity.toByteArray(order));
+				logger.info("从redis中删除所有订单");
+				return true;
+			}
+		});
+	}
 	
 }

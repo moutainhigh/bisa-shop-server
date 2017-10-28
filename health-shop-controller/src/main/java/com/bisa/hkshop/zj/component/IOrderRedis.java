@@ -12,5 +12,5 @@ public interface IOrderRedis {
 	
 	public void delOrderRedis(String order_no);
 	
-	
+	public void delAllOrderRedis();
 }

@@ -78,6 +78,12 @@ public class ShopPayCallBack {
 	
 	private static Logger logger = LogManager.getLogger(ShopPayCallBack.class.getName());
 	
+	/*//删除redis中的值
+	@RequestMapping(value="/delRedis",method=RequestMethod.GET)
+	public void delRedis(){
+		orderRedis.delAllOrderRedis();
+	}
+	*/
 	
 	//打印队列中的值
 	@RequestMapping(value="/getDelay",method=RequestMethod.GET)
@@ -218,11 +224,6 @@ public class ShopPayCallBack {
 	        		   logger.info("付款成功，修改订单的状态失败");
 	        	   }
 	        	   
-			   	
-	        	   
-	        	  
-	        
-		   		   
 		   		   
 		   			 /** 将交易的状态改为已添加过的服务状态*/
 		   			 
