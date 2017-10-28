@@ -35,8 +35,8 @@
         <div class="container pl-0 pr-0">
             <div class="clear">
                 <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 cur-d ">
-                    <a class="col-666 t-nonehove hovecol-309DE2" id="index" href="">首页 </a> >
-                    <a class="col-666 t-nonehove hovecol-309DE2" id="healthInquiry" href="">健康咨询 </a> >
+                    <a class="col-666 t-nonehove hovecol-309DE2" id="index" href="<%=request.getContextPath()%>/l/index">首页 </a> >
+                    <a class="col-666 t-nonehove hovecol-309DE2" id="healthInquiry" href="<%=request.getContextPath() %>/l/healthInquiry">健康咨询 </a> >
                     <span class="col-252525 t-nonehove">咨询内容</span>
                 </p>
             </div>

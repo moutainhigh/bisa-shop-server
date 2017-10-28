@@ -55,6 +55,7 @@ public class CartController {
 	@RequestMapping(value = "/addCart", method = RequestMethod.GET)
 	public String addCart(HttpServletRequest request,Model model,@CurrentUser UserInfoDto userInfo,HttpSession session) throws Exception{	
 		Date date=new Date();
+		System.out.println(request.getQueryString()+"|"+request.getRequestURI());
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String packId=request.getParameter("add_packId");
 		User user =userInfo.getUser();

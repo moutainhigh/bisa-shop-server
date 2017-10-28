@@ -15,14 +15,21 @@ $(document).ready(function() {
         	   error:function (XMLHttpRequest, textStatus, errorThrown) { },
         	   success:function(data){
         		   if(data=="true"){
-        			   alert("您的留言已经成功提交，两个工作日内会尽快处理，如果成功处理您的留言，我们会通过短信或者邮箱给您回复！");
+        			   layer.alert('您的留言已经成功提交，两个工作日内会尽快处理，如果成功处理您的留言，我们会通过短信或者邮箱给您回复！', {
+			                icon: 0,
+			                title: '留言成功',
+			            });
         			   /*将输入框的内容清空*/
-        			 	$(".cname").val("");
-        	        	$(".cphone").val("");
-        	        	$(".cemail").val("");
-        	        	$("textarea").val("");
+        			   $(".cname").val("");
+        			   $(".cphone").val("");
+        			   $(".cemail").val("");
+        			   $("textarea").val("");
+
         		   }else{
-        			   alert("您的留言没有提交成功！请检查手机号和邮箱是否为空，然后再重新提交一次！");
+        			   layer.alert('您的留言没有提交成功！请检查手机号和邮箱是否为空，然后再重新提交一次！', {
+			                icon: 0,
+			                title: '留言失败',
+			            });
         		   }
         	   }
            })

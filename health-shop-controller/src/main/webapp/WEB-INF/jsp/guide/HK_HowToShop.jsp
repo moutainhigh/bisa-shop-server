@@ -35,7 +35,7 @@
         <div class="container clear pl-0 pr-0">
             <div class="clear">
                 <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 cur-d ">
-                    <a class="col-666 t-nonehove hovecol-309DE2" id="index" href="">首页 </a> >
+                    <a class="col-666 t-nonehove hovecol-309DE2" id="index" href="<%=request.getContextPath() %>/l/index">首页 </a> >
                     <span class="col-252525 t-nonehove">购物指南</span>
                 </p>
             </div>
@@ -49,7 +49,7 @@
                     <p class="mt-10 mb-10 col-212121 f-30 line-h-40 cur-d">
                         购物指南
                     </p>
-                    <p class="col-757575 f-20-16-ipad line-h-25 mt-40 mb-20 cur-p hovecol-309DE2 HTS-list HTS-listv1" id="HTS-listv1">
+                    <p class="col-757575 f-20-16-ipad line-h-25 mt-40 mb-20 cur-p hovecol-309DE2 col-active HTS-list HTS-listv1" id="HTS-listv1">
                         购物流程
                     </p>
                     <p class="col-757575 f-20-16-ipad line-h-25 mt-20 mb-20 cur-p hovecol-309DE2 HTS-list HTS-listv2" id="HTS-listv2">

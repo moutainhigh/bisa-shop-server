@@ -48,7 +48,7 @@ $(document).ready(function() {
 					}	
 					
 				},error:function(){
-					if(result=="false"){
+					/*if(result=="false"){
 						layer.alert('购物车已无商品,请勿重新删除', {
 			                icon: 2,
 			                title: '购物车已无商品,请勿重新删除',
@@ -57,7 +57,7 @@ $(document).ready(function() {
 			                 }
 			            });
 					
-					}
+					}*/
 				}
 				
 			});
