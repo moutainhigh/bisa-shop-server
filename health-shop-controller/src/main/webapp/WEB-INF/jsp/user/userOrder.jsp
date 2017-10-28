@@ -61,94 +61,49 @@
                         <span class="col-e9e9e9 mlr-20-10-ipad cur-d">|</span>
                         <span class="col-333 cur-p Order-control Order-controlv4" onclick="document.location='<%=request.getContextPath() %>/user/userOrder3';">已关闭（${oListnum3}）</span>
                     </div>
-                    <div class="clear Order-tabtips Order-tabtipsv1">
-                        <!--等待支付前-->
+                   <div class="clear Order-tabtips Order-tabtipsv1">
                         <c:forEach var="orderList" items="${orderList.datas}">
-                            <c:if test="${orderList.tra_status==10}">
-                                <div class="clear full-w bor bor-col-67b7ea min-h-200 mb-25">
-                                    <div class="clear full-w bg-deeffa min-h-88 bor bor-b bor-col-67b7ea pt-15 pb-10 plr-20-5-ipad">
-                                        <p class="pt-5">
-                                            <span class="col-309DE2 f-20">等待付款</span>
-                                        </p>
-                                        <ul class="clear h-35 pos-r cur-d">
-                                            <li class="col-757575 f-12 pull-left mt-17">
-                                                <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.start_time}"/>
-                                            </li>
-                                            <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
-                                            <li class="col-757575 f-12 pull-left mt-17">订单号:${orderList.order_no}</li>
-                                            <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
-                                            <li class="col-757575 f-12 pull-left mt-17">
-                                                <c:if test="${orderList.pay_type==1001}">微信支付</c:if>
-                                                <c:if test="${orderList.pay_type==1002}">支付宝支付</c:if>
-                                            </li>
-                                            <li class="col-757575 f-12 pull-right mt-17">元</li>
-                                            <li class="col-333 f-22-14-ipad pull-right mt-10-17-ipad mr-5 ml-5">${orderList.price}</li>
-                                            <li class="col-757575 f-12 pull-right mt-17">订单金额：</li>
-                                        </ul>
-                                    </div>
-                                    <c:forEach var="list" items="${listordertails}">
-                                        <c:if test="${list.key eq orderList.order_no}">
-                                            <c:forEach var="listordertails" items="${list.value }" varStatus="status">
-                                                <div class="clear pt-15 pb-15 plr-20-5-ipad">
-                                                    <div class="clear pull-left">
-                                                        <div class="clear pull-left">
-                                                            <img class="img-80 cur-p" src="<%=request.getContextPath() %>/resources/${listordertails.pic}" alt="">
-                                                        </div>
-                                                        <div class="clear pull-left cur-d">
-                                                            <p class="pt-15 line-h-25 col-333 f-14">
-                                                                ${listordertails.product_name}
-                                                            </p>
-                                                            <p class="pb-15 line-h-25 col-333 f-14">
-                                                                ${listordertails.price}元 × ${listordertails.count}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                             
-                                                    <div class="clear pull-right">
-                                                    <c:if test="${status.first==true }">
-                                                     <div class="clear h-40 pb-10">
-                                                         <button class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF" onclick="window.location.href='<%=request.getContextPath() %>/a/order_pay?order_no=${orderList.order_no}'">
-                                                             立即支付
-                                                         </button>
-                                                     </div>
-                                                     <div class="clear h-40 pt-10">
-                                                         <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/user/order_detail?order_no=${orderList.order_no}'">
-                                                             订单详情
-                                                         </button>
-                                                     </div>   
-                                                 	</c:if>
-                                                 </div> 
-                                                </div>
-                                            </c:forEach>
-                                        </c:if>
-                                    </c:forEach>    
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                        <!--等待支付后-->
-                        <!--待收货前-->
-                         <c:forEach var="orderList" items="${orderList.datas}">
-                            <c:if test="${orderList.tra_status==20 ||orderList.tra_status==21 ||orderList.tra_status==22 }">
-                                <div class="clear full-w bor bor-col-ccc min-h-200 mb-25">
-                                    <div class="clear full-w min-h-88 bor bor-b bor-col-ccc pt-15 pb-10 plr-20-5-ipad">
-                                        <p class="pt-5">
-                                            <span class="col-757575 f-20">待收货</span>
-                                        </p>
-                                        <ul class="clear h-35 pos-r cur-d">
-                                            <li class="col-757575 f-12 pull-left mt-17" ><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"  value="${orderList.start_time}"/></li>
-                                            <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
-                                            <li class="col-757575 f-12 pull-left mt-17">订单号:${orderList.order_no}</li>
-                                            <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
-                                            <li class="col-757575 f-12 pull-left mt-17">
-                                                <c:if test="${orderList.pay_type==1001}">微信支付</c:if>
-                                                <c:if test="${orderList.pay_type==1002}">支付宝支付</c:if>
-                                            </li>
-                                            <li class="col-757575 f-12 pull-right mt-17">元</li>
-                                            <li class="col-333 f-22-14-ipad pull-right mt-10-17-ipad mr-5 ml-5">${orderList.price}</li>
-                                            <li class="col-757575 f-12 pull-right mt-17">订单金额：</li>
-                                        </ul>
-                                    </div>
-                                    <c:forEach var="list" items="${listordertails}">
+                                <div class="clear full-w bor  <c:if test="${orderList.tra_status==10}">bor-col-67b7ea</c:if><c:if test="${orderList.tra_status==20 ||orderList.tra_status==21 ||orderList.tra_status==22 || orderList.tra_status==50||orderList.tra_status==30}">bor-col-ccc</c:if> min-h-200 mb-25">
+                                        <div class="clear full-w  min-h-88 bor bor-b  pt-15 pb-10 
+                                            <c:if test="${orderList.tra_status==10}"> 
+                                                bg-deeffa bor-col-67b7ea 
+                                             </c:if>
+                                            <c:if test="${orderList.tra_status==20 ||orderList.tra_status==21 ||orderList.tra_status==22 || orderList.tra_status==50||orderList.tra_status==30}">
+                                                bor-col-ccc
+                                            </c:if>
+                                        plr-20-5-ipad">
+                                            <p class="pt-5">
+                                                <c:if test="${orderList.tra_status==10}"> 
+                                                    <span class="col-309DE2 f-20">等待付款</span>
+                                                </c:if>
+                                                <c:if test="${orderList.tra_status==20 ||orderList.tra_status==21 ||orderList.tra_status==22 }">
+                                                    <span class="col-757575 f-20">待收货</span>
+                                                </c:if>
+                                                <c:if test="${orderList.tra_status==30}">
+                                                    <span class="col-757575 f-20">已收货</span>
+                                                </c:if>
+                                                <c:if test="${orderList.tra_status==50}">
+                                                    <span class="col-757575 f-20">已关闭</span>
+                                                </c:if>
+                                            </p>
+                                            <ul class="clear h-35 pos-r cur-d">
+                                                <li class="col-757575 f-12 pull-left mt-17">
+                                                    <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.start_time}"/>
+                                                </li>
+                                                <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
+                                                <li class="col-757575 f-12 pull-left mt-17">订单号:${orderList.order_no}</li>
+                                                <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
+                                                <li class="col-757575 f-12 pull-left mt-17">
+                                                    <c:if test="${orderList.pay_type==0}">未选择支付方式</c:if>
+                                                    <c:if test="${orderList.pay_type==1001}">微信支付</c:if>
+                                                    <c:if test="${orderList.pay_type==1002}">支付宝支付</c:if>
+                                                </li>
+                                                <li class="col-757575 f-12 pull-right mt-17">元</li>
+                                                <li class="col-333 f-22-14-ipad pull-right mt-10-17-ipad mr-5 ml-5">${orderList.price}</li>
+                                                <li class="col-757575 f-12 pull-right mt-17">订单金额：</li>
+                                            </ul>
+                                        </div>
+                                        <c:forEach var="list" items="${listordertails}">
                                             <c:if test="${list.key eq orderList.order_no}">
                                                 <c:forEach var="listordertails" items="${list.value }" varStatus="status">
                                                     <div class="clear pt-15 pb-15 plr-20-5-ipad">
@@ -165,80 +120,37 @@
                                                                 </p>
                                                             </div>
                                                         </div>
+                                                 
                                                         <div class="clear pull-right">
-                                                            <c:if test="${status.first==true }">
-                                                                <div class="clear h-40 pb-10">
-                                                                    <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white"onclick="window.location.href='<%=request.getContextPath() %>/user/order_detail?order_no=${orderList.order_no}'">
-                                                                        订单详情
-                                                                    </button>
-                                                                </div>
-                                                            </c:if>
-                                                        </div>
+                                                        <c:if test="${status.first==true }">
+                                                                <c:if test="${orderList.tra_status==10}"> 
+                                                                        <div class="clear h-40 pb-10">
+                                                                             <button class="h-30 line-h-30 f-14 bor-none col-white bg-309DE2 w-110 text-center hovbg-2D90CF" onclick="window.location.href='<%=request.getContextPath() %>/a/order_pay?order_no=${orderList.order_no}'">
+                                                                                 立即支付
+                                                                             </button>
+                                                                        </div>
+                                                                        <div class="clear h-40 pt-10">
+                                                                             <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/user/order_detail?order_no=${orderList.order_no}'">
+                                                                                 订单详情
+                                                                             </button>
+                                                                        </div>
+                                                                </c:if> 
+                                                                <c:if test="${orderList.tra_status==20 ||orderList.tra_status==21 ||orderList.tra_status==22 || orderList.tra_status==50||orderList.tra_status==30}">
+                                                                    <div class="clear h-40 pb-10">
+                                                                       <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/user/order_detail?order_no=${orderList.order_no}'">
+                                                                           订单详情
+                                                                       </button>
+                                                                   </div>
+                                                               </c:if>  
+                                                        </c:if>
+                                                     </div> 
                                                     </div>
                                                 </c:forEach>
                                             </c:if>
-                                    </c:forEach>  
+                                        </c:forEach>    
                                 </div>
-                            </c:if> 
                         </c:forEach>
-                        <!--待收货后--> 
-                        <!--已关闭前-->
-                        <c:forEach var="orderList" items="${orderList.datas}">
-                            <c:if test="${orderList.tra_status==50}">
-                                <div class="clear full-w bor bor-col-ccc min-h-200 mb-25">
-                                    <div class="clear full-w min-h-88 bor bor-b bor-col-ccc pt-15 pb-10 plr-20-5-ipad">
-                                        <p class="pt-5">
-                                            <span class="col-757575 f-20">已关闭</span>
-                                        </p>
-                                        <ul class="clear h-35 pos-r cur-d">
-                                            <li class="col-757575 f-12 pull-left mt-17" ><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" 
-                                                value="${orderList.start_time}"/></li>
-                                            <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
-                                            <li class="col-757575 f-12 pull-left mt-17">订单号:${orderList.order_no}</li>
-                                            <li class="col-e9e9e9 ml-5 mr-5 cur-d f-12 pull-left mt-17">|</li>
-                                            <li class="col-757575 f-12 pull-left mt-17">
-                                                 <c:if test="${orderList.pay_type==1001}">微信支付</c:if>
-                                                 <c:if test="${orderList.pay_type==1002}">支付宝支付</c:if>
-                                            </li>
-                                            <li class="col-757575 f-12 pull-right mt-17">元</li>
-                                            <li class="col-333 f-22-14-ipad pull-right mt-10-17-ipad mr-5 ml-5">${orderList.price}</li>
-                                            <li class="col-757575 f-12 pull-right mt-17">订单金额：</li>
-                                        </ul>
-                                    </div>
-                                    <c:forEach var="list" items="${listordertails}">
-                                        <c:if test="${list.key eq orderList.order_no}">
-                                            <c:forEach var="listordertails" items="${list.value }" varStatus="status">
-                                                <div class="clear pt-15 pb-15 plr-20-5-ipad">
-                                                    <div class="clear pull-left">
-                                                        <div class="clear pull-left">
-                                                            <img class="img-80 cur-p" src="<%=request.getContextPath() %>/resources/${listordertails.pic}" alt="">
-                                                        </div>
-                                                        <div class="clear pull-left cur-d">
-                                                            <p class="pt-15 line-h-25 col-333 f-14">
-                                                                ${listordertails.product_name}
-                                                            </p>
-                                                            <p class="pb-15 line-h-25 col-333 f-14">
-                                                                ${listordertails.price}元 × ${listordertails.count}
-                                                            
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear pull-right">
-                                                        <c:if test="${status.first==true }">
-                                                            <div class="clear h-40 pb-10">
-                                                                <button class="h-30 line-h-30 f-14 col-757575 bg-white w-110 text-center bor bor-col-ccc hovbg-757575 hovecol-white" onclick="window.location.href='<%=request.getContextPath() %>/user/order_detail?order_no=${orderList.order_no}'">
-                                                                    订单详情
-                                                                </button>
-                                                            </div>
-                                                        </c:if>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
-                        </c:forEach>   
+ 
                         <!--已关闭后-->
                         <div class="clear text-center col-333 f-14">
                             <script type="text/javascript" scr="<%=request.getContextPath()%>/resources/js/pager/pager-taglib.js"></script> 
@@ -247,8 +159,7 @@
                                 <jsp:param name="items" value="${orderList.total}"/>
                             </jsp:include> 
                         </div>
-                    </div>
-                  
+                   </div>
                      <!--等待付款页面-->
                     <div class="clear Order-tabtips Order-tabtipsv2 dis-n">
                         <c:forEach var="orderList5" items="${orderList5.datas}">

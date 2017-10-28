@@ -24,4 +24,6 @@ public interface ICartService {
 	public List<Cart> loadCarList(int user_guid,String carNum);
 	
 	public Boolean deteleCar(int user_guid,String carNum);
+	
+	public Cart findcartNum(int user_guid, String carNum);
 }

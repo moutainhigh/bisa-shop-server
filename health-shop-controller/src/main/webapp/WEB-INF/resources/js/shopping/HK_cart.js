@@ -47,9 +47,7 @@ $(document).ready(function() {
         }
         $(tot).html(s.toFixed(0));
         countalltips();
-        
-      //  console.log(t.siblings(".cart-tips-id").val());
-      //  console.log(t.val());
+
         //改变单品的数量
         var packId=t.siblings(".cart-tips-id").val();
         var num=t.val();
@@ -141,7 +139,6 @@ $(document).ready(function() {
 	        },
 	        success: function(success) {
 	            var i = "user/Cart";
-	                  
 	            window.location.href = path + i;
 	        }
    		});
@@ -261,7 +258,7 @@ $(document).ready(function() {
         $(".tot-num-of-goods").text(allnumofcase);
         $(".tot-num-of-totprice").text(allnumoftotprices.toFixed(2));
         //判断是否可以去结算
-        if(allcheckbox==0 && allnumofcase==0 && allnumoftotprices==0){
+        if(allnumoftotprices==0){
             $(".HK-cartsubmit").attr("disabled","true");
             $(".HK-cartsubmit").css("cursor","not-allowed");
             $(".HK-cartsubmit").css("opacity","0.5");
@@ -270,6 +267,10 @@ $(document).ready(function() {
                 icon: 0,
                 title: '收货地址为空',
             })
+        }else{
+            $(".HK-cartsubmit").css("cursor","pointer");
+            $(".HK-cartsubmit").css("opacity","1");
+            $(".HK-cartsubmit").addClass("hovbg-38B3FF");
         }
         //判断结算结束
     }

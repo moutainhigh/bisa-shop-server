@@ -255,8 +255,14 @@ public class CartController {
 		User user =userInfo.getUser();
 		int user_guid=user.getUser_guid();
 		String deleteId=request.getParameter("deleteId");
-		int i=ICartService.delCart(user_guid,deleteId);
+		Cart cart=ICartService.findcartNum(user_guid,deleteId);
 		String result=null;
+		if(cart==null){
+			result="false";
+			return result;
+		}
+		int i=ICartService.delCart(user_guid,deleteId);
+		
 		if(i>0) {
 			result="success";
 			 logger.error(user_guid+"删除购物车成功单号："+deleteId);  

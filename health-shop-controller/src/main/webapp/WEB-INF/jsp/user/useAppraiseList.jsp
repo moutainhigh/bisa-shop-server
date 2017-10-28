@@ -64,7 +64,7 @@
                     <div class="clear Appraise-tabtips Appraise-tabtipsv1">
                         <c:forEach var="listordertails" items="${odtail.datas}">
                                 <div class="clear col-sm-4 pd-20 text-center bor bor-b bor-col-f5f5f5 appraise-protips">
-                                    <a href="">
+                                    <a href="javascript:;">
                                         <img class="img-200-100-ipad min-h-200-100-ipad" src="<%=request.getContextPath() %>/resources/${listordertails.pic}" alt="">
                                     </a>
                                     <p class="f-16-12-ipad col-333 mt-20 cur-p">
@@ -97,7 +97,7 @@
                             <c:forEach var="odpingjia" items="${odpingjia.datas}">
                                 <!-- 已评价部分的循环体和待评价部分的不同，少了评价按钮 -->
                                     <div class="clear col-sm-4 pd-20 text-center bor bor-b bor-col-f5f5f5 appraise-protips">
-                                        <a href="">
+                                        <a href="javascript:;">
                                             <img class="img-200-100-ipad min-h-200-100-ipad" src="<%=request.getContextPath() %>/resources/${odpingjia.pic}" alt="">
                                         </a>
                                         <p class="f-16-12-ipad col-333 mt-20 cur-p">

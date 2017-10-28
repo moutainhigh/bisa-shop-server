@@ -86,4 +86,12 @@ public class CartServiceImpl implements ICartService{
 		return ICartDao.deteleCar(user_guid, carNum);
 	}
 
+
+	@Override
+	@DataRouting("user_guid")
+	public Cart findcartNum(@DataGuid("user_guid") int user_guid, String carNum) {
+		// TODO Auto-generated method stub
+		return ICartDao.findcartNum(user_guid, carNum);
+	}
+
 }

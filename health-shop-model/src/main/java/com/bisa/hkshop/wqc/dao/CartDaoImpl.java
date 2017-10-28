@@ -86,6 +86,13 @@ public class CartDaoImpl extends BaseDao<Cart> implements IcartDao{
 			return false;
 		}
 	}
+
+	@Override
+	public Cart findcartNum(int user_guid, String carNum) {
+		// TODO Auto-generated method stub
+		String sql = "select * from s_cart where user_guid=? and cart_number=?";
+		return super.queryObjectBySql(sql, new Object[]{user_guid,carNum}, Cart.class);
+	}
 	
 
 }

@@ -11,6 +11,7 @@
 <div id="container">
 	<div id = "error">
 		<span>出现错误</span>
+		<div id="message"><span class="errorContainer">${message }</span></div>
 		<div id="message"><span class="errorContainer">${exception.message }</span></div>
 		<div id="upPage"><a href="javascript:history.go(-1)">返回上一页</a></div>
 	</div>

@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="clear pull-left pl-15 pr-0 pt-10 pb-10 line-h-30 col-252525 f-14">
                                     <span class="col-252525">${comm.sub_description }</span>
-                                    <a class="hovecol-309DE2 t-nonehove pl-5" href="">查看服务细节</a>
+                                    <a class="hovecol-309DE2 t-nonehove pl-5" href="<%=request.getContextPath()%>/l/shopping/getCommodityId?shop_number=51409f91960848579d64bd5f103ea66a">查看服务细节</a>
                                 </div>
                             </div>
                         </c:if>
@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="clear pull-left pl-15 pr-0 pt-10 pb-10 line-h-30 col-252525 f-14">
                                     <span class="col-252525">${comm.sub_description }</span>
-                                    <a class="hovecol-309DE2 t-nonehove pl-5" href="">查看服务细节</a>
+                                    <a class="hovecol-309DE2 t-nonehove pl-5" href="<%=request.getContextPath()%>/l/shopping/getCommodityId?shop_number=78ec2b16c4554c4e9633ae7c3cece863">查看服务细节</a>
                                 </div>
                             </div>
                         </c:if>
@@ -237,7 +237,7 @@
                                 </div>
                                 <div class="clear pull-left pl-15 pr-0 pt-10 pb-10 line-h-30 col-252525 f-14">
                                     <span class="col-252525">${comm.sub_description }</span>
-                                    <a class="hovecol-309DE2 t-nonehove pl-5" href="">查看服务细节</a>
+                                    <a class="hovecol-309DE2 t-nonehove pl-5" href="<%=request.getContextPath()%>/l/shopping/getCommodityId?shop_number=68a73783656e47ce806ccec6d00301a4">查看服务细节</a>
                                 </div>
                             </div>
                         </c:if>

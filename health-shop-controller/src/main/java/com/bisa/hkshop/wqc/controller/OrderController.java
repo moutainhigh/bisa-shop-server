@@ -6,28 +6,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.shiro.dao.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 import com.bisa.hkshop.model.Package;
 import com.bisa.health.beans.dto.UserInfoDto;
 import com.bisa.health.model.User;
 import com.bisa.health.routing.annotation.CurrentUser;
-import com.bisa.health.utils.CacheUtity;
 import com.bisa.hkshop.model.Address;
 import com.bisa.hkshop.model.Cart;
 import com.bisa.hkshop.model.Commodity;
@@ -107,23 +99,40 @@ public class OrderController {
 		System.out.println("Gsonmap:" + new Gson().toJson(map));
 		double price = 0;
 		int count = 0;
-
+			//服务个数
+		int servicecount=0;
+		//除服务外商品个数
+		int shopcount=0;
+		String service1="51409f91960848579d64bd5f103ea66a";
+		String service2="68a73783656e47ce806ccec6d00301a4";
+		String service3="78ec2b16c4554c4e9633ae7c3cece863";
 		for (Map.Entry entry : map.entrySet()) {       
 		    String key = (String) entry.getKey( );    
 		    List<OrderDetailDto> orderDetailList = map.get(key);
 		    for(OrderDetailDto orderDetail : orderDetailList){
+		    	String cartId=orderDetail.getCartid();
+		    	//如果包含服务而且别的包含其他商品的话，就什么都不用，不包含服务，就计算邮费
+		    	if(cartId.equals(service1)||cartId.equals(service2)||cartId.equals(service3)) {
+		    	  //1.有服务就进来,并且计算服务个数
+		    		servicecount=servicecount+1;
+		    	}else{
+		    	   //2.这是没有服务就进来的，计算除服务外商品个数
+		    		shopcount=shopcount+1;
+		    	}
 		    	price = price + Double.valueOf(orderDetail.getCartprice()) * Integer.valueOf(orderDetail.getCartnum());
 		    	count = count + Integer.valueOf(orderDetail.getCartnum());
-		   
 		    }
 		}   
-		
+	
 		double postPrice = 0;
 		double total = price;
-		
-		if(price<350){
-			postPrice = 30.00;
-			total = price + postPrice;
+		if(shopcount==0 && servicecount>0) {
+			total=price;
+		}else {
+			if(price<350){
+				postPrice = 30.00;
+				total = price + postPrice;
+			}
 		}
 		
 		
@@ -178,9 +187,22 @@ public class OrderController {
 			
 			List<OrderDetailDto> orderDetailList;
 			//从购物车过来的
+
+			//服务个数
+			int servicecount=0;
+			//除服务外商品个数
+			int shopcount=0;
+			String service1="51409f91960848579d64bd5f103ea66a";
+			String service2="68a73783656e47ce806ccec6d00301a4";
+			String service3="78ec2b16c4554c4e9633ae7c3cece863";
+			String cartId=null;
 			if(from_data.equals("records")){
 				orderDetailList = map.get(from_data);
 				//把dto的每个记录都去购物车表里找，一个一个添加到list
+				if(orderDetailList==null) {
+					model.addAttribute("message", "订单已提交，不能重复提交");
+					return "500";
+				}
 				List<Cart> car =new ArrayList<Cart>();
 				String num = "";
 				for(int i=0;i<orderDetailList.size();i++){
@@ -188,14 +210,37 @@ public class OrderController {
 						num =  num + orderDetailList.get(i).getCartid();
 						Cart cart=shopCartService.getCart(user_guid, num);
 						car.add(cart);
+						if(cart==null){
+							model.addAttribute("message", "订单已提交，不能重复提交");
+							return "500";
+						}
+						cartId=cart.getPackId();
+				    	//如果包含服务而且别的包含其他商品的话，就什么都不用，不包含服务，就计算邮费
+						if(cartId.equals(service1)||cartId.equals(service2)||cartId.equals(service3)) {
+				    	  //1.有服务就进来,并且计算服务个数
+				    		servicecount=servicecount+1;
+				    	}else{
+				    	   //2.这是没有服务就进来的，计算除服务外商品个数
+				    		shopcount=shopcount+1;
+				    	}
 					}else{
 						num = orderDetailList.get(i).getCartid();
 						Cart cart=shopCartService.getCart(user_guid, num);
 						car.add(cart);
+						cartId=cart.getPackId();
+				    	//如果包含服务而且别的包含其他商品的话，就什么都不用，不包含服务，就计算邮费
+						if(cartId.equals(service1)||cartId.equals(service2)||cartId.equals(service3)) {
+				    	  //1.有服务就进来,并且计算服务个数
+				    		servicecount=servicecount+1;
+				    	}else{
+				    	   //2.这是没有服务就进来的，计算除服务外商品个数
+				    		shopcount=shopcount+1;
+				    	}
 					}
 				}
 			//查出购物车中的要买的东西				
 				double price = 0;
+				double nums=0;
 				//处理订单信息，添加订单中的具体的商品细节，并且删除购物车中的物品
 				for(Cart orderCar : car){
 					price = price + orderCar.getTotal();
@@ -216,6 +261,7 @@ public class OrderController {
 					orderDetail.setTra_status(10);
 					orderDetail.setAppraise_status(1);
 					Boolean i=orderDetailService.addOrderDetail(orderDetail);
+					nums=orderCar.getNumber();
 					if(i) {
 						logger.error(user_guid+"添加订单详情成功"+orderDetail.getOrder_detail_guid());
 					}else {
@@ -234,11 +280,15 @@ public class OrderController {
 				//order.setId(1);
 				orderN.setOrder_no(orderGuid);
 				orderN.setAddr_num(addr_num);
-				
-				if(price<350){
-					orderN.setPrice(price+30 + "");
-				}else{
-					orderN.setPrice(price+"");
+			//这里是只有服务的情况，不然就是有商品有服务，或者只有商品
+				if(shopcount==0 && servicecount>0) {
+					orderN.setPrice((price*nums)+"");
+				}else {
+					if(price<350){
+						orderN.setPrice(price+30 + "");
+					}else{
+						orderN.setPrice(price+"");
+					}
 				}
 				orderN.setUser_guid(user_guid);
 				orderN.setTra_status(10);//未付款
@@ -257,7 +307,11 @@ public class OrderController {
 				if(from_data.equals("product")){
 					orderDetailList = map.get(from_data);
 					//order = orderService.addProductOrder(orderDetailList,addr_num, 2);
-					
+					if(orderDetailList==null) {
+						model.addAttribute("message", "订单已提交，不能重复提交");
+						return "500";
+						
+					}
 					double price = 0;
 					for(int i=0;i<orderDetailList.size();i++){
 						OrderDetailDto orderDetailDto = orderDetailList.get(i);

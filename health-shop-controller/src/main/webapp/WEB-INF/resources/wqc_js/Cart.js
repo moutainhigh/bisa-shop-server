@@ -33,15 +33,31 @@ $(document).ready(function() {
 				async : false,
 				data : {
 					"deleteId" : deleteId,
-					
 				},
 				success : function(result) {
 					if(result=="success"){
 						window.location.href=path+"user/Cart";
+					}else{
+						layer.alert('购物车已无商品,请勿重新删除', {
+			                icon: 2,
+			                title: '购物车已无商品,请勿重新删除',
+			                yes:function(){
+			                	window.location.href=path+"user/Cart";
+			                 }
+			            });
 					}	
 					
 				},error:function(){
+					if(result=="false"){
+						layer.alert('购物车已无商品,请勿重新删除', {
+			                icon: 2,
+			                title: '购物车已无商品,请勿重新删除',
+			                yes:function(){
+			                	window.location.href=path+"user/Cart";
+			                 }
+			            });
 					
+					}
 				}
 				
 			});
