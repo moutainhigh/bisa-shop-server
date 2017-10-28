@@ -30,9 +30,9 @@
     <div class="clear wrap">
         <div class="container pl-0 pr-0">
             <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 bg-f5f5f5 cur-d">
-                <a class="col-666 t-nonehove hovecol-309DE2" href="">首页 </a>
+                <a class="col-666 t-nonehove hovecol-309DE2" href="<%=request.getContextPath()%>/l/index">首页 </a>
                 >
-                <a class="col-333 t-nonehove hovecol-309DE2" href="">购物车</a>
+                <span class="col-333 t-nonehove hovecol-309DE2" href="">购物车</span>
             </p>
             <p class="col-252525 f-26 pd-20 ">
                 我的购物车

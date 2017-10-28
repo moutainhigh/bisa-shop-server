@@ -288,9 +288,9 @@
                         </div>
                             <c:forEach var="listproduct" items="${listproduct }" begin="0" end="2">
                                 <div class="clear pos-r bor bor-col-B2B2B2 pull-left mt-10 mb-10 cur-p">
-                                    <a href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${listproduct.shop_number}"><img class="full-wh" src="<%=request.getContextPath() %>/resources/${listproduct.main_picture}" alt=""></a>
+                                    <a href="<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=${listproduct.shop_number}" target="_blank"><img class="full-wh" src="<%=request.getContextPath() %>/resources/${listproduct.main_picture}" alt=""></a>
                                     <div class="clear h-25 line-h-25 rgba-d2d2d2-20 pos-a b-0 l-0 pl-10 pr-10 full-w hidden-sm hidden-md">
-                                       <a class="col-727272 t-nonehove hovecol-309DE2" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${listproduct.shop_number}">
+                                       <a class="col-727272 t-nonehove hovecol-309DE2" href="<%=request.getContextPath() %>/shopping/getCommodityId?shop_number=${listproduct.shop_number}" target="_blank">
                                        <span class="col-727272 t-nonehove hovecol-309DE2 text-line-1"> 
                                            ${listproduct.description}
                                        </span>

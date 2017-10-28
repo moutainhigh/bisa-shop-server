@@ -42,7 +42,7 @@
         <div class="container pl-0 pr-0">
             <div class="clear">
                 <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 cur-d ">
-                    <a class="col-666 t-nonehove hovecol-309DE2" id="index" href="">首页 </a> >
+                    <a class="col-666 t-nonehove hovecol-309DE2" id="index" href="<%=request.getContextPath() %>/l/index">首页 </a> >
                     <span class="col-252525 t-nonehove">联系我们</span>
                 </p>
             </div>
@@ -75,7 +75,7 @@
                     <div class="clear bor bor-b bor-col-f5f5f5">
                     </div>
                     <div class="clear mt-40 mb-40">
-                        <iframe width="604" height="365" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://j.map.baidu.com/_NJQL"></iframe>
+                        <iframe width="604" height="365" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://j.map.baidu.com/hAwiN"></iframe>
                     </div>
                     <div class="clear">
                         <div class="clear col-sm-6">
@@ -158,6 +158,7 @@
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.validate.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.validate.messages_zh.js"></script>
     <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/ctrl/layer/layer.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/comm/base.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/about/HK_ContactUs.js"></script>
     

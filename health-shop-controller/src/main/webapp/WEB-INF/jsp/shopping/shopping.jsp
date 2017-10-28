@@ -18,7 +18,7 @@
     <title>碧沙康健_商品展示页</title>
     <!-- base -->
     <link href="<%=request.getContextPath() %>/resources/ctrl/Font-Awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<%=request.getContextPath() %>/resources/css/comm/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resources/css/comm/base.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resources/css/shopping/HK_Pro_details.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -29,12 +29,11 @@
 
 <body>
     <%@ include file="../comm/header.jsp" %> 
-    <!-- 置顶浮层 -->
-    <div class="clear full-w bor bor-t bor-col-D6D6D6 sha-float-titlev1 flo-menuv2 z-999">
+     <div class="clear full-w bor bor-t bor-col-D6D6D6 sha-float-titlev1 flo-menuv2 z-999">
         <div class="container pt-10 pb-10 clear line-h-30 plr-0-10-ipad">
             <span class="col-black family-h pull-left cur-d f-20 ">HC3A250 悉心心电仪器</span>
             <button class="pull-right f-20 line-h-30 h-30 text-center bor-none bg-309DE2 hovbg-2D90CF col-white pl-20 pr-20" onclick="document.location='<%=request.getContextPath() %>/l/shopping/getCommodityId?shop_number=de00d806c70141ce98158df5bc0ab3a3';">
-                	立即购买
+                立即购买
             </button>
         </div>
     </div>
@@ -201,14 +200,14 @@
                 <div class="clear full-w pt-280-200-ipad cur-d z-9 pos-r">
                     <div class="clear pull-right col-sm-7">
                         <p class="col-666 f-26-20-ipad line-h-35 pt-20 pb-30 bor bor-b bor-col-d2d2d2 fifth-floor-aniv3 pos-r t-20 opa-0">
-                            我们使用了和大部分数码设备一致的micro USB充电口，即便线材丢失，也可以使用手机、数码设备等充电线为血压计充电，再也不用在需要充电时到处找充电线了。
+                            我们使用了和大部分数码设备一致的micro USB充电口，即便线材丢失，也可以使用手机、数码设备等充电线为心电仪充电，再也不用在需要充电时到处找充电线了。
                         </p>
                     </div>
                 </div>
                 <div class="clear full-w pt-20 cur-d z-9 pos-r">
                     <div class="clear pull-right col-sm-7">
                         <p class="col-979797 f-18-14-ipad line-h-25 fifth-floor-aniv4 pos-r t-20 opa-0">
-                            悉心心电仪所配充电线为专门适配充电线，不可为其他设备充电，若充电可能会造成负荷过大、线材发热等情况，但不影响使用其他设备充电线为血压计充电。
+                            悉心心电仪所配充电线为专门适配充电线，不可为其他设备充电，若充电可能会造成负荷过大、线材发热等情况，但不影响使用其他设备充电线为心电仪充电。
                         </p>
                     </div>
                 </div>
@@ -334,7 +333,7 @@
     </div>
    <%@ include file="../comm/footer.jsp" %> 
     <script src="<%=request.getContextPath() %>/resources/js/comm/jquery.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/comm/bootstrap.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/ctrl/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/shopping/HK_Pro_details.js"></script>
 </body>
 </html>

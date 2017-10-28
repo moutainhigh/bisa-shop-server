@@ -54,8 +54,8 @@ public class UserOrderController {
 					SystemContext.setPageOffset(pager_offset);
 				}
 					SystemContext.setPageSize(6);
-					SystemContext.setSort("start_time");   
-					SystemContext.setOrder("desc");
+					SystemContext.setSort("tra_status");   
+					SystemContext.setOrder("asc");
 					Pager<Order> orderList=null;
 					orderList=iUserOrderService.selPaOrder(user_guid);
 					//查询订单细节
@@ -237,7 +237,7 @@ public class UserOrderController {
 		
 		Address address = addressService.loadAddressByAddressNum(user_guid,order.getAddr_num());
 		
-		Date date = new Date();
+/*		Date date = new Date();
 		
 		Date date1 = order.getStart_time();
 		
@@ -247,8 +247,25 @@ public class UserOrderController {
 			System.out.println(">>>>>>>>>>"+time);			
 		    long hh = time % (1000 * 24 * 60 * 60) / (1000 * 60 * 60);
 		    long min = time % (1000 * 24 * 60 * 60) % (1000 * 60 * 60) / (1000 * 60);
-		    model.addAttribute("time",hh + "小时" + min + "分");
+		    String jj=hh + "小时" + min + "分";
+		    System.out.println(">>>>>>jj"+jj);
+		    model.addAttribute("time",jj);
+		}*/
+		long date=System.currentTimeMillis();
+		long date1 = order.getStart_time().getTime();
+		long time =date-date1;
+		System.out.println(">>>>>>>>>>"+time);			
+		if(86400>time) {
+			time = 86400000 - time;
+		    long hh = time % (1000 * 24 * 60 * 60) / (1000 * 60 * 60);
+		    long min = time % (1000 * 24 * 60 * 60) % (1000 * 60 * 60) / (1000 * 60);
+		    String hour_min=hh + "小时" + min + "分";
+		    System.out.println(">>>>>>jj"+hour_min);
+		    model.addAttribute("time",hour_min);	
+		}else {
+			model.addAttribute("time","订单已失效");
 		}
+
 		
 		model.addAttribute("orderDetail",order_detail);
 		

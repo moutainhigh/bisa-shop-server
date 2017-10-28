@@ -35,7 +35,7 @@
         <div class="container pl-0 pr-0">
             <div class="clear">
                 <p class="pt-10 pb-10 pl-15 pr-15 line-h-20 cur-d ">
-                    <a class="col-666 t-nonehove hovecol-309DE2" href="">首页 </a> >
+                    <a class="col-666 t-nonehove hovecol-309DE2" href="<%=request.getContextPath() %>/l/index">首页 </a> >
                     <span class="col-252525 t-nonehove">我的订单</span>
                 </p>
             </div>
@@ -78,7 +78,8 @@
 	                            	    等待付款
 	                            </p>
 	                            <p class="col-309DE2 f-14 line-h-20 pt-10">
-	                                	${time }后订单将被关闭
+	                                	<c:if test="${time==null}">订单已过24小时</c:if>
+	                                	<c:if test="${time!=null}">${time }后订单将被关闭</c:if>
 	                            </p>
                             </c:if>
                         </div>
